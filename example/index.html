@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="example-app">
+  <head>
+    <meta charset="utf-8" />
+    <title>angular-primer example</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    </style>
+
+    <link rel="stylesheet" href="example.css" />
+
+    <script src="../bower_components/d3/d3.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../angular-primer.js"></script>
+
+    <style>
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+
+      svg {
+        border:1px solid #ccc
+      }
+
+      svg .domain {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+      }
+
+      svg .tick line {
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+      }
+
+      .marker {
+        fill:lightblue;
+        stroke:black;
+        stroke-width: 1px;
+      }
+
+      .marker.none {
+        fill:#fff !important;
+        stroke-width:1px;
+      }
+
+      .marker:hover {
+        stroke-width:2px;
+      }
+
+    </style>
+  </head>
+  <body ng-app="example-app">
+
+    <h1>angular-primer</h1>
+
+    <div ng-controller="MainController as main">
+
+    <h3>What?</h3>
+    Create angularjs module for creating an svg primer visualization.  This library currently depends on d3.
+
+    <p />For example:
+
+    <svg width="100%">
+      <g primer-track transform="translate(0,30)">
+        <g primer-scale></g>
+        <g primer-feature
+          transform="translate(0,15)"
+          start="10"
+          end="25"
+          class="marker" >
+        </g>
+        <g primer-feature
+          transform="translate(0,30)"
+          start="20"
+          end="55"
+          class="marker" >
+        </g>
+        <g primer-feature
+          transform="translate(0,45)"
+          start="50"
+          end="95"
+          class="marker" >
+        </g>
+      </g>
+    </svg>
+
+    For example:
+
+    <svg width="100%">
+      <g primer-track transform="translate(0,30)" class="track"
+        sequence="{{main.sequence}}"
+        start="10"
+        width="700">
+        <g>
+          <g primer-scale
+            ticks="0"
+            outer-tick-size="0"
+            label-left="5'"
+            label-right="3'"></g>
+          <g primer-feature ng-repeat="feature in main.forward"
+            start="feature.start"
+            end="feature.end"
+            height="10"
+            direction="{{feature.direction}}"
+            label="{{feature.label}}"
+            labely="-20"
+            ng-style="{fill: feature.color, stroke: feature.color}"
+            class="marker {{feature.label}} {{feature.direction}}" >
+          </g>
+        </g>
+        <g transform="translate(0,20)">
+          <g primer-scale
+            ticks="0"
+            outer-tick-size="0"
+            label-left="3'"
+            label-right="5'"></g>
+          <g primer-feature ng-repeat="feature in main.reverse"
+            start="feature.start"
+            end="feature.end"
+            height="20"
+            direction="{{feature.direction}}"
+            label="{{feature.label}}"
+            labely="20"
+            ng-style="{fill: feature.color, stroke: feature.color}"
+            class="marker {{feature.label}} {{feature.direction}}" >
+          </g>
+        </g>
+        <g primer-scale orient="bottom" transform="translate(0,60)"></g>
+      </g>
+    </svg>
+
+    <h3>Why?</h3>
+
+    <h3>Features</h3>
+
+  </body>
+
+  <script>
+
+    angular.module('example-app', ['angularprimer']);
+
+    var MainController = function($scope) {
+
+      var main = this;
+
+      main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
+      main.sequence = new Array( 10 ).join( this.sequence );
+
+      main.forward = [
+        { label: 'A', start: 60, end: 90, direction: 'right', color: 'lightblue' },
+        { label: 'B', start: 125, end: 150, direction: 'right', color: 'green' },
+        { label: 'C', start: 180, end: 210, direction: 'none', color: 'yellowgreen' }
+      ];
+
+      main.reverse = [
+        { label: 'D', start: 95, end: 120, direction: 'left', color: 'grey' },
+        { label: 'E', start: 160, end: 175, direction: 'left', color: 'red' },
+        { label: 'F', start: 25, end: 50, direction: 'none', color: '#fc0' }
+      ];
+
+    };
+  </script>
+</html>
