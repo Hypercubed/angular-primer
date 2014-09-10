@@ -1,5 +1,7 @@
 # angular-primer
-AngularJS primer widget.
+AngularJS primer visualization.
+
+AngularJs module for creating an svg primer visualization.  This library currently depends on d3.
 
 ## Usage
 1. `bower install Hypercubed/angular-primer`

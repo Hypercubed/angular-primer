@@ -4,7 +4,7 @@
   "authors": [
     "J. Harshbarger"
   ],
-  "description": "AngularJS primer widget.",
+  "description": "AngularJS primer visualization.",
   "main": [
     "angular-primer.js"
   ],

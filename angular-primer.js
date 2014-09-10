@@ -32,7 +32,9 @@
           controller: function($scope) {
             var track = $scope.track = this;
 
-            track.sequence = $scope.sequence;
+            track.sequence = function() {
+              return $scope.sequence;
+            }
 
             track.sequenceLength = function() {
               if ($scope.sequenceLength() !== undefined) { return $scope.sequenceLength(); };
@@ -41,7 +43,7 @@
             };
 
             track.start = function() {
-              return $scope.start() || 0;
+              return $scope.start() || 1;
             }
 
             track.width = function() {
@@ -49,9 +51,11 @@
             };
 
             function setScale() {
+
               track.xScale = d3.scale.linear()
                 .domain([$scope.start() || 0, track.sequenceLength()])
                 .range([25, track.width()+25]);
+
             }
 
             setScale();
@@ -67,7 +71,7 @@
       return {
           restrict: 'AE',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{track.xScale(start)}},0)"><path ng-attr-d="{{d}}" /><title>{{title()}}</title><text text-anchor="middle" alignment-baseline="middle" class="mlabel" ng-attr-x="{{track.xScale(end)/2 - track.xScale(start)/2}}" ng-attr-y="{{labely() + (height()/2)}}">{{label}}</text></g>',
+          template: '<g ng-attr-transform="translate({{track.xScale(start)}},0)"><path ng-attr-d="{{d}}" /><title ng-bind="title()"></title><text text-anchor="middle" alignment-baseline="middle" class="mlabel" ng-attr-x="{{track.xScale(end)/2 - track.xScale(start)/2}}" ng-attr-y="{{labely() + (height()/2)}}">{{label}}</text></g>',
           replace : false,
           transclude: true,
           require: '^primerTrack',
@@ -83,10 +87,10 @@
             scope.track = track;
 
             scope.title = function() {
-              if (track.sequence) {
-                return track.sequence.substring(scope.start, scope.end);
+              if (track.sequence()) {
+                return track.sequence().substring(scope.start-1, scope.end);
               }
-              return ''+scope.start+'..'+scope.end;
+              return ''+scope.start+'-'+scope.end;
             };
 
             function draw() {
@@ -146,13 +150,21 @@
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
 
+            function format() {
+              var fmt = d3.format("s");
+              return function(d) {
+                return fmt(d)+'bp';
+              }
+            }
+
             function draw() {
 
               xAxis.scale(track.xScale)
-                .ticks(scope.ticks() !== undefined ? scope.ticks() : 10)
+                .ticks(scope.ticks() !== undefined ? scope.ticks() : 5)
                 .tickPadding(scope.tickPadding() !== undefined ? scope.tickPadding() : 3)
                 .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : 6)
                 .outerTickSize(scope.outerTickSize() !== undefined ? scope.outerTickSize() : 6)
+                .tickFormat(format())
                 .orient(scope.orient || 'top' )
                 ;
 
