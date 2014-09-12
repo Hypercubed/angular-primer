@@ -1,0 +1,221 @@
+<h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="api-page"><p>AngularJs module for creating an svg primer visualization.  This library currently depends on d3.</p>
+</div><h2 id="example">Example</h2>
+<div class="example"><div class="api-page"><p>The following basic example uses angularjs directives to build a simple genomic feature view.</p>
+<h4 id="example_source">Source</h4>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleA.html" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleA.html">
+<pre class="prettyprint linenums" ng-set-text="exampleA.html"></pre>
+<script type="text/ng-template" id="exampleA.html">
+    <svg width="100%" shape-rendering="crispEdges">
+      <g primer-track transform="translate(0,30)" sequence-length="1e6">
+        <g primer-scale />
+        <g transform="translate(0,30)">
+          <g primer-label orient="right"><text text-anchor="start">3'</text></g>
+          <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+        </g>
+        <g primer-feature
+          transform="translate(0,15)"
+          start="10e4"
+          end="25e4"
+          class="marker" >
+        </g>
+        <g primer-feature
+          transform="translate(0,30)"
+          start="20e4"
+          end="55e4"
+          class="marker" >
+        </g>
+        <g primer-feature
+          transform="translate(0,45)"
+          start="50e4"
+          end="95e4"
+          class="marker" >
+        </g>
+      </g>
+    </svg>
+  </script>
+</div>
+<div class="tab-pane" title=".css">
+<pre class="prettyprint linenums" ng-set-text=".css"></pre>
+<style type="text/css" id=".css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   .marker {
+     fill:lightblue;
+     stroke:black;
+     stroke-width: 1px;
+   }
+
+   .marker.none {
+     fill:#fff !important;
+     stroke-width:1px;
+   }
+
+   .marker:hover {
+     stroke-width:2px;
+   }
+  </style>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleA.html" ng-eval-javascript=""></div>
+<p>This example shows binding to angular data.</p>
+<h4 id="example_source">Source</h4>
+<div source-edit="angularprimer-example" source-edit-deps="angular.js .js" source-edit-html="exampleB.html" source-edit-css="exampleB.css" source-edit-js=".js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleB.html">
+<pre class="prettyprint linenums" ng-set-text="exampleB.html"></pre>
+<script type="text/ng-template" id="exampleB.html">
+    <div ng-controller="MainController as main">
+
+    <textarea ng-model="main.sequence" rows="4" cols="100" style="width: 100%;"></textarea>
+
+    <table class="form" style="float: left;">
+      <tr>
+        <th>Feature</th>
+        <th>Strand</th>
+        <th>Display</th>
+      </tr>
+      <tr class="track feature-track" ng-repeat="feature in main.features">
+        <td>
+          <label>{{feature.label}}</label>
+        </td>
+        <td>
+          <input type="number" ng-model="feature.start"/>
+          <input type="number" ng-model="feature.end"/>
+          <select ng-model="feature.strand">
+            <option value="+">+</option>
+            <option value="-">-</option>
+          </select>
+        </td>
+        <td>
+          <select ng-model="feature.direction">
+            <option value="none">none</option>
+            <option value="left">left</option>
+            <option value="right">right</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+
+    <svg width="800" height="200" shape-rendering="crispEdges">
+      <g primer-track transform="translate(0,30)" class="track"
+        sequence="{{main.sequence}}"
+        start="10"
+        width="500"
+        height="10">
+        <g>
+          <g primer-scale
+            ticks="0"
+            outer-tick-size="0">
+              <g primer-label orient="right"><text text-anchor="start">3'</text></g>
+              <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+            </g>
+          <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
+            start="feature.start"
+            end="feature.end"
+            direction="{{feature.direction}}"
+            ng-style="{fill: feature.color, stroke: feature.color}"
+            class="marker {{feature.label}} {{feature.direction}}" >
+            <g primer-label orient="top"><text text-anchor="middle">{{feature.label}}</text></g>
+          </g>
+        </g>
+        <g transform="translate(0,20)">
+          <g primer-scale
+            ticks="0"
+            outer-tick-size="0"
+            label-left="3'"
+            label-right="5'">
+            <g primer-label orient="right"><text text-anchor="start">5'</text></g>
+            <g primer-label orient="left"><text text-anchor="end">3'</text></g>
+          </g>
+          <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
+            start="feature.start"
+            end="feature.end"
+            direction="{{feature.direction}}"
+            ng-style="{fill: feature.color, stroke: feature.color}"
+            class="marker {{feature.label}} {{feature.direction}}" >
+            <g primer-label orient="bottom"><text text-anchor="middle">{{feature.label}}</text></g>
+          </g>
+        </g>
+        <g primer-scale orient="bottom" transform="translate(0,60)"></g>
+      </g>
+    </svg>
+    </div>
+  </script>
+</div>
+<div class="tab-pane" title="exampleB.css">
+<pre class="prettyprint linenums" ng-set-text="exampleB.css"></pre>
+<style type="text/css" id="exampleB.css">
+    table.form input {
+      width: 30px;
+    }
+
+    svg .domain {
+      fill: none;
+      stroke: black;
+      stroke-width: 2px;
+    }
+
+    svg .tick line {
+      fill: none;
+      stroke: black;
+      stroke-width: 1px;
+    }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.none {
+      fill:#fff !important;
+      stroke-width:1px;
+    }
+
+    .marker:hover {
+      stroke-width:2px;
+    }
+  </style>
+</div>
+<div class="tab-pane" title=".js">
+<pre class="prettyprint linenums" ng-set-text=".js"></pre>
+<script type="text/ng-template" id=".js">
+
+    angular.module('angularprimer-example',['angularprimer'])
+
+    .controller('MainController', function MainController($scope) {
+      var main = this;
+
+      main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
+      main.sequence = new Array( 10 ).join( this.sequence );
+
+      main.features = [
+      { label: 'A', start: 60, end: 90, direction: 'right', strand: '+', color: 'lightblue' },
+      { label: 'B', start: 125, end: 150, direction: 'right', strand: '+', color: 'green' },
+      { label: 'C', start: 180, end: 210, direction: 'none', strand: '+', color: 'yellowgreen' },
+      { label: 'D', start: 95, end: 120, direction: 'left', strand: '-', color: 'grey' },
+      { label: 'E', start: 160, end: 175, direction: 'left', strand: '-', color: 'red' },
+      { label: 'F', start: 25, end: 50, direction: 'none', strand: '-', color: '#fc0' }
+      ];
+    });
+
+  </script>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer-example" ng-set-html="exampleB.html" ng-eval-javascript=".js"></div>
+</div></div>
+</div>

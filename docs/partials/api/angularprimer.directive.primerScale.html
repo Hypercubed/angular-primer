@@ -1,0 +1,93 @@
+<h1><code ng:non-bindable="">primerScale</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angularprimer</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>Adds a axis to a track.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as attribute<pre class="prettyprint linenums">&lt;g primer-scale
+     [orient="{string}"]
+     [ticks="{number}"]
+     [outer-tick-size="{number}"]
+     [inner-tick-size="{number}"]
+     [tick-padding="{number}"]&gt;
+   ...
+&lt;/g&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>orient <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>The axis orientation.  Can be <code>top</code>, or <code>bottom</code>.</p>
+</div> <p><em>(default: 'top')</em></p></td></tr><tr><td>ticks <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>Approximate nuber of tick markers to display along axis.</p>
+</div> <p><em>(default: 5)</em></p></td></tr><tr><td>outerTickSize <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>The outer tick size, in pixels.</p>
+</div> <p><em>(default: 6)</em></p></td></tr><tr><td>innerTickSize <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>The inner tick size, in pixels.</p>
+</div> <p><em>(default: 6)</em></p></td></tr><tr><td>tickPadding <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>The tick padding, in pixels.</p>
+</div> <p><em>(default: 3)</em></p></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><h4 id="example_source">Source</h4>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="index.html-1" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-1" ng-html-wrap-loaded="angularprimer angular.js"></pre>
+<script type="text/ng-template" id="index.html-1">
+ <svg width="100%" shape-rendering="crispEdges">
+   <g primer-track transform="translate(0,30)" sequence-length="1e6">
+     <g primer-scale />
+     <g transform="translate(0,30)">
+       <g primer-label orient="right"><text text-anchor="start">3'</text></g>
+       <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+     </g>
+     <g primer-feature
+       transform="translate(0,15)"
+       start="10e4"
+       end="25e4"
+       class="marker" >
+     </g>
+     <g primer-feature
+       transform="translate(0,30)"
+       start="20e4"
+       end="55e4"
+       class="marker" >
+     </g>
+     <g primer-feature
+       transform="translate(0,45)"
+       start="50e4"
+       end="95e4"
+       class="marker" >
+     </g>
+   </g>
+ </svg>
+</script>
+</div>
+<div class="tab-pane" title=".css">
+<pre class="prettyprint linenums" ng-set-text=".css"></pre>
+<style type="text/css" id=".css">
+ svg .domain {
+   fill: none;
+   stroke: black;
+   stroke-width: 2px;
+ }
+
+ svg .tick line {
+   fill: none;
+   stroke: black;
+   stroke-width: 1px;
+ }
+
+ .marker {
+   fill:lightblue;
+   stroke:black;
+   stroke-width: 1px;
+ }
+
+ .marker.none {
+   fill:#fff !important;
+   stroke-width:1px;
+ }
+
+ .marker:hover {
+   stroke-width:2px;
+ }
+</style>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="index.html-1" ng-eval-javascript=""></div>
+</div></div>
+</div>

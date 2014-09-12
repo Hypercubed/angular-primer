@@ -32,6 +32,31 @@ module.exports = function(grunt){
       }
     },
 
+    ngdocs: {
+      options: {
+        html5Mode: false,
+        scripts: ['./bower_components/angular/angular.js','./bower_components/angular-animate/angular-animate.js','./<%= pkg.name %>.js','./bower_components/d3/d3.js']//,
+        //styles: ['./example/example.css']
+      },
+      all: ['<%= pkg.name %>.js']
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 9001,
+          base: 'docs'
+        }
+      }
+    },
+
+    watch: {
+      parser: {
+        files: ['<%= pkg.name %>.js'],
+        tasks: ['build']
+      }
+    },
+
     'gh-pages': {
       src: ['<%= pkg.name %>.js','<%= pkg.name %>.min.js','*.css','bower_components/**/*','example/*']
     }
@@ -39,8 +64,10 @@ module.exports = function(grunt){
 
   require('load-grunt-tasks')(grunt);
 
+  grunt.registerTask('serve', ['build','connect','watch']);
+
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['jshint', 'uglify']);
+  grunt.registerTask('build', ['jshint', 'uglify','ngdocs']);
   grunt.registerTask('publish', ['bump-only','uglify','bump-commit']);
 
 };

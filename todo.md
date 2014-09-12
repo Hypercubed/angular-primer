@@ -11,4 +11,5 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [x] Sequence display
 - [x] primer-label for axis label
 - [x] primer-label set text-anchor
-- [ ] Update example using new primer-label
+- [x] Update example using new primer-label
+- [ ] Update example to use classes

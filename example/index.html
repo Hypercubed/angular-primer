@@ -172,7 +172,7 @@ svg .tick line {
         </tr>
       </table>
 
-      <svg width="800" height="200" shape-rendering="crispEdges" >
+      <svg width="800" height="200" shape-rendering="crispEdges">
         <g primer-track transform="translate(0,30)" class="track"
           sequence="{{main.sequence}}"
           start="10"
@@ -189,10 +189,9 @@ svg .tick line {
               start="feature.start"
               end="feature.end"
               direction="{{feature.direction}}"
-              label="{{feature.label}}"
-              labely="-20"
               ng-style="{fill: feature.color, stroke: feature.color}"
               class="marker {{feature.label}} {{feature.direction}}" >
+              <g primer-label orient="top"><text text-anchor="middle">{{feature.label}}</text></g>
             </g>
           </g>
           <g transform="translate(0,20)">
@@ -208,10 +207,9 @@ svg .tick line {
               start="feature.start"
               end="feature.end"
               direction="{{feature.direction}}"
-              label="{{feature.label}}"
-              labely="20"
               ng-style="{fill: feature.color, stroke: feature.color}"
               class="marker {{feature.label}} {{feature.direction}}" >
+              <g primer-label orient="bottom"><text text-anchor="middle">{{feature.label}}</text></g>
             </g>
           </g>
           <g primer-scale orient="bottom" transform="translate(0,60)"></g>
