@@ -76,8 +76,8 @@
   &lt;/g&gt;
 &lt;/svg&gt;</code></pre>
     </div>
-    <div ng-show="tabA == 'result'">
-      <svg width="100%">
+    <div class="example" ng-show="tabA == 'result'">
+      <svg width="100%" shape-rendering="crispEdges">
         <g primer-track transform="translate(0,30)" sequence-length="1e6">
           <g primer-scale />
           <g transform="translate(0,30)">
@@ -172,7 +172,7 @@ svg .tick line {
         </tr>
       </table>
 
-      <svg width="800" height="200" >
+      <svg width="800" height="200" shape-rendering="crispEdges" >
         <g primer-track transform="translate(0,30)" class="track"
           sequence="{{main.sequence}}"
           start="10"
