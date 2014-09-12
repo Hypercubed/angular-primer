@@ -6,13 +6,13 @@
 </div><h2 id="example">Example</h2>
 <div class="example"><div class="index-page"><p>The following basic example uses angularjs directives to build a simple genomic feature view.</p>
 <h4 id="example_source">Source</h4>
-<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleA.html" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleA.html" source-edit-css="example.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
 <div class="tabbable"><div class="tab-pane" title="exampleA.html">
 <pre class="prettyprint linenums" ng-set-text="exampleA.html"></pre>
 <script type="text/ng-template" id="exampleA.html">
     <svg width="100%" shape-rendering="crispEdges">
       <g primer-track transform="translate(0,30)" sequence-length="1e6">
-        <g primer-scale />
+        <g primer-scale orient="top" />
         <g transform="translate(0,30)">
           <g primer-label orient="right"><text text-anchor="start">3'</text></g>
           <g primer-label orient="left"><text text-anchor="end">5'</text></g>
@@ -39,9 +39,9 @@
     </svg>
   </script>
 </div>
-<div class="tab-pane" title=".css">
-<pre class="prettyprint linenums" ng-set-text=".css"></pre>
-<style type="text/css" id=".css">
+<div class="tab-pane" title="example.css">
+<pre class="prettyprint linenums" ng-set-text="example.css"></pre>
+<style type="text/css" id="example.css">
    svg .domain {
      fill: none;
      stroke: black;
@@ -52,17 +52,6 @@
      fill: none;
      stroke: black;
      stroke-width: 1px;
-   }
-
-   .marker {
-     fill:lightblue;
-     stroke:black;
-     stroke-width: 1px;
-   }
-
-   .marker.none {
-     fill:#fff !important;
-     stroke-width:1px;
    }
 
    .marker:hover {
@@ -127,7 +116,7 @@
             start="feature.start"
             end="feature.end"
             direction="{{feature.direction}}"
-            ng-style="{fill: feature.color, stroke: feature.color}"
+            ng-style="{fill: feature.color}"
             class="marker {{feature.label}} {{feature.direction}}" >
             <g primer-label orient="top"><text text-anchor="middle">{{feature.label}}</text></g>
           </g>
@@ -145,7 +134,7 @@
             start="feature.start"
             end="feature.end"
             direction="{{feature.direction}}"
-            ng-style="{fill: feature.color, stroke: feature.color}"
+            ng-style="{fill: feature.color}"
             class="marker {{feature.label}} {{feature.direction}}" >
             <g primer-label orient="bottom"><text text-anchor="middle">{{feature.label}}</text></g>
           </g>
@@ -175,20 +164,6 @@
       stroke-width: 1px;
     }
 
-    .marker {
-      fill:lightblue;
-      stroke:black;
-      stroke-width: 1px;
-    }
-
-    .marker.none {
-      fill:#fff !important;
-      stroke-width:1px;
-    }
-
-    .marker:hover {
-      stroke-width:2px;
-    }
   </style>
 </div>
 <div class="tab-pane" title=".js">

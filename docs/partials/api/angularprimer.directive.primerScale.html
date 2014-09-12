@@ -27,27 +27,28 @@
 <div class="tabbable"><div class="tab-pane" title="index.html">
 <pre class="prettyprint linenums" ng-set-text="index.html-1" ng-html-wrap-loaded="angularprimer angular.js"></pre>
 <script type="text/ng-template" id="index.html-1">
+ <select ng-model="orient" ng-init="orient = 'top'">
+   <option value="top">top</option>
+   <option value="bottom">bottom</option>
+   <option value="middle">middle</option>
+ </select>
  <svg width="100%" shape-rendering="crispEdges">
    <g primer-track transform="translate(0,30)" sequence-length="1e6">
-     <g primer-scale />
-     <g transform="translate(0,30)">
+     <g primer-scale orient="{{orient}}">
        <g primer-label orient="right"><text text-anchor="start">3'</text></g>
        <g primer-label orient="left"><text text-anchor="end">5'</text></g>
      </g>
      <g primer-feature
-       transform="translate(0,15)"
        start="10e4"
        end="25e4"
        class="marker" >
      </g>
      <g primer-feature
-       transform="translate(0,30)"
        start="20e4"
        end="55e4"
        class="marker" >
      </g>
      <g primer-feature
-       transform="translate(0,45)"
        start="50e4"
        end="95e4"
        class="marker" >

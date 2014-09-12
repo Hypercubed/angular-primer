@@ -13,3 +13,5 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [x] primer-label set text-anchor
 - [x] Update example using new primer-label
 - [ ] Update example to use classes
+- [ ] Remove examples in lue or ngDocs
+- [ ] Should docs be in master?

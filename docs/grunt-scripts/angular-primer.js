@@ -27,7 +27,7 @@
           <file name="exampleA.html">
             <svg width="100%" shape-rendering="crispEdges">
               <g primer-track transform="translate(0,30)" sequence-length="1e6">
-                <g primer-scale />
+                <g primer-scale orient="top" />
                 <g transform="translate(0,30)">
                   <g primer-label orient="right"><text text-anchor="start">3'</text></g>
                   <g primer-label orient="left"><text text-anchor="end">5'</text></g>
@@ -53,7 +53,7 @@
               </g>
             </svg>
           </file>
-          <file name=".css">
+          <file name="example.css">
            svg .domain {
              fill: none;
              stroke: black;
@@ -64,17 +64,6 @@
              fill: none;
              stroke: black;
              stroke-width: 1px;
-           }
-
-           .marker {
-             fill:lightblue;
-             stroke:black;
-             stroke-width: 1px;
-           }
-
-           .marker.none {
-             fill:#fff !important;
-             stroke-width:1px;
            }
 
            .marker:hover {
@@ -136,7 +125,7 @@
                     start="feature.start"
                     end="feature.end"
                     direction="{{feature.direction}}"
-                    ng-style="{fill: feature.color, stroke: feature.color}"
+                    ng-style="{fill: feature.color}"
                     class="marker {{feature.label}} {{feature.direction}}" >
                     <g primer-label orient="top"><text text-anchor="middle">{{feature.label}}</text></g>
                   </g>
@@ -154,7 +143,7 @@
                     start="feature.start"
                     end="feature.end"
                     direction="{{feature.direction}}"
-                    ng-style="{fill: feature.color, stroke: feature.color}"
+                    ng-style="{fill: feature.color}"
                     class="marker {{feature.label}} {{feature.direction}}" >
                     <g primer-label orient="bottom"><text text-anchor="middle">{{feature.label}}</text></g>
                   </g>
@@ -202,20 +191,6 @@
               stroke-width: 1px;
             }
 
-            .marker {
-              fill:lightblue;
-              stroke:black;
-              stroke-width: 1px;
-            }
-
-            .marker.none {
-              fill:#fff !important;
-              stroke-width:1px;
-            }
-
-            .marker:hover {
-              stroke-width:2px;
-            }
           </file>
         </example>
       *
@@ -243,7 +218,7 @@
        <example module="angularprimer">
          <file name="index.html">
           <form>
-            sequence-length: <input ng-model="length" type="number" ng-init="length = 20" /><br />
+            MMMMMsequence-length: <input ng-model="length" type="number" ng-init="length = 20" /><br />
             height: <input ng-model="height" type="number" ng-init="height = 10" /><br />
             width: <input ng-model="width" type="number" ng-init="width = 500" /><br />
           </form>
@@ -619,11 +594,10 @@
             };
 
             scope.yPosition = function() {
-
               var h = feature ? feature.height(): track.height();
               if (scope.orient === 'top') { return -5; }
               if (scope.orient === 'bottom') { return 2*h+5; }
-              return h/2;
+              return h;
             };
 
           }
@@ -649,27 +623,28 @@
      * @example
        <example module="angularprimer">
          <file name="index.html">
+          <select ng-model="orient" ng-init="orient = 'top'">
+            <option value="top">top</option>
+            <option value="bottom">bottom</option>
+            <option value="middle">middle</option>
+          </select>
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="1e6">
-              <g primer-scale />
-              <g transform="translate(0,30)">
+              <g primer-scale orient="{{orient}}">
                 <g primer-label orient="right"><text text-anchor="start">3'</text></g>
                 <g primer-label orient="left"><text text-anchor="end">5'</text></g>
               </g>
               <g primer-feature
-                transform="translate(0,15)"
                 start="10e4"
                 end="25e4"
                 class="marker" >
               </g>
               <g primer-feature
-                transform="translate(0,30)"
                 start="20e4"
                 end="55e4"
                 class="marker" >
               </g>
               <g primer-feature
-                transform="translate(0,45)"
                 start="50e4"
                 end="95e4"
                 class="marker" >
@@ -711,7 +686,7 @@
       return {
           restrict: 'A',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate(0,{{track.height()/2}})"></g><g ng-transclude />',
+          template: '<g ng-attr-transform="translate(0,{{yPosition()}})"></g><g ng-transclude />',
           replace : false,
           transclude: true,
           require: '^primerTrack',
@@ -737,15 +712,29 @@
               };
             }
 
+            //console.log(scope.orient);
+
+            scope.yPosition = function() {
+              //console.log(scope.orient, track.height());
+              if (scope.orient === 'top') { return -5; }
+              if (scope.orient === 'bottom') { return track.height()+5; }
+              return track.height()/2;
+            };
+
             function draw() {
+
+              //var ticks = attr.ticks !== undefined ? scope.ticks() : 5;
+              //var padding = attr.tickPadding !== undefined ? scope.tickPadding() : 3;
+              var orient = scope.orient || 'middle';
+              var defaultSize = (orient === 'middle') ? 0 : 6;
 
               xAxis.scale(track.xScale)
                 .ticks(scope.ticks() !== undefined ? scope.ticks() : 5)
                 .tickPadding(scope.tickPadding() !== undefined ? scope.tickPadding() : 3)
-                .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : 6)
-                .outerTickSize(scope.outerTickSize() !== undefined ? scope.outerTickSize() : 6)
+                .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : defaultSize)
+                .outerTickSize(scope.outerTickSize() !== undefined ? scope.outerTickSize() : defaultSize)
                 .tickFormat(format())
-                .orient(scope.orient || 'top' )
+                .orient(orient)
                 ;
 
               g.call(xAxis);
