@@ -1,0 +1,30 @@
+svg, .example {
+  border:1px solid #ccc;
+}
+
+svg .domain {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+svg .tick line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.marker {
+  fill:lightblue;
+  stroke:black;
+  stroke-width: 1px;
+}
+
+.marker.none {
+  fill:#fff !important;
+  stroke-width:1px;
+}
+
+.marker:hover {
+  stroke-width:2px;
+}

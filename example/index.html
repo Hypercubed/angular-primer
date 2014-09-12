@@ -14,50 +14,22 @@
     </style>
 
     <link rel="stylesheet" href="example.css" />
-
-    <script src="../bower_components/google-code-prettify/bin/prettify.min.js"></script>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/github.min.css">
 
     <script src="../bower_components/d3/d3.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
+
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
     <script src="../angular-primer.js"></script>
 
     <style>
       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
         display: none !important;
       }
-
-      svg, .example {
-        border:1px solid #ccc;
-      }
-
-      svg .domain {
-        fill: none;
-        stroke: black;
-        stroke-width: 2px;
-      }
-
-      svg .tick line {
-        fill: none;
-        stroke: black;
-        stroke-width: 1px;
-      }
-
-      .marker {
-        fill:lightblue;
-        stroke:black;
-        stroke-width: 1px;
-      }
-
-      .marker.none {
-        fill:#fff !important;
-        stroke-width:1px;
-      }
-
-      .marker:hover {
-        stroke-width:2px;
-      }
-
     </style>
+
   </head>
   <body ng-app="example-app">
 
@@ -73,36 +45,45 @@
     <p ng-init="tabA = 'result'"/>
     <button ng-click="tabA = 'result'">result</button>
     <button ng-click="tabA = 'html'">html</button>
+    <button ng-click="tabA = 'css'">css</button>
 
     <div class="example" ng-show="tabA == 'html'">
-      <pre ng-non-bindable><code data-language="html">    &lt;svg width="100%"&gt;
-      &lt;g primer-track transform="translate(0,30)" sequence-length="1e6"&gt;
-        &lt;g primer-scale&gt;&lt;/g&gt;
-        &lt;g primer-feature
-          transform="translate(0,15)"
-          start="10e4"
-          end="25e4"
-          class="marker" &gt;
-        &lt;/g&gt;
-        &lt;g primer-feature
-          transform="translate(0,30)"
-          start="20e4"
-          end="55e4"
-          class="marker" &gt;
-        &lt;/g&gt;
-        &lt;g primer-feature
-          transform="translate(0,45)"
-          start="50e4"
-          end="95e4"
-          class="marker" &gt;
-        &lt;/g&gt;
-      &lt;/g&gt;
-    &lt;/svg&gt;</code></pre>
+      <pre ng-non-bindable><code class="html">&lt;svg width="100%"&gt;
+  &lt;g primer-track transform="translate(0,30)" sequence-length="1e6"&gt;
+    &lt;g primer-scale /&gt;
+    &lt;g transform="translate(0,30)"&gt;
+      &lt;g primer-label orient="right"&gt;&lt;text text-anchor="start"&gt;3'&lt;/text&gt;&lt;/g&gt;
+      &lt;g primer-label orient="left"&gt;&lt;text text-anchor="end"&gt;5'&lt;/text&gt;&lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g primer-feature
+      transform="translate(0,15)"
+      start="10e4"
+      end="25e4"
+      class="marker" &gt;
+    &lt;/g&gt;
+    &lt;g primer-feature
+      transform="translate(0,30)"
+      start="20e4"
+      end="55e4"
+      class="marker" &gt;
+    &lt;/g&gt;
+    &lt;g primer-feature
+      transform="translate(0,45)"
+      start="50e4"
+      end="95e4"
+      class="marker" &gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
     </div>
     <div ng-show="tabA == 'result'">
       <svg width="100%">
         <g primer-track transform="translate(0,30)" sequence-length="1e6">
-          <g primer-scale></g>
+          <g primer-scale />
+          <g transform="translate(0,30)">
+            <g primer-label orient="right"><text text-anchor="start">3'</text></g>
+            <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+          </g>
           <g primer-feature
             transform="translate(0,15)"
             start="10e4"
@@ -123,6 +104,34 @@
           </g>
         </g>
       </svg>
+    </div>
+    <div class="example" ng-show="tabA == 'css'">
+      <pre ng-non-bindable><code class="css">svg .domain {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+svg .tick line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.marker {
+  fill:lightblue;
+  stroke:black;
+  stroke-width: 1px;
+}
+
+.marker.none {
+  fill:#fff !important;
+  stroke-width:1px;
+}
+
+.marker:hover {
+  stroke-width:2px;
+}</code></pre>
     </div>
 
     <p />Or more complex view bound to angular data.
@@ -172,9 +181,10 @@
           <g>
             <g primer-scale
               ticks="0"
-              outer-tick-size="0"
-              label-left="5'"
-              label-right="3'"></g>
+              outer-tick-size="0">
+                <g primer-label orient="right"><text text-anchor="start">3'</text></g>
+                <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+              </g>
             <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
               start="feature.start"
               end="feature.end"
@@ -190,7 +200,10 @@
               ticks="0"
               outer-tick-size="0"
               label-left="3'"
-              label-right="5'"></g>
+              label-right="5'">
+              <g primer-label orient="right"><text text-anchor="start">5'</text></g>
+              <g primer-label orient="left"><text text-anchor="end">3'</text></g>
+            </g>
             <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
               start="feature.start"
               end="feature.end"
@@ -207,98 +220,103 @@
     </div>
 
     <div class="example" ng-show="tabB == 'html'">
-      <pre ng-non-bindable><code data-language="html">    &lt;textarea ng-model="main.sequence" rows="4" cols="100"&gt;&lt;/textarea&gt;
+      <pre ng-non-bindable><code class="html">&lt;textarea ng-model="main.sequence" rows="4" cols="100" style="width: 100%;"&gt;&lt;/textarea&gt;
 
-    &lt;table class="form"&gt;
-      &lt;tr&gt;
-        &lt;th&gt;Feature&lt;/th&gt;
-        &lt;th&gt;Position&lt;/th&gt;
-        &lt;th&gt;Display&lt;/th&gt;
-      &lt;/tr&gt;
-      &lt;tr class="track feature-track" ng-repeat="feature in main.features"&gt;
-        &lt;td&gt;
-          &lt;label&gt;{{feature.label}}&lt;/label&gt;
-        &lt;/td&gt;
-        &lt;td&gt;
-          &lt;input type="number" ng-model="feature.start" /&gt;
-          &lt;input type="number" ng-model="feature.end" /&gt;
-          &lt;select ng-model="feature.strand"&gt;
-            &lt;option value="+" /&gt;+
-            &lt;option value="-" /&gt;-
-          &lt;/select&gt;
-        &lt;/td&gt;
-        &lt;td&gt;
-          &lt;select ng-model="feature.direction"&gt;
-            &lt;option value="none" /&gt;none
-            &lt;option value="left" /&gt;left
-            &lt;option value="right" /&gt;right
-          &lt;/select&gt;
-        &lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/table&gt;
+&lt;table class="form" style="float: left;"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Feature&lt;/th&gt;
+    &lt;th&gt;Position&lt;/th&gt;
+    &lt;th&gt;Display&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr class="track feature-track" ng-repeat="feature in main.features"&gt;
+    &lt;td&gt;
+      &lt;label&gt;{{feature.label}}&lt;/label&gt;
+    &lt;/td&gt;
+    &lt;td&gt;
+      &lt;input type="number" ng-model="feature.start" /&gt;
+      &lt;input type="number" ng-model="feature.end" /&gt;
+      &lt;select ng-model="feature.strand"&gt;
+        &lt;option value="+" /&gt;+
+        &lt;option value="-" /&gt;-
+      &lt;/select&gt;
+    &lt;/td&gt;
+    &lt;td&gt;
+      &lt;select ng-model="feature.direction"&gt;
+        &lt;option value="none" /&gt;none
+        &lt;option value="left" /&gt;left
+        &lt;option value="right" /&gt;right
+      &lt;/select&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
 
-    &lt;svg width="100%"&gt;
-      &lt;g primer-track transform="translate(0,30)" class="track"
-        sequence="{{main.sequence}}"
-        start="10"
-        width="700"&gt;
-        &lt;g&gt;
-          &lt;g primer-scale
-            ticks="0"
-            outer-tick-size="0"
-            label-left="5'"
-            label-right="3'"&gt;&lt;/g&gt;
-          &lt;g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
-            start="feature.start"
-            end="feature.end"
-            height="10"
-            direction="{{feature.direction}}"
-            label="{{feature.label}}"
-            labely="-20"
-            ng-style="{fill: feature.color, stroke: feature.color}"
-            class="marker {{feature.label}} {{feature.direction}}" &gt;
-          &lt;/g&gt;
+&lt;svg width="800" height="200" &gt;
+  &lt;g primer-track transform="translate(0,30)" class="track"
+    sequence="{{main.sequence}}"
+    start="10"
+    width="700"
+    height="10"&gt;
+    &lt;g&gt;
+      &lt;g primer-scale
+        ticks="0"
+        outer-tick-size="0"&gt;
+          &lt;g primer-label orient="right"&gt;&lt;text text-anchor="start"&gt;3'&lt;/text&gt;&lt;/g&gt;
+          &lt;g primer-label orient="left"&gt;&lt;text text-anchor="end"&gt;5'&lt;/text&gt;&lt;/g&gt;
         &lt;/g&gt;
-        &lt;g transform="translate(0,20)"&gt;
-          &lt;g primer-scale
-            ticks="0"
-            outer-tick-size="0"
-            label-left="3'"
-            label-right="5'"&gt;&lt;/g&gt;
-          &lt;g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
-            start="feature.start"
-            end="feature.end"
-            height="20"
-            direction="{{feature.direction}}"
-            label="{{feature.label}}"
-            labely="20"
-            ng-style="{fill: feature.color, stroke: feature.color}"
-            class="marker {{feature.label}} {{feature.direction}}" &gt;
-          &lt;/g&gt;
-        &lt;/g&gt;
-        &lt;g primer-scale orient="bottom" transform="translate(0,60)"&gt;&lt;/g&gt;
+      &lt;g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
+        start="feature.start"
+        end="feature.end"
+        direction="{{feature.direction}}"
+        label="{{feature.label}}"
+        labely="-20"
+        ng-style="{fill: feature.color, stroke: feature.color}"
+        class="marker {{feature.label}} {{feature.direction}}" &gt;
       &lt;/g&gt;
-    &lt;/svg&gt;</code></pre>
+    &lt;/g&gt;
+    &lt;g transform="translate(0,20)"&gt;
+      &lt;g primer-scale
+        ticks="0"
+        outer-tick-size="0"
+        label-left="3'"
+        label-right="5'"&gt;
+        &lt;g primer-label orient="right"&gt;&lt;text text-anchor="start"&gt;5'&lt;/text&gt;&lt;/g&gt;
+        &lt;g primer-label orient="left"&gt;&lt;text text-anchor="end"&gt;3'&lt;/text&gt;&lt;/g&gt;
+      &lt;/g&gt;
+      &lt;g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
+        start="feature.start"
+        end="feature.end"
+        direction="{{feature.direction}}"
+        label="{{feature.label}}"
+        labely="20"
+        ng-style="{fill: feature.color, stroke: feature.color}"
+        class="marker {{feature.label}} {{feature.direction}}" &gt;
+      &lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g primer-scale orient="bottom" transform="translate(0,60)"&gt;&lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
     </div>
 
     <div class="example" ng-show="tabB == 'js'">
-      <pre ng-non-bindable><code data-language="js">  var MainController = function($scope) {
+      <pre ng-non-bindable><code class="js">var app = angular.module('example-app', ['angularprimer']);
 
-    var main = this;
+app.controller('MainController',function($scope) {
 
-    main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
-    main.sequence = new Array( 10 ).join( this.sequence );
+  var main = this;
 
-    main.features = [
-      { label: 'A', start: 60, end: 90, direction: 'right', strand: '+', color: 'lightblue' },
-      { label: 'B', start: 125, end: 150, direction: 'right', strand: '+', color: 'green' },
-      { label: 'C', start: 180, end: 210, direction: 'none', strand: '+', color: 'yellowgreen' },
-      { label: 'D', start: 95, end: 120, direction: 'left', strand: '-', color: 'grey' },
-      { label: 'E', start: 160, end: 175, direction: 'left', strand: '-', color: 'red' },
-      { label: 'F', start: 25, end: 50, direction: 'none', strand: '-', color: '#fc0' }
-    ];
+  main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
+  main.sequence = new Array( 10 ).join( this.sequence );
 
-  };<code></pre>
+  main.features = [
+    { label: 'A', start: 60, end: 90, direction: 'right', strand: '+', color: 'lightblue' },
+    { label: 'B', start: 125, end: 150, direction: 'right', strand: '+', color: 'green' },
+    { label: 'C', start: 180, end: 210, direction: 'none', strand: '+', color: 'yellowgreen' },
+    { label: 'D', start: 95, end: 120, direction: 'left', strand: '-', color: 'grey' },
+    { label: 'E', start: 160, end: 175, direction: 'left', strand: '-', color: 'red' },
+    { label: 'F', start: 25, end: 50, direction: 'none', strand: '-', color: '#fc0' }
+  ];
+
+});<code></pre>
     </div>
 
     <h3>Why?</h3>
@@ -311,7 +329,7 @@
 
     var app = angular.module('example-app', ['angularprimer']);
 
-    var MainController = function($scope) {
+    app.controller('MainController',function($scope) {
 
       var main = this;
 
@@ -327,7 +345,7 @@
         { label: 'F', start: 25, end: 50, direction: 'none', strand: '-', color: '#fc0' }
       ];
 
-    };
+    });
 
   </script>
 </html>

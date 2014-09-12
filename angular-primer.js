@@ -37,7 +37,9 @@
               return $scope.sequence;
             };
 
-            track.height = $scope.height;
+            track.height = function() {
+              return $scope.height() || 10;
+            }
 
             track.sequenceLength = function() {
               if ($scope.sequenceLength() !== undefined) { return $scope.sequenceLength(); }
@@ -92,8 +94,6 @@
           link: function link(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
             var track = scope.track = ctrls[1];
-
-            //console.log(ctrls);
 
             feature.start = function() { return scope.start; };
             feature.end = function() { return scope.end; };
