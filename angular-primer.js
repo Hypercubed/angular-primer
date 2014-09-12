@@ -24,7 +24,8 @@
             sequence: '@',
             sequenceLength: '&',
             start: '&',
-            width: '&'
+            width: '&',
+            height: '&'
           },
           link: function link(scope, element, attrs, track) {
             track.elm = element;
@@ -34,17 +35,19 @@
 
             track.sequence = function() {
               return $scope.sequence;
-            }
+            };
+
+            track.height = $scope.height;
 
             track.sequenceLength = function() {
-              if ($scope.sequenceLength() !== undefined) { return $scope.sequenceLength(); };
-              if ($scope.sequence !== undefined) { return $scope.sequence.length; };
+              if ($scope.sequenceLength() !== undefined) { return $scope.sequenceLength(); }
+              if ($scope.sequence !== undefined) { return $scope.sequence.length; }
               return 100;
             };
 
             track.start = function() {
               return $scope.start() || 1;
-            }
+            };
 
             track.width = function() {
               return $scope.width() || 500;
@@ -53,7 +56,7 @@
             function setScale() {
 
               track.xScale = d3.scale.linear()
-                .domain([$scope.start() || 0, track.sequenceLength()])
+                .domain([$scope.start()-1 || 1, track.sequenceLength()+1])
                 .range([25, track.width()+25]);
 
             }
@@ -71,20 +74,37 @@
       return {
           restrict: 'AE',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{track.xScale(start)}},0)"><path ng-attr-d="{{d}}" /><title ng-bind="title()"></title><text text-anchor="middle" alignment-baseline="middle" class="mlabel" ng-attr-x="{{track.xScale(end)/2 - track.xScale(start)/2}}" ng-attr-y="{{labely() + (height()/2)}}">{{label}}</text></g>',
+          template: '<g ng-attr-transform="translate({{track.xScale(start)}},0)"><path ng-attr-d="{{d}}" /><title ng-bind="title()"></title><text text-anchor="middle" alignment-baseline="middle" ng-attr-x="{{track.xScale(end)/2 - track.xScale(start)/2}}" ng-attr-y="{{labely() + (height()/2)}}">{{label}}</text><g ng-transclude /></g>',
           replace : false,
           transclude: true,
-          require: '^primerTrack',
+          require: ['primerFeature','^primerTrack'],
           scope: {
             start: '=',
             end: '=',
             height: '&',
-            label: '@',
-            labely: '&',
+            //label: '@',
+            //labely: '&',
             direction: '@'
           },
-          link: function link(scope, element, attrs, track) {
-            scope.track = track;
+          controller: function($scope) {
+
+          },
+          link: function link(scope, element, attrs, ctrls) {
+            var feature = ctrls[0];
+            var track = scope.track = ctrls[1];
+
+            //console.log(ctrls);
+
+            feature.start = function() { return scope.start; };
+            feature.end = function() { return scope.end; };
+
+            if (!attrs.height) {
+              scope.height = function() {
+                return track.height() || 10;
+              };
+            }
+
+            feature.height = scope.height;
 
             scope.title = function() {
               if (track.sequence()) {
@@ -96,7 +116,7 @@
             function draw() {
               var al = 10;
               var ah = 10;
-              var L = track.xScale(scope.end)-track.xScale(scope.start);
+              var L = track.xScale(scope.end+1)-track.xScale(scope.start);
               var dir = scope.direction;
 
               if (L < al) {
@@ -107,14 +127,18 @@
                 L=1;
               }
 
+              var h = scope.height();
+
+              //console.log(h);
+
               if (dir == 'left') {
                 L -= al;
-                scope.d = 'M0,5 l10,10 l0,-5 l'+L+',0 l0,-10 l-'+L+',0 l0,-5 z';
+                scope.d = 'M0,'+h/2+' l10,'+(h/2+5)+' l0,-5 l'+L+',0 l0,-'+h+' l-'+L+',0 l0,-5 z';
               } else if (dir == 'right') {
                 L -= al;
                 scope.d = 'M0,0 l'+L+',0 l0,-5 l10,10 l-10,10 l0,-5 l-'+L+',0 z';
               } else {
-                scope.d = 'M0,0 l'+L+',0 l0,10 l-'+L+',0 z';
+                scope.d = 'M0,0 l'+L+',0 l0,'+h+' l-'+L+',0 z';
               }
             }
 
@@ -127,11 +151,52 @@
       };
     })
 
+    .directive("primerLabel", function () {
+      return {
+          restrict: 'AE',
+          templateNamespace: 'svg',
+          template: '<g ng-transclude ng-attr-transform="translate({{translate()}})"></g>',
+          replace : true,
+          transclude: true,
+          require: ['?^primerFeature','^primerTrack'],
+          scope: {
+            orient: '@'
+          },
+          link: function link(scope, element, attrs, ctrls) {
+            var track = scope.track = ctrls[1];
+            var feature = scope.feature = ctrls[0];
+
+            scope.translate = function() {
+              return ''+scope.xPosition()+','+scope.yPosition();
+            };
+
+            scope.xPosition = function() {
+              var start = feature ? track.xScale(feature.start()) : 25;
+              if (scope.orient === 'left') { return start-5; }
+
+              var end = feature ? track.xScale(feature.end()) : track.width()+25;
+              if (scope.orient === 'right') { return end+5; }
+
+              return (end/2 - start/2);
+            };
+
+            scope.yPosition = function() {
+
+              var h = feature ? feature.height(): track.height();
+              if (scope.orient === 'top') { return -5; }
+              if (scope.orient === 'bottom') { return 2*h+5; }
+              return h;
+            };
+
+          }
+      };
+    })
+
     .directive("primerScale", function () {
       return {
           restrict: 'AE',
           templateNamespace: 'svg',
-          template: '<text text-anchor="end" alignment-baseline="middle" class="mlabel" ng-attr-x="{{track.xScale(track.start())-5}}" y="5">{{labelLeft}}</text><text text-anchor="start" alignment-baseline="middle" class="mlabel" ng-attr-x="{{track.xScale(track.sequenceLength())+5}}" y="5">{{labelRight}}</text><g transform="translate(0,5)"></g>',
+          template: '<g transform="translate(0,5)"></g><g ng-transclude />',
           replace : false,
           transclude: true,
           require: '^primerTrack',
@@ -141,8 +206,8 @@
             outerTickSize: '&',
             innerTickSize: '&',
             tickPadding: '&',
-            labelLeft: '@',
-            labelRight: '@'
+            //labelLeft: '@',
+            //labelRight: '@'
           },
           link: function link(scope, element, attrs, track) {
             scope.track = track;
@@ -154,7 +219,7 @@
               var fmt = d3.format("s");
               return function(d) {
                 return fmt(d)+'bp';
-              }
+              };
             }
 
             function draw() {
@@ -169,6 +234,7 @@
                 ;
 
               g.call(xAxis);
+
             }
 
             draw();

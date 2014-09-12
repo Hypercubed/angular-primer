@@ -8,11 +8,7 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [ ] Axis in feature?
 - [ ] Blow up on hover?
 - [x] Sequence start position
-- [ ] Sequence display
-
-Questions
-- Display reverse for 3' - 5' strand?
-- Display both visualizations?
-- Wrap text visual?
-- Manipulate using SVG?
-- SVG download?
+- [x] Sequence display
+- [x] primer-label for axis label
+- [x] primer-label set text-anchor
+- [ ] Update example using new primer-label

@@ -167,7 +167,8 @@
         <g primer-track transform="translate(0,30)" class="track"
           sequence="{{main.sequence}}"
           start="10"
-          width="700">
+          width="700"
+          height="10">
           <g>
             <g primer-scale
               ticks="0"
@@ -177,7 +178,6 @@
             <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
               start="feature.start"
               end="feature.end"
-              height="10"
               direction="{{feature.direction}}"
               label="{{feature.label}}"
               labely="-20"
@@ -194,7 +194,6 @@
             <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
               start="feature.start"
               end="feature.end"
-              height="20"
               direction="{{feature.direction}}"
               label="{{feature.label}}"
               labely="20"
