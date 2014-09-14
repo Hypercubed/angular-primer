@@ -116,8 +116,8 @@
                   <g primer-scale
                     ticks="0"
                     outer-tick-size="0">
-                      <g primer-label orient="right"><text text-anchor="start">3'</text></g>
-                      <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+                      <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+                      <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
                     </g>
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
                     start="feature.start"
@@ -134,8 +134,8 @@
                     outer-tick-size="0"
                     label-left="3'"
                     label-right="5'">
-                    <g primer-label orient="right"><text text-anchor="start">5'</text></g>
-                    <g primer-label orient="left"><text text-anchor="end">3'</text></g>
+                    <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">5'</text></g>
+                    <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">3'</text></g>
                   </g>
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
                     start="feature.start"
@@ -216,7 +216,7 @@
        <example module="angularprimer">
          <file name="index.html">
           <form>
-            MMMMMsequence-length: <input ng-model="length" type="number" ng-init="length = 20" /><br />
+            sequence-length: <input ng-model="length" type="number" ng-init="length = 20" /><br />
             height: <input ng-model="height" type="number" ng-init="height = 10" /><br />
             width: <input ng-model="width" type="number" ng-init="width = 500" /><br />
           </form>
@@ -227,8 +227,8 @@
               width="width">
               <g primer-scale ticks="0"/>
               <g>
-                <g primer-label orient="right"><text text-anchor="start">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
               </g>
               <g primer-feature
                 start="3"
@@ -358,10 +358,10 @@
        <file name="index.html">
         <svg width="100%" shape-rendering="crispEdges">
           <g primer-track transform="translate(0,30)" sequence-length="1e6">
-            <g primer-scale />
+            <g primer-scale orient="top" />
             <g transform="translate(0,30)">
-              <g primer-label orient="right"><text text-anchor="start">3'</text></g>
-              <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+              <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+              <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
             </g>
             <g primer-feature
               transform="translate(0,15)"
@@ -506,10 +506,10 @@
          <file name=".html">
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="1e6">
-              <g primer-scale />
+              <g primer-scale orient="top"/>
               <g transform="translate(0,30)">
-                <g primer-label orient="right"><text text-anchor="start">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
               </g>
               <g primer-feature
                 transform="translate(0,15)"
@@ -595,7 +595,7 @@
               var h = feature ? feature.height(): track.height();
               if (scope.orient === 'top') { return -5; }
               if (scope.orient === 'bottom') { return 2*h+5; }
-              return h;
+              return h/2;
             };
 
           }
@@ -627,24 +627,24 @@
             <option value="middle">middle</option>
           </select>
           <svg width="100%" shape-rendering="crispEdges">
-            <g primer-track transform="translate(0,30)" sequence-length="1e6">
+            <g primer-track transform="translate(0,30)" sequence-length="100">
               <g primer-scale orient="{{orient}}">
-                <g primer-label orient="right"><text text-anchor="start">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end">5'</text></g>
+                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
               </g>
               <g primer-feature
-                start="10e4"
-                end="25e4"
+                start="10"
+                end="25"
                 class="marker" >
               </g>
               <g primer-feature
-                start="20e4"
-                end="55e4"
+                start="28"
+                end="55"
                 class="marker" >
               </g>
               <g primer-feature
-                start="50e4"
-                end="95e4"
+                start="59"
+                end="95"
                 class="marker" >
               </g>
             </g>
