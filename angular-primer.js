@@ -7,8 +7,6 @@
 /*global angular*/
 /*global d3 */
 
-
-
 (function () {
     'use strict';
 
