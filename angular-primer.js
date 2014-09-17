@@ -227,8 +227,12 @@
               width="width">
               <g primer-scale ticks="0"/>
               <g>
-                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
+                <g primer-label anchor="end" orient="middle">
+                  <text text-anchor="start" alignment-baseline="middle" transform="translate(5)">3'</text>
+                </g>
+                <g primer-label anchor="start" orient="middle">
+                  <text text-anchor="end" alignment-baseline="middle" transform="translate(-5)">5'</text>
+                </g>
               </g>
               <g primer-feature
                 start="3"
@@ -360,8 +364,8 @@
           <g primer-track transform="translate(0,30)" sequence-length="1e6">
             <g primer-scale orient="top" />
             <g transform="translate(0,30)">
-              <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
-              <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
+              <g primer-label anchor="end" orient="middle"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+              <g primer-label anchor="start" orient="middle"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
             </g>
             <g primer-feature
               transform="translate(0,15)"
@@ -443,6 +447,9 @@
             }
 
             feature.height = scope.height;
+            feature.width = function() {
+              return track.xScale(scope.end+1)-track.xScale(scope.start);
+            };
 
             scope.title = function() {
               if (track.sequence()) {
@@ -454,7 +461,7 @@
             function draw() {
               var al = 10;
               var ah = 10;
-              var L = track.xScale(scope.end+1)-track.xScale(scope.start);
+              var L = feature.width();
               var dir = scope.direction;
 
               if (L < al) {
@@ -465,7 +472,7 @@
                 L=1;
               }
 
-              var h = scope.height();
+              var h = feature.height();
 
               //console.log(h);
 
@@ -499,38 +506,49 @@
      * @description
      * Adds a label to a feature or a track.
      *
-     * @param {string=} [orient='middle'] The label orientation.  Can be `middle`, `left`, `right`, `top`, or `bottom`.
+     * @param {string=} [orient='middle'] The label vertical orientation.  Can be `middle`, `top`, or `bottom`.
+     * @param {string=} [anchor='middle'] The label hrizontal anchor.  Can be `middle`, `start`, `end`.
      *
      * @example
        <example module="angularprimer">
          <file name=".html">
-          <svg width="100%" shape-rendering="crispEdges">
-            <g primer-track transform="translate(0,30)" sequence-length="1e6">
+           <form>
+             Feature label anchor:
+             <select ng-model="anchor" ng-init="anchor = 'middle'">
+               <option value="start">start</option>
+               <option value="end">end</option>
+               <option value="middle">middle</option>
+             </select><br />
+              Feature label orient:
+              <select ng-model="orient" ng-init="orient = 'middle'">
+                <option value="top">top</option>
+                <option value="bottom">bottom</option>
+                <option value="middle">middle</option>
+              </select><br />
+             Feature label text: <input ng-model="text" type="text" ng-init="text = 'A'" /><br />
+           </form>
+           <svg width="100%" shape-rendering="crispEdges">
+            <g primer-track transform="translate(0,30)" sequence-length="100" height="15">
               <g primer-scale orient="top"/>
               <g transform="translate(0,30)">
-                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
+                <g primer-label anchor="start">
+                  <text text-anchor="start" alignment-baseline="middle">3'</text>
+                </g>
+                <g primer-label anchor="end">
+                  <text text-anchor="end" alignment-baseline="middle">5'</text>
+                </g>
               </g>
               <g primer-feature
                 transform="translate(0,15)"
-                start="10e4"
-                end="25e4"
+                start="10"
+                end="50"
                 class="marker" >
-              </g>
-              <g primer-feature
-                transform="translate(0,30)"
-                start="20e4"
-                end="55e4"
-                class="marker" >
-              </g>
-              <g primer-feature
-                transform="translate(0,45)"
-                start="50e4"
-                end="95e4"
-                class="marker" >
+                <g primer-label anchor="{{anchor}}" orient="{{orient}}">
+                  <text text-anchor="{{anchor}}" alignment-baseline="middle">{{text}}</text>
+                </g>
               </g>
             </g>
-          </svg>
+           </svg>
          </file>
          <file name=".css">
           svg .domain {
@@ -559,6 +577,11 @@
           .marker:hover {
             stroke-width:2px;
           }
+
+          .marker text {
+            stroke: none;
+            fill: black;
+          }
          </file>
        </example>
      */
@@ -571,7 +594,8 @@
           transclude: true,
           require: ['?^primerFeature','^primerTrack'],
           scope: {
-            orient: '@'
+            orient: '@',
+            anchor: '@'
           },
           link: function link(scope, element, attrs, ctrls) {
             var track = scope.track = ctrls[1];
@@ -582,20 +606,20 @@
             };
 
             scope.xPosition = function() {
-              var start = feature ? track.xScale(feature.start()) : 25;
-              if (scope.orient === 'left') { return start-5; }
+              var start = feature ? 0 : 25;
+              if (scope.anchor === 'start') { return start; }
 
-              var end = feature ? track.xScale(feature.end()) : track.width()+25;
-              if (scope.orient === 'right') { return end+5; }
+              var end = feature ? feature.width() : track.width()+25;
+              if (scope.anchor === 'end') { return end; }
 
-              return (end/2 - start/2);
+              return (end - start)/2;
             };
 
             scope.yPosition = function() {
               var h = feature ? feature.height(): track.height();
-              if (scope.orient === 'top') { return -5; }
-              if (scope.orient === 'bottom') { return 2*h+5; }
-              return h/2;
+              if (scope.orient === 'top') { return -6; }
+              if (scope.orient === 'bottom') { return h+9; }
+              return h/2+2;
             };
 
           }
@@ -617,20 +641,24 @@
      * @param {number=} [outerTickSize=6] The outer tick size, in pixels.
      * @param {number=} [innerTickSize=6] The inner tick size, in pixels.
      * @param {number=} [tickPadding=3] The tick padding, in pixels.
+     * @param {number=} format Axis labels format.
      *
      * @example
        <example module="angularprimer">
          <file name="index.html">
+          <form>
+          Scale axis orientation:
           <select ng-model="orient" ng-init="orient = 'top'">
             <option value="top">top</option>
             <option value="bottom">bottom</option>
             <option value="middle">middle</option>
           </select>
+          </form>
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="100">
               <g primer-scale orient="{{orient}}">
-                <g primer-label orient="right"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
-                <g primer-label orient="left"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
+                <g primer-label anchor="end" orient="middle"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
+                <g primer-label anchor="start" orient="middle"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
               </g>
               <g primer-feature
                 start="10"
@@ -694,6 +722,7 @@
             outerTickSize: '&',
             innerTickSize: '&',
             tickPadding: '&',
+            format: '=?'
             //labelLeft: '@',
             //labelRight: '@'
           },
@@ -703,9 +732,9 @@
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
 
-            function format() {
+            if (!attrs.format) {
               var fmt = d3.format("s");
-              return function(d) {
+              scope.format = function(d) {
                 return fmt(d)+'bp';
               };
             }
@@ -724,14 +753,14 @@
               //var ticks = attr.ticks !== undefined ? scope.ticks() : 5;
               //var padding = attr.tickPadding !== undefined ? scope.tickPadding() : 3;
               var orient = scope.orient || 'middle';
-              var defaultSize = (orient === 'middle') ? 0 : 6;
+              var defaultSize = (orient === 'middle') ? [6,0] : [6,6]; // [inner,outer]
 
               xAxis.scale(track.xScale)
                 .ticks(scope.ticks() !== undefined ? scope.ticks() : 5)
                 .tickPadding(scope.tickPadding() !== undefined ? scope.tickPadding() : 3)
-                .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : defaultSize)
-                .outerTickSize(scope.outerTickSize() !== undefined ? scope.outerTickSize() : defaultSize)
-                .tickFormat(format())
+                .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : defaultSize[0])
+                .outerTickSize(scope.outerTickSize() !== undefined ? scope.outerTickSize() : defaultSize[1])
+                .tickFormat(scope.format)
                 .orient(orient)
                 ;
 

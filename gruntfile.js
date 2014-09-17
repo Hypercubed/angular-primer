@@ -5,7 +5,10 @@ module.exports = function(grunt){
     pkg: grunt.file.readJSON('bower.json'),
 
     jshint: {
-      options: { jshintrc: true },
+      options: {
+        jshintrc: true,
+        force: true
+      },
       all: ['gruntfile.js', '<%= pkg.name %>.js']
     },
 

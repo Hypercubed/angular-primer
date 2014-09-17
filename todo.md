@@ -4,6 +4,7 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 
 - [ ] Common labeling between features and scale
 - [ ] Symbols
+- [ ] Label ticka
 - [ ] Responsive size
 - [ ] Axis in feature?
 - [ ] Blow up on hover?
@@ -14,4 +15,4 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [x] Update example using new primer-label
 - [ ] Update example to use classes
 - [ ] Remove examples in lue or ngDocs
-- [ ] Should docs be in master?
+- [x] Should docs be in master? no.
