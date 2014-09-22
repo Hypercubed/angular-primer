@@ -503,7 +503,10 @@
       return {
           restrict: 'A',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{translate()}})"><path ng-attr-d="{{d}}" /><title ng-bind="title()"></title></text><g ng-transclude /></g>',
+          template: '<g ng-attr-transform="translate({{translate()}})">'+
+                      '<path ng-attr-d="{{d}}" />'+
+                      '<title ng-bind="title()" />'+
+                    '<g ng-transclude /></g>',
           replace : false,
           transclude: true,
           require: ['primerFeature','^primerTrack'],
@@ -821,7 +824,7 @@
       return {
           restrict: 'A',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate(0,{{yPosition()}})"></g><g ng-transclude />',
+          template: '<g ng-attr-transform="translate(0,{{yPosition()}})" /><g ng-transclude />',
           replace : false,
           transclude: true,
           require: '^primerTrack',
