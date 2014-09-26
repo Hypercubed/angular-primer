@@ -38,7 +38,7 @@ module.exports = function(grunt){
     ngdocs: {
       options: {
         html5Mode: false,
-        startPage: '/api/angularprimer',
+        //startPage: '/api/angularprimer',
         navTemplate: './docs-template/nav.html',
         discussions: {
           shortName: 'hypercubedgithub',
