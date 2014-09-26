@@ -1,0 +1,128 @@
+<h1><code ng:non-bindable="">primerFeature</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angularprimer</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primerfeature-page"><p>Creates a feature on a track</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;primer-feature
+       start="{number|expression}"
+       end="{number|expression}"
+       [height="{number|expression}"]&gt;
+&lt;/primer-feature&gt;</pre>
+as attribute<pre class="prettyprint linenums">&lt;g primer-feature
+     start="{number|expression}"
+     end="{number|expression}"
+     [height="{number|expression}"]&gt;
+   ...
+&lt;/g&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>start</td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerfeature-page"><p>The feature starting position</p>
+</div></td></tr><tr><td>end</td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerfeature-page"><p>The feature ending position</p>
+</div></td></tr><tr><td>height <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerfeature-page"><p>The feature height</p>
+</div> <p><em>(default: track.height)</em></p></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angularprimer-directive-page angularprimer-directive-primerfeature-page"><h4 id="example_source">Source</h4>
+<div source-edit="angularprimer-example" source-edit-deps="angular.js .js" source-edit-html="exampleB.html" source-edit-css="exampleB.css" source-edit-js=".js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleB.html">
+<pre class="prettyprint linenums" ng-set-text="exampleB.html"></pre>
+<script type="text/ng-template" id="exampleB.html">
+  <div ng-controller="MainController as main">
+
+  <textarea ng-model="main.sequence" rows="4" cols="100" style="width: 100%;"></textarea>
+
+  <table class="form" style="float: left;">
+    <tr>
+      <th>Feature</th>
+      <th>Position</th>
+      <th>Height</th>
+    </tr>
+    <tr class="track feature-track" ng-repeat="feature in main.features">
+      <td>
+        <label>{{feature.label}}</label>
+      </td>
+      <td>
+        <input type="number" ng-model="feature.start" min="0" max="{{feature.end}}"/>
+        <input type="number" ng-model="feature.end" min="{{feature.start}}" max="{{main.sequence.length}}"/>
+      </td>
+      <td>
+        <input type="number" ng-model="feature.height" min="0"/>
+      </td>
+    </tr>
+  </table>
+
+  <svg width="800" height="200" shape-rendering="crispEdges">
+    <g primer-track transform="translate(0,30)" class="track"
+        sequence="{{main.sequence}}" start="10" width="500" height="10">
+      <g primer-scale ticks="0" outer-tick-size="0">
+        <g primer-label anchor="end">
+          <text text-anchor="start" alignment-baseline="middle">3'</text>
+        </g>
+        <g primer-label anchor="start">
+          <text text-anchor="end" alignment-baseline="middle">5'</text>
+        </g>
+      </g>
+      <g primer-feature ng-repeat="feature in main.features"
+          start="feature.start" end="feature.end" height="feature.height"
+          class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
+        <g primer-feature-shape />
+        <g primer-label orient="top">
+          <text text-anchor="middle">{{feature.label}}</text>
+        </g>
+      </g>
+      <primer-scale orient="bottom" transform="translate(0,30)" />
+    </g>
+  </svg>
+  </div>
+</script>
+</div>
+<div class="tab-pane" title="exampleB.css">
+<pre class="prettyprint linenums" ng-set-text="exampleB.css"></pre>
+<style type="text/css" id="exampleB.css">
+  table.form input {
+    width: 40px;
+  }
+
+  svg .domain {
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+  }
+
+  svg .tick line {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+  }
+
+</style>
+</div>
+<div class="tab-pane" title=".js">
+<pre class="prettyprint linenums" ng-set-text=".js"></pre>
+<script type="text/ng-template" id=".js">
+
+  angular.module('angularprimer-example',['angularprimer'])
+
+  .controller('MainController', function MainController($scope) {
+    var main = this;
+
+    main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
+    main.sequence = new Array( 10 ).join( this.sequence );
+
+    main.features = [
+    { label: 'A', start: 60, end: 90, color: 'lightblue', height: null },
+    { label: 'B', start: 125, end: 150, color: 'green', height: null },
+    { label: 'C', start: 180, end: 210, color: 'yellowgreen', height: null },
+    { label: 'D', start: 95, end: 120, color: 'grey', height: null },
+    { label: 'E', start: 160, end: 175, color: 'red', height: null },
+    { label: 'F', start: 25, end: 50, color: '#fc0', height: null }
+    ];
+  });
+
+</script>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer-example" ng-set-html="exampleB.html" ng-eval-javascript=".js"></div>
+</div></div>
+</div>

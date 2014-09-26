@@ -1,0 +1,102 @@
+<h1><code ng:non-bindable="">primerLabel</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angularprimer</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primerlabel-page"><p>Adds a label to a feature or a track.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;primer-label
+       [orient="{string}"]
+       [anchor="{string}"]&gt;
+&lt;/primer-label&gt;</pre>
+as attribute<pre class="prettyprint linenums">&lt;g primer-label
+     [orient="{string}"]
+     [anchor="{string}"]&gt;
+   ...
+&lt;/g&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>orient <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerlabel-page"><p>The label vertical orientation.  Can be <code>middle</code>, <code>top</code>, or <code>bottom</code>.</p>
+</div> <p><em>(default: 'middle')</em></p></td></tr><tr><td>anchor <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primerlabel-page"><p>The label hrizontal anchor.  Can be <code>middle</code>, <code>start</code>, <code>end</code>.</p>
+</div> <p><em>(default: 'middle')</em></p></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angularprimer-directive-page angularprimer-directive-primerlabel-page"><h4 id="example_source">Source</h4>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html=".html" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title=".html">
+<pre class="prettyprint linenums" ng-set-text=".html"></pre>
+<script type="text/ng-template" id=".html">
+  <form>
+    Feature label anchor:
+    <select ng-model="anchor" ng-init="anchor = 'middle'">
+      <option value="start">start</option>
+      <option value="end">end</option>
+      <option value="middle">middle</option>
+    </select><br />
+     Feature label orient:
+     <select ng-model="orient" ng-init="orient = 'middle'">
+       <option value="top">top</option>
+       <option value="bottom">bottom</option>
+       <option value="middle">middle</option>
+     </select><br />
+    Feature label text: <input ng-model="text" type="text" ng-init="text = 'A'" /><br />
+  </form>
+  <svg width="100%" shape-rendering="crispEdges">
+   <g primer-track transform="translate(0,30)" sequence-length="100" height="15">
+     <g primer-scale orient="top">
+       <g primer-label anchor="start">
+         <text text-anchor="start" alignment-baseline="middle">3'</text>
+       </g>
+       <g primer-label anchor="end">
+         <text text-anchor="end" alignment-baseline="middle">5'</text>
+       </g>
+     </g>
+     <g primer-feature start="10" end="50" class="marker" transform="translate(0,15)">
+       <path primer-feature-shape />
+       <g primer-label anchor="{{anchor}}" orient="{{orient}}">
+         <text text-anchor="{{anchor}}" alignment-baseline="middle">{{text}}</text>
+       </g>
+     </g>
+   </g>
+  </svg>
+</script>
+</div>
+<div class="tab-pane" title=".css">
+<pre class="prettyprint linenums" ng-set-text=".css"></pre>
+<style type="text/css" id=".css">
+ svg .domain {
+   fill: none;
+   stroke: black;
+   stroke-width: 2px;
+ }
+
+ svg .tick line {
+   fill: none;
+   stroke: black;
+   stroke-width: 1px;
+ }
+
+ .marker {
+   fill:lightblue;
+   stroke:black;
+   stroke-width: 1px;
+ }
+
+ .marker.none {
+   fill:#fff !important;
+   stroke-width:1px;
+ }
+
+ .marker:hover {
+   stroke-width:2px;
+ }
+
+ .marker text {
+   stroke: none;
+   fill: black;
+ }
+</style>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html=".html" ng-eval-javascript=""></div>
+</div></div>
+</div>

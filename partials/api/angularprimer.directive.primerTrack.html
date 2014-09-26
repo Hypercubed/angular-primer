@@ -1,0 +1,102 @@
+<h1><code ng:non-bindable="">primerTrack</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">angularprimer</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>Creates a container used to group features, scales, and labels.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;primer-track
+       [sequence="{string}"]
+       [sequence-length="{number|expression}"]
+       [start="{number|expression}"]
+       [width="{number|expression}"]
+       [height="{number|expression}"]&gt;
+&lt;/primer-track&gt;</pre>
+as attribute<pre class="prettyprint linenums">&lt;g primer-track
+     [sequence="{string}"]
+     [sequence-length="{number|expression}"]
+     [start="{number|expression}"]
+     [width="{number|expression}"]
+     [height="{number|expression}"]&gt;
+   ...
+&lt;/g&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>sequence <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>The sequence</p>
+</div></td></tr><tr><td>sequenceLength <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>The sequence length used to scale the track</p>
+</div> <p><em>(default: sequence.length || 100)</em></p></td></tr><tr><td>start <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>The sequence starting value (default = 0)</p>
+</div> <p><em>(default: 1)</em></p></td></tr><tr><td>width <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>The track width, in pixels</p>
+</div> <p><em>(default: 500)</em></p></td></tr><tr><td>height <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-number">number</a><a href="" class="label type-hint type-hint-expression">expression</a></td><td><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><p>The track height, in pixels</p>
+</div> <p><em>(default: 10)</em></p></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="angularprimer-directive-page angularprimer-directive-primertrack-page"><h4 id="example_source">Source</h4>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="index.html" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html" ng-html-wrap-loaded="angularprimer angular.js"></pre>
+<script type="text/ng-template" id="index.html">
+ <form>
+   sequence-length:
+   <input ng-model="length" type="number" ng-init="length = 20" min="1" /><br />
+   height:
+   <input ng-model="height" type="number" ng-init="height = 10" min="1" /><br />
+   width:
+   <input ng-model="width" type="number" ng-init="width = 500"  min="1" /><br />
+ </form>
+ <svg width="100%" shape-rendering="crispEdges">
+   <g primer-track transform="translate(0,30)"
+     sequence-length="length" height="height" width="width">
+     <g primer-scale />
+     <g primer-label anchor="end" orient="middle">
+       <text text-anchor="start" alignment-baseline="middle">3'</text>
+     </g>
+     <g primer-label anchor="start" orient="middle">
+       <text text-anchor="end" alignment-baseline="middle">5'</text>
+     </g>
+     <g primer-feature start="3" end="8" class="marker" >
+       <primer-feature-shape />
+     </g>
+     <g primer-feature start="10" end="15" class="marker">
+       <primer-feature-shape />
+     </g>
+     <g primer-feature start="17" end="19" class="marker" >
+       <primer-feature-shape />
+     </g>
+   </g>
+ </svg>
+</script>
+</div>
+<div class="tab-pane" title=".css">
+<pre class="prettyprint linenums" ng-set-text=".css"></pre>
+<style type="text/css" id=".css">
+ svg .domain {
+   fill: none;
+   stroke: black;
+   stroke-width: 2px;
+ }
+
+ svg .tick line {
+   fill: none;
+   stroke: black;
+   stroke-width: 1px;
+ }
+
+ .marker {
+   fill:lightblue;
+   stroke:black;
+   stroke-width: 1px;
+ }
+
+ .marker.none {
+   fill:#fff !important;
+   stroke-width:1px;
+ }
+
+ .marker:hover {
+   stroke-width:2px;
+ }
+</style>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="index.html" ng-eval-javascript=""></div>
+</div></div>
+</div>
