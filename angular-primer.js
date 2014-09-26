@@ -66,7 +66,6 @@
         <example module="angularprimer-example">
           <file name="exampleB.html">
             <div ng-controller="MainController as main">
-
             <table class="form" style="float: left;">
               <tr>
                 <th>Feature</th>

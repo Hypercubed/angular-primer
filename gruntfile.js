@@ -38,16 +38,24 @@ module.exports = function(grunt){
     ngdocs: {
       options: {
         html5Mode: false,
+        discussions: {
+          shortName: 'hypercubedgithub',
+          url: 'http://hypercubed.github.io/<%= pkg.name %>/#',
+          dev: false
+        },
         scripts: [
+          './bower_components/d3/d3.js',
           './bower_components/angular/angular.js',
           './bower_components/angular-animate/angular-animate.js',
           './<%= pkg.name %>.js',
-          './bower_components/d3/d3.js'
-        ]//,
+          './docs-template/script.js'
+        ],
         //styles: ['./example/example.css']
       },
       all: ['<%= pkg.name %>.js']
     },
+
+    clean: ['docs'],
 
     connect: {
       server: {
@@ -73,11 +81,12 @@ module.exports = function(grunt){
   });
 
   require('load-grunt-tasks')(grunt);
+  require('time-grunt')(grunt);
 
   grunt.registerTask('serve', ['build','connect','watch']);
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['jshint', 'uglify','ngdocs']);
+  grunt.registerTask('build', ['clean', 'jshint', 'uglify','ngdocs']);
   grunt.registerTask('publish', ['bump-only','uglify','bump-commit']);
 
 };
