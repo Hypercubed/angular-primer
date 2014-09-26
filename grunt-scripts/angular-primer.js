@@ -13,7 +13,7 @@
 
     /**
      * @ngdoc overview
-     * @name angularprimer
+     * @name index
      *
      * @description
      * AngularJs module for creating an interactive SVG primer visualization. This library currently depends on [d3](http://d3js.org/) and requires [angularjs 1.3.0-rc](https://angularjs.org/) or higher.
@@ -200,6 +200,27 @@
         </example>
       *
       */
+
+    /**
+     * @ngdoc overview
+     * @name angularprimer
+     * @description # angularprimer (core module)
+       # Installation
+      First include angular-primer.js in your HTML:
+
+      ```js
+        <script src="angular-primer.js">
+      ```
+
+      Then load the module in your application by adding it as a dependent module:
+
+      ```js
+      angular.module('yourApp', ['angularprimer']);
+      ```
+
+      With that you're ready to get started!
+     */
+
     var app = angular.module('angularprimer', [])
 
 

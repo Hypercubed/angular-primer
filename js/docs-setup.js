@@ -5,12 +5,21 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
+      "id": "index",
+      "shortName": "index",
+      "type": "overview",
+      "moduleName": "index",
+      "shortDescription": "AngularJs module for creating an interactive SVG primer visualization. This library currently depends on d3 and requires angularjs 1.3.0-rc or higher.",
+      "keywords": "add additional alignment-baseline anchor angular angular-primer angularjs angularprimer angularprimer-example api array arrow-left arrow-right attributes binding black bottom built ccctgtggagccacaccctcaccct class color composable controller creates creating crispedges css currently data depends direction directive directives domain elements example examplea exampleb fc0 feature feature-track features fill filter float form forward function genomic getshape green grey height higher html input interactive join js label left length library lightblue main maincontroller marker max middle min module ng-controller ng-model ng-repeat ng-style number org orient outer-tick-size overview primer primer-feature primer-feature-shape primer-label primer-scale primer-track rect red requires return reverse sequence sequence-length shape-rendering simple start start-1 strand stroke stroke-width style styling svg table text-anchor tick ticks top track transform translate type var view visualization width yellowgreen"
+    },
+    {
+      "section": "api",
       "id": "angularprimer",
       "shortName": "angularprimer",
       "type": "overview",
       "moduleName": "angularprimer",
-      "shortDescription": "AngularJs module for creating an interactive SVG primer visualization. This library currently depends on d3 and requires angularjs 1.3.0-rc or higher.",
-      "keywords": "add additional alignment-baseline anchor angular angular-primer angularjs angularprimer angularprimer-example api array arrow-left arrow-right attributes binding black bottom built ccctgtggagccacaccctcaccct class color composable controller creates creating crispedges css currently data depends direction directive directives domain elements example examplea exampleb fc0 feature feature-track features fill filter float form forward function genomic getshape green grey height higher html input interactive join js label left length library lightblue main maincontroller marker max middle min module ng-controller ng-model ng-repeat ng-style number org orient outer-tick-size overview primer primer-feature primer-feature-shape primer-label primer-scale primer-track rect red requires return reverse sequence sequence-length shape-rendering simple start start-1 strand stroke stroke-width style styling svg table text-anchor tick ticks top track transform translate type var view visualization width yellowgreen"
+      "shortDescription": "angularprimer (core module)",
+      "keywords": "adding angular angular-primer angularprimer api application dependent html include installation js load module overview ready src started yourapp"
     },
     {
       "section": "api",
@@ -63,7 +72,7 @@ NG_DOCS={
   },
   "html5Mode": false,
   "editExample": true,
-  "startPage": "/api/angularprimer",
+  "startPage": "/api",
   "discussions": {
     "shortName": "hypercubedgithub",
     "url": "http://hypercubed.github.io/angular-primer/#",
