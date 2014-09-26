@@ -30,23 +30,14 @@
                   <g primer-label anchor="end"><text text-anchor="start">3'</text></g>
                   <g primer-label anchor="start"><text text-anchor="end">5'</text></g>
                 </g>
-                <g primer-feature
-                  transform="translate(0,15)"
-                  start="10e4"
-                  end="25e4"
-                  class="marker" >
+                <g primer-feature class="marker" transform="translate(0,15)"start="10e4" end="25e4">
+                  <g primer-feature-shape />
                 </g>
-                <g primer-feature
-                  transform="translate(0,30)"
-                  start="20e4"
-                  end="55e4"
-                  class="marker" >
+                <g primer-feature class="marker" transform="translate(0,30)" start="20e4" end="55e4">
+                  <g primer-feature-shape />
                 </g>
-                <g primer-feature
-                  transform="translate(0,45)"
-                  start="50e4"
-                  end="95e4"
-                  class="marker" >
+                <g primer-feature transform="translate(0,45)" start="50e4" end="95e4" class="marker" >
+                  <g primer-feature-shape />
                 </g>
               </g>
             </svg>
@@ -112,50 +103,38 @@
 
             <svg width="800" height="200" shape-rendering="crispEdges">
               <g primer-track transform="translate(0,30)" class="track"
-                sequence="{{main.sequence}}"
-                width="500"
-                height="10">
-                <g>
-                  <g primer-scale
-                    ticks="0"
-                    outer-tick-size="0">
-                      <g primer-label anchor="end">
-                        <text text-anchor="start" alignment-baseline="middle">3'</text>
-                      </g>
-                      <g primer-label anchor="start">
-                        <text text-anchor="end" alignment-baseline="middle">5'</text>
-                      </g>
-                    </g>
+                  sequence="{{main.sequence}}" width="500" height="10">
+                <g transform="translate(0,0)">
+                  <g primer-label anchor="end">
+                    <text text-anchor="start" alignment-baseline="middle">3'</text>
+                  </g>
+                  <g primer-label anchor="start">
+                    <text text-anchor="end" alignment-baseline="middle">5'</text>
+                  </g>
+                  <g primer-scale ticks="0" outer-tick-size="0" />
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
-                    start="feature.start"
-                    end="feature.end"
-                    direction="{{main.getDirection(feature)}}"
-                    ng-style="{fill: feature.color}"
-                    class="marker {{feature.label}} {{feature.direction}}" >
+                      start="feature.start" end="feature.end"
+                      ng-style="{fill: feature.color}"
+                      class="marker {{feature.label}} {{feature.direction}}" >
+                    <path primer-feature-shape="{{main.getShape(feature)}}" />
                     <g primer-label orient="top">
                       <text text-anchor="middle">{{feature.label}}</text>
                     </g>
                   </g>
                 </g>
                 <g transform="translate(0,20)">
-                  <g primer-scale
-                    ticks="0"
-                    outer-tick-size="0"
-                    label-left="3'"
-                    label-right="5'">
-                    <g primer-label anchor="end">
-                      <text text-anchor="start" alignment-baseline="middle">5'</text>
-                    </g>
-                    <g primer-label anchor="start">
-                      <text text-anchor="end" alignment-baseline="middle">3'</text>
-                    </g>
+                  <g primer-label anchor="end">
+                    <text text-anchor="start" alignment-baseline="middle">5'</text>
                   </g>
+                  <g primer-label anchor="start">
+                    <text text-anchor="end" alignment-baseline="middle">3'</text>
+                  </g>
+                  <g primer-scale ticks="0" outer-tick-size="0" />
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
-                    start="feature.start"
-                    end="feature.end"
-                    direction="{{main.getDirection(feature)}}"
-                    ng-style="{fill: feature.color}"
-                    class="marker {{feature.label}} {{feature.direction}}" >
+                      start="feature.start" end="feature.end"
+                      ng-style="{fill: feature.color}"
+                      class="marker {{feature.label}} {{feature.direction}}" >
+                    <path primer-feature-shape="{{main.getShape(feature)}}" />
                     <g primer-label orient="bottom">
                       <text text-anchor="middle" alignment-baseline="middle">{{feature.label}}</text>
                     </g>
@@ -185,19 +164,17 @@
               { label: 'F', start: 180, end: 200, direction: 'none', strand: '-', color: '#fc0' }
               ];
 
-              main.getDirection = function(feature) {
+              main.getShape = function(feature) {
                 if (feature.direction === 'forward') {
-                  return (feature.strand === '+') ? 'right' : 'left';
+                  return (feature.strand === '+') ? 'arrow-right' : 'arrow-left';
                 } else if (feature.direction === 'reverse') {
-                  return (feature.strand === '-') ? 'right' : 'left';
+                  return (feature.strand === '-') ? 'arrow-right' : 'arrow-left';
                 } else {
-                  return feature.direction;
+                  return 'rect';
                 }
               };
 
             });
-
-
 
           }
 
@@ -223,14 +200,13 @@
         </example>
       *
       */
-
     var app = angular.module('angularprimer', [])
 
 
     /**
      * @ngdoc directive
      * @name angularprimer.directive:primerTrack
-     * @restrict A
+     * @restrict EA
      * @element g
      *
      * @description
@@ -255,36 +231,22 @@
           </form>
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)"
-              sequence-length="length"
-              height="height"
-              width="width">
+              sequence-length="length" height="height" width="width">
               <g primer-scale />
-              <g>
-                <g primer-label anchor="end" orient="middle">
-                  <text text-anchor="start" alignment-baseline="middle" transform="translate(5)">
-                    3'
-                  </text>
-                </g>
-                <g primer-label anchor="start" orient="middle">
-                  <text text-anchor="end" alignment-baseline="middle" transform="translate(-5)">
-                    5'
-                  </text>
-                </g>
+              <g primer-label anchor="end" orient="middle">
+                <text text-anchor="start" alignment-baseline="middle">3'</text>
               </g>
-              <g primer-feature
-                start="3"
-                end="8"
-                class="marker" >
+              <g primer-label anchor="start" orient="middle">
+                <text text-anchor="end" alignment-baseline="middle">5'</text>
               </g>
-              <g primer-feature
-                start="10"
-                end="15"
-                class="marker" >
+              <g primer-feature start="3" end="8" class="marker" >
+                <primer-feature-shape />
               </g>
-              <g primer-feature
-                start="17"
-                end="19"
-                class="marker" >
+              <g primer-feature start="10" end="15" class="marker">
+                <primer-feature-shape />
+              </g>
+              <g primer-feature start="17" end="19" class="marker" >
+                <primer-feature-shape />
               </g>
             </g>
           </svg>
@@ -321,10 +283,10 @@
      */
     .directive("primerTrack", function () {
       return {
-          restrict: 'A',
+          restrict: 'EA',
           templateNamespace: 'svg',
           template: '<g ng-transclude></g>',
-          replace : false,
+          replace : true,
           transclude: true,
           require: 'primerTrack',
           scope: {
@@ -378,7 +340,7 @@
    * @ngdoc directive
    * @name angularprimer.directive:primerFeature
    *
-   * @restrict A
+   * @restrict EA
    * @element g
    *
    * @description
@@ -387,7 +349,6 @@
    * @param {number|expression} start The feature starting position
    * @param {number|expression} end The feature ending position
    * @param {number|expression=} [height=track.height] The feature height
-   * @param {string=} [direction='none'] The feature direction.  Can be `left`, `right`, or `none`.
    *
    * @example
     <example module="angularprimer-example">
@@ -401,7 +362,6 @@
             <th>Feature</th>
             <th>Position</th>
             <th>Height</th>
-            <th>Direction</th>
           </tr>
           <tr class="track feature-track" ng-repeat="feature in main.features">
             <td>
@@ -414,46 +374,29 @@
             <td>
               <input type="number" ng-model="feature.height" min="0"/>
             </td>
-            <td>
-              <select ng-model="feature.direction">
-                <option value="none">none</option>
-                <option value="left">left</option>
-                <option value="right">right</option>
-              </select>
-            </td>
           </tr>
         </table>
 
         <svg width="800" height="200" shape-rendering="crispEdges">
           <g primer-track transform="translate(0,30)" class="track"
-            sequence="{{main.sequence}}"
-            start="10"
-            width="500"
-            height="10">
-            <g>
-              <g primer-scale
-                ticks="0"
-                outer-tick-size="0">
-                  <g primer-label anchor="end">
-                    <text text-anchor="start" alignment-baseline="middle">3'</text>
-                  </g>
-                  <g primer-label anchor="start">
-                    <text text-anchor="end" alignment-baseline="middle">5'</text>
-                  </g>
-                </g>
-              <g primer-feature ng-repeat="feature in main.features"
-                start="feature.start"
-                end="feature.end"
-                height="feature.height"
-                direction="{{feature.direction}}"
-                ng-style="{fill: feature.color}"
-                class="marker {{feature.label}} {{feature.direction}}" >
-                <g primer-label orient="top">
-                  <text text-anchor="middle">{{feature.label}}</text>
-                </g>
+              sequence="{{main.sequence}}" start="10" width="500" height="10">
+            <g primer-scale ticks="0" outer-tick-size="0">
+              <g primer-label anchor="end">
+                <text text-anchor="start" alignment-baseline="middle">3'</text>
+              </g>
+              <g primer-label anchor="start">
+                <text text-anchor="end" alignment-baseline="middle">5'</text>
               </g>
             </g>
-            <g primer-scale orient="bottom" transform="translate(0,30)"></g>
+            <g primer-feature ng-repeat="feature in main.features"
+                start="feature.start" end="feature.end" height="feature.height"
+                class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
+              <g primer-feature-shape />
+              <g primer-label orient="top">
+                <text text-anchor="middle">{{feature.label}}</text>
+              </g>
+            </g>
+            <primer-scale orient="bottom" transform="translate(0,30)" />
           </g>
         </svg>
         </div>
@@ -469,12 +412,12 @@
           main.sequence = new Array( 10 ).join( this.sequence );
 
           main.features = [
-          { label: 'A', start: 60, end: 90, direction: 'right', color: 'lightblue', height: null },
-          { label: 'B', start: 125, end: 150, direction: 'right', color: 'green', height: null },
-          { label: 'C', start: 180, end: 210, direction: 'none', color: 'yellowgreen', height: null },
-          { label: 'D', start: 95, end: 120, direction: 'left', color: 'grey', height: null },
-          { label: 'E', start: 160, end: 175, direction: 'left', color: 'red', height: null },
-          { label: 'F', start: 25, end: 50, direction: 'none', color: '#fc0', height: null }
+          { label: 'A', start: 60, end: 90, color: 'lightblue', height: null },
+          { label: 'B', start: 125, end: 150, color: 'green', height: null },
+          { label: 'C', start: 180, end: 210, color: 'yellowgreen', height: null },
+          { label: 'D', start: 95, end: 120, color: 'grey', height: null },
+          { label: 'E', start: 160, end: 175, color: 'red', height: null },
+          { label: 'F', start: 25, end: 50, color: '#fc0', height: null }
           ];
         });
 
@@ -501,13 +444,15 @@
    */
     .directive("primerFeature", function () {
       return {
-          restrict: 'A',
+          restrict: 'EA',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{translate()}})">'+
-                      '<path ng-attr-d="{{d}}" />'+
-                      '<title ng-bind="title()" />'+
-                    '<g ng-transclude /></g>',
-          replace : false,
+          template: '<g>'+
+                      '<g ng-attr-transform="translate({{translate()}})">'+
+                        '<title ng-bind="title()" />'+
+                        '<g ng-transclude />'+
+                      '</g>'+
+                    '<g>',
+          replace : true,
           transclude: true,
           require: ['primerFeature','^primerTrack'],
           scope: {
@@ -542,7 +487,7 @@
             };
 
             function yPosition() {
-              return (track.height() - feature.height())/2;
+              return (track.height())/2;
             }
 
             function xPosition() {
@@ -561,35 +506,6 @@
               return txt;
             };
 
-            function draw() {
-              var al = 10;
-              var ah = 10;
-
-              var L = feature.width();
-              var h = feature.height();
-              var dir = scope.direction;
-
-              if (L < al) {
-                al = L;
-              }
-
-              if (L < 0) {
-                L=1;
-              }
-
-              if (dir == 'left') {
-                L -= al;
-                scope.d = 'M0,'+h/2+' l'+al+','+(h/2+5)+' l0,-5 l'+L+',0 l0,-'+h+' l-'+L+',0 l0,-5 z';
-              } else if (dir == 'right') {
-                L -= al;
-                scope.d = 'M0,0 l'+L+',0 l0,-5 l'+al+','+(h/2+5)+' l-'+al+','+(h/2+5)+' l0,-5 l-'+L+',0 z';
-              } else {
-                scope.d = 'M0,0 l'+L+',0 l0,'+h+' l-'+L+',0 z';
-              }
-            }
-
-            scope.$watchCollection('[feature.width(),feature.height(),direction]', draw);
-
           }
 
       };
@@ -597,9 +513,184 @@
 
     /**
      * @ngdoc directive
+     * @name angularprimer.directive:primerFeatureShape
+     *
+     * @restrict EA
+     * @element path
+     *
+     * @description
+     * Creates a shape in a feature
+     *
+     * @param {string=} [primerFeatureShape='rect'] The feature shape.  Can be `arrow-right`, `arrow-left`, or `rect`.
+     * @param {string=} [height='feature.height()'] The shape hieght.  Defaults to height if the feature.
+     *
+     * @example
+     <example module="angularprimer-example">
+        <file name="exampleB.html">
+          <div ng-controller="MainController as main">
+
+          <table class="form" style="float: left;">
+            <tr>
+              <th>Feature</th>
+              <th>Height</th>
+              <th>Type</th>
+            </tr>
+            <tr class="track feature-track" ng-repeat="feature in main.features">
+              <td>
+                <label>{{feature.label}}</label>
+              </td>
+              <td>
+                <input type="number" ng-model="feature.height" min="0"/>
+              </td>
+              <td>
+                <select ng-model="feature.type">
+                  <option value="">rect</option>
+                  <option value="arrow-right">arrow-right</option>
+                  <option value="arrow-left">arrow-left</option>
+                  <!-- option value="circle">circle</option>
+                  <option value="cross">cross</option>
+                  <option value="diamond">diamond</option>
+                  <option value="square">square</option>
+                  <option value="triangle-down">triangle-down</option>
+                  <option value="triangle-up">triangle-up</option -->
+                </select>
+              </td>
+            </tr>
+          </table>
+
+          <svg width="800" height="200" shape-rendering="crispEdges">
+            <g primer-track transform="translate(0,30)" class="track"
+                sequence-length="250" start="10" width="500" height="10">
+              <g primer-label anchor="end">
+                <text text-anchor="start" alignment-baseline="middle">3'</text>
+              </g>
+              <g primer-label anchor="start">
+                <text text-anchor="end" alignment-baseline="middle">5'</text>
+              </g>
+              <g primer-scale ticks="0" outer-tick-size="0" />
+              <g primer-feature ng-repeat="feature in main.features"
+                  start="feature.start" end="feature.end" class="marker {{feature.label}}" >
+                <g primer-feature-shape="{{feature.type}}" height="feature.height" />
+                <g primer-label orient="top">
+                  <text text-anchor="middle">{{feature.label}}</text>
+                </g>
+              </g>
+              <g primer-scale orient="bottom" transform="translate(0,30)"></g>
+            </g>
+          </svg>
+          </div>
+        </file>
+        <file name=".js">
+
+          angular.module('angularprimer-example',['angularprimer'])
+
+          .controller('MainController', function MainController($scope) {
+            var main = this;
+
+            main.features = [
+              { label: 'A', start: 60, end: 90, direction: 'right', height: null, type: null },
+              { label: 'B', start: 125, end: 150, direction: 'right', height: null, type: null },
+              { label: 'C', start: 180, end: 210, direction: 'none', height: null, type: null },
+              { label: 'D', start: 95, end: 120, direction: 'left', height: null, type: null },
+              { label: 'E', start: 160, end: 175, direction: 'left', height: null, type: null },
+              { label: 'F', start: 25, end: 50, direction: 'none', height: null, type: null }
+            ];
+          });
+
+        </file>
+        <file name="exampleB.css">
+          table.form input {
+            width: 40px;
+          }
+
+          svg .domain {
+            fill: none;
+            stroke: black;
+            stroke-width: 2px;
+          }
+
+          svg .tick line {
+            fill: none;
+            stroke: black;
+            stroke-width: 1px;
+          }
+
+          .marker path {
+            fill:lightblue;
+            stroke:black;
+            stroke-width: 1px;
+          }
+
+          .marker:hover path {
+            stroke-width:2px;
+          }
+        </file>
+      </example>
+      */
+      .directive("primerFeatureShape", function () {
+
+        var arrow_height = 10;
+        var arrow_length = 10;
+
+        var svg_shapes = {  // TODO: move
+          'rect': function svg_rect(L,h) {
+            return 'M0,-'+h/2+' l'+L+',0 l0,'+h+' l-'+L+',0 z';
+          },
+          'arrow-left': function svg_arrow_left(L,h) {
+            var al = L < arrow_length ? L : arrow_length;
+            var ah = arrow_height;
+            var w = L-al;
+
+            return 'M0,0 l'+al+','+(h/2+5)+' l0,-5 l'+w+',0 l0,-'+h+' l-'+w+',0 l0,-5 z';
+          },
+          'arrow-right': function svg_arrow_right(L,h) {
+            var al = L < arrow_length ? L : arrow_length;
+            var ah = arrow_height;
+            var w = L-al;
+
+            return 'M0,-'+h/2+' l'+w+',0 l0,-5 l'+al+','+(h/2+5)+' l-'+al+','+(h/2+5)+' l0,-5 l-'+w+',0 z';
+          }
+        };
+
+        return {
+            restrict: 'EA',
+            templateNamespace: 'svg',
+            template: '<path />',
+            replace : true,
+            transclude: false,
+            require: ['^primerFeature'],
+            scope: {
+              type: '@primerFeatureShape',
+              height: '&'
+            },
+            link: function link(scope, element, attrs, ctrls) {
+              var feature = scope.feature = ctrls[0];
+
+              function draw() {
+
+                var L = feature.width() || 1;
+                var h = scope.height() || feature.height() || 10;
+                var dir = scope.direction || 'none';
+                var type = scope.type || 'rect';
+
+                if (L < 0) {  L = 1; }
+
+                var d = svg_shapes[type] || d3.svg.symbol().type(type).size(h*h);
+                element.attr({d: d(L,h) });
+
+              }
+
+              scope.$watchCollection('[feature.width(),feature.height(),height(),direction,type]', draw);
+
+            }
+        };
+      })
+
+    /**
+     * @ngdoc directive
      * @name angularprimer.directive:primerLabel
      *
-     * @restrict A
+     * @restrict EA
      * @element g
      *
      * @description
@@ -628,8 +719,7 @@
            </form>
            <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="100" height="15">
-              <g primer-scale orient="top"/>
-              <g transform="translate(0,30)">
+              <g primer-scale orient="top">
                 <g primer-label anchor="start">
                   <text text-anchor="start" alignment-baseline="middle">3'</text>
                 </g>
@@ -637,11 +727,8 @@
                   <text text-anchor="end" alignment-baseline="middle">5'</text>
                 </g>
               </g>
-              <g primer-feature
-                transform="translate(0,15)"
-                start="10"
-                end="50"
-                class="marker" >
+              <g primer-feature start="10" end="50" class="marker" transform="translate(0,15)">
+                <path primer-feature-shape />
                 <g primer-label anchor="{{anchor}}" orient="{{orient}}">
                   <text text-anchor="{{anchor}}" alignment-baseline="middle">{{text}}</text>
                 </g>
@@ -686,7 +773,7 @@
      */
     .directive("primerLabel", function () {
       return {
-          restrict: 'A',
+          restrict: 'EA',
           templateNamespace: 'svg',
           template: '<g ng-attr-transform="translate({{translate()}})" ng-transclude />',
           replace : true,
@@ -700,8 +787,8 @@
 
           },
           link: function link(scope, element, attrs, ctrls) {
-            var track = ctrls[1];
             var feature = ctrls[0];
+            var track = ctrls[1];
 
             var height = (feature) ?
               function() { return feature.height(); } :
@@ -716,11 +803,11 @@
             }
 
             function yPosition() {
-              if (scope.orient === 'top') { return -6; }
-
               var h = height();
-              if (scope.orient === 'bottom') { return h+9; }
-              return h/2+2;
+              var y = (feature) ? 0 : height()/2;
+              if (scope.orient === 'top') { return y-h/2-6; }
+              if (scope.orient === 'bottom') { return y+h/2+9; }
+              return y+3;
             }
 
             scope.translate = function() {
@@ -735,7 +822,7 @@
      * @ngdoc directive
      * @name angularprimer.directive:primerScale
      *
-     * @restrict A
+     * @restrict EA
      * @element g
      *
      * @description
@@ -768,24 +855,21 @@
           </form>
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="10e6">
-              <g primer-scale orient="{{orient}}" format="format">
-                <g primer-label anchor="end" orient="middle"><text text-anchor="start" alignment-baseline="middle">3'</text></g>
-                <g primer-label anchor="start" orient="middle"><text text-anchor="end" alignment-baseline="middle">5'</text></g>
+              <g primer-label anchor="end" orient="middle">
+                <text text-anchor="start" alignment-baseline="middle">3'</text>
               </g>
-              <g primer-feature
-                start="10e5"
-                end="25e5"
-                class="marker" >
+              <g primer-label anchor="start" orient="middle">
+                <text text-anchor="end" alignment-baseline="middle">5'</text>
               </g>
-              <g primer-feature
-                start="28e5"
-                end="55e5"
-                class="marker" >
+              <g primer-scale orient="{{orient}}" format="format" />
+              <g primer-feature start="10e5" end="25e5" class="marker">
+                <primer-feature-shape />
               </g>
-              <g primer-feature
-                start="59e5"
-                end="95e5"
-                class="marker" >
+              <g primer-feature start="28e5" end="55e5" class="marker">
+                  <primer-feature-shape />
+              </g>
+              <g primer-feature start="59e5" end="95e5"class="marker">
+                <primer-feature-shape />
               </g>
             </g>
           </svg>
@@ -822,10 +906,12 @@
      */
     .directive("primerScale", function () {  // TODO: remame axis?
       return {
-          restrict: 'A',
+          restrict: 'EA',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate(0,{{yPosition()}})" /><g ng-transclude />',
-          replace : false,
+          template: '<g>'+
+                      '<g ng-attr-transform="translate(0,{{yPosition()}})" ng-transclude />'+
+                    '</g>',
+          replace : true,
           transclude: true,
           require: '^primerTrack',
           scope: {

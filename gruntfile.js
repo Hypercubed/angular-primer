@@ -38,7 +38,12 @@ module.exports = function(grunt){
     ngdocs: {
       options: {
         html5Mode: false,
-        scripts: ['./bower_components/angular/angular.js','./bower_components/angular-animate/angular-animate.js','./<%= pkg.name %>.js','./bower_components/d3/d3.js']//,
+        scripts: [
+          './bower_components/angular/angular.js',
+          './bower_components/angular-animate/angular-animate.js',
+          './<%= pkg.name %>.js',
+          './bower_components/d3/d3.js'
+        ]//,
         //styles: ['./example/example.css']
       },
       all: ['<%= pkg.name %>.js']
