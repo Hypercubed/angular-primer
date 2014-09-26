@@ -1,6 +1,7 @@
 /*
- * angular-primer 0.0.1
+ * angular-primer 0.0.2
  * (c) 2014 J. Harshbarger
+ * This work was supported by a research grant from the Japanese Ministry of Education, Culture, Sports, Science and Technology (MEXT) to the RIKEN Center for Life Science Technologies.
  * Licensed MIT
  */
 
@@ -12,10 +13,10 @@
 
     /**
      * @ngdoc overview
-     * @name index
+     * @name angularprimer
      *
      * @description
-     * AngularJs module for creating an svg primer visualization.  This library currently depends on d3.
+     * AngularJs module for creating an interactive SVG primer visualization. This library currently depends on [d3](http://d3js.org/) and requires [angularjs 1.3.0-rc](https://angularjs.org/) or higher.
      *
       * @example
 
@@ -525,7 +526,7 @@
      *
      * @example
      <example module="angularprimer-example">
-        <file name="exampleB.html">
+        <file name=".html">
           <div ng-controller="MainController as main">
 
           <table class="form" style="float: left;">
@@ -597,7 +598,7 @@
           });
 
         </file>
-        <file name="exampleB.css">
+        <file name=".css">
           table.form input {
             width: 40px;
           }

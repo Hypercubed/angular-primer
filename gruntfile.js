@@ -38,6 +38,8 @@ module.exports = function(grunt){
     ngdocs: {
       options: {
         html5Mode: false,
+        startPage: '/api/angularprimer',
+        navTemplate: './docs-template/nav.html',
         discussions: {
           shortName: 'hypercubedgithub',
           url: 'http://hypercubed.github.io/<%= pkg.name %>/#',
@@ -49,7 +51,7 @@ module.exports = function(grunt){
           './bower_components/angular-animate/angular-animate.js',
           './<%= pkg.name %>.js',
           './docs-template/script.js'
-        ],
+        ]
         //styles: ['./example/example.css']
       },
       all: ['<%= pkg.name %>.js']
@@ -76,8 +78,12 @@ module.exports = function(grunt){
     },
 
     'gh-pages': {
-      src: ['<%= pkg.name %>.js','<%= pkg.name %>.min.js','*.css','bower_components/**/*','example/*']
+      options: {
+        base: 'docs'
+      },
+      src: ['**']
     }
+
   });
 
   require('load-grunt-tasks')(grunt);
@@ -87,6 +93,6 @@ module.exports = function(grunt){
 
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean', 'jshint', 'uglify','ngdocs']);
-  grunt.registerTask('publish', ['bump-only','uglify','bump-commit']);
+  grunt.registerTask('publish', ['bump-only','build','bump-commit','gh-pages']);
 
 };
