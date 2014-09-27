@@ -3,148 +3,39 @@
 </div>
 </h1>
 <div><div class="index-page"><p>AngularJs module for creating an interactive SVG primer visualization. This library currently depends on <a href="http://d3js.org/">d3</a> and requires <a href="https://angularjs.org/">angularjs 1.3.0-rc</a> or higher.</p>
+<h3 id="introduction">Introduction</h3>
+<p>angular-primer is a set of angualrjs directives that can be easily added to existing angularjs applications to visualize genomic features.  While originally designed for the visualization of DNA/RNA primers, the angular-primer directives composable elements can be used together to create a simple, or complex, SVG visualizations of any strand based genomic features.  A visulaization consists of one or more <a href="#/api/angularprimer.directive:primerTrack">primer-track</a> elements.  Each <a href="#/api/angularprimer.directive:primerTrack">primer-track</a> element can contain any number of <a href="#/api/angularprimer.directive:primerScale">primer-scale</a>, <a href="#/api/angularprimer.directive:primerLabel">primer-label</a>, and <a href="#/api/angularprimer.directive:primerFeature">primer-feature</a> elements. A <a href="#/api/angularprimer.directive:primerFeature">primer-feature</a> in turn can contain any number of <a href="#/api/angularprimer.directive:primerLabel">primer-label</a> and <a href="#/api/angularprimer.directive:primerFeatureShape">primer-feature-shape</a> elements.  Since the view is built using SVG elements you have can add any additional SVG attributes, style with CSS, or extend behavior with other angularjs directives.  The first example below shows a very simple example of the composable angular-primer elements.  The second example example shows binding to angular data and styling using ng-style directive.</p>
 </div><h2 id="example">Example</h2>
 <div class="example"><div class="index-page"><p>The following example creates a simple genomic feature view using composable angular-primer directives.</p>
-<h4 id="example_source">Source</h4>
+<p> <h4 id="example_source">Source</h4>
 <div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleA.html" source-edit-css="example.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
 <div class="tabbable"><div class="tab-pane" title="exampleA.html">
 <pre class="prettyprint linenums" ng-set-text="exampleA.html"></pre>
 <script type="text/ng-template" id="exampleA.html">
-    <svg width="100%" shape-rendering="crispEdges">
-      <g primer-track transform="translate(0,30)" sequence-length="1e6">
-        <g primer-scale orient="top" />
-        <g transform="translate(0,30)">
-          <g primer-label anchor="end"><text text-anchor="start">3'</text></g>
-          <g primer-label anchor="start"><text text-anchor="end">5'</text></g>
-        </g>
-        <g primer-feature class="marker" transform="translate(0,15)"start="10e4" end="25e4">
-          <g primer-feature-shape />
-        </g>
-        <g primer-feature class="marker" transform="translate(0,30)" start="20e4" end="55e4">
-          <g primer-feature-shape />
-        </g>
-        <g primer-feature transform="translate(0,45)" start="50e4" end="95e4" class="marker" >
-          <g primer-feature-shape />
-        </g>
-      </g>
-    </svg>
-  </script>
+     <svg width="100%" shape-rendering="crispEdges" >
+       <g primer-track transform="translate(0,30)">
+         <g primer-scale/>
+         <g primer-label anchor="start"><text text-anchor="end">3'</text></g>
+         <g primer-label anchor="end"><text text-anchor="start">5'</text></g>
+         <g primer-feature start="10" end="25">
+           <g primer-feature-shape class="marker"/>
+           <g primer-label orient="top"><text>A</text></g>
+         </g>
+         <g primer-feature start="30" end="55">
+           <g primer-feature-shape class="marker" />
+           <g primer-label orient="top"><text>B</text></g>
+         </g>
+         <g primer-feature start="60" end="95">
+           <g primer-feature-shape class="marker"/>
+           <g primer-label orient="top"><text>C</text></g>
+         </g>
+       </g>
+     </svg>
+   </script>
 </div>
 <div class="tab-pane" title="example.css">
 <pre class="prettyprint linenums" ng-set-text="example.css"></pre>
 <style type="text/css" id="example.css">
-   svg .domain {
-     fill: none;
-     stroke: black;
-     stroke-width: 2px;
-   }
-
-   svg .tick line {
-     fill: none;
-     stroke: black;
-     stroke-width: 1px;
-   }
-
-   .marker:hover {
-     stroke-width:2px;
-   }
-  </style>
-</div>
-</div><h4 id="example_demo">Demo</h4>
-<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleA.html" ng-eval-javascript=""></div>
-<p>However, because this is an angular view built using svg elements you have can add any additional svg attributes and angular directives.  This example shows binding to angular data and styling using ng-style directive.</p>
-<h4 id="example_source">Source</h4>
-<div source-edit="angularprimer-example" source-edit-deps="angular.js .js" source-edit-html="exampleB.html" source-edit-css="exampleB.css" source-edit-js=".js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
-<div class="tabbable"><div class="tab-pane" title="exampleB.html">
-<pre class="prettyprint linenums" ng-set-text="exampleB.html"></pre>
-<script type="text/ng-template" id="exampleB.html">
-    <div ng-controller="MainController as main">
-    <table class="form" style="float: left;">
-      <tr>
-        <th>Feature</th>
-        <th>Strand</th>
-        <th>Display</th>
-      </tr>
-      <tr class="track feature-track" ng-repeat="feature in main.features">
-        <td>
-          <label>{{feature.label}}</label>
-        </td>
-        <td>
-          <input type="number"
-            ng-model="feature.start"
-            min="{{$first ? 0 : main.features[$index-1].end+1}}"
-            max="{{feature.end}}"/>
-          <input type="number"
-            ng-model="feature.end"
-            min="{{feature.start}}"
-            max="{{$last ? main.sequence.length : main.features[$index+1].start-1}}"/>
-          <select ng-model="feature.strand">
-            <option value="+">+</option>
-            <option value="-">-</option>
-          </select>
-        </td>
-        <td>
-          <select ng-model="feature.direction">
-            <option value="none">none</option>
-            <option value="forward">forward</option>
-            <option value="reverse">reverse</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-
-    <svg width="800" height="200" shape-rendering="crispEdges">
-      <g primer-track transform="translate(0,30)" class="track"
-          sequence="{{main.sequence}}" width="500" height="10">
-        <g transform="translate(0,0)">
-          <g primer-label anchor="end">
-            <text text-anchor="start" alignment-baseline="middle">3'</text>
-          </g>
-          <g primer-label anchor="start">
-            <text text-anchor="end" alignment-baseline="middle">5'</text>
-          </g>
-          <g primer-scale ticks="0" outer-tick-size="0" />
-          <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
-              start="feature.start" end="feature.end"
-              ng-style="{fill: feature.color}"
-              class="marker {{feature.label}} {{feature.direction}}" >
-            <path primer-feature-shape="{{main.getShape(feature)}}" />
-            <g primer-label orient="top">
-              <text text-anchor="middle">{{feature.label}}</text>
-            </g>
-          </g>
-        </g>
-        <g transform="translate(0,20)">
-          <g primer-label anchor="end">
-            <text text-anchor="start" alignment-baseline="middle">5'</text>
-          </g>
-          <g primer-label anchor="start">
-            <text text-anchor="end" alignment-baseline="middle">3'</text>
-          </g>
-          <g primer-scale ticks="0" outer-tick-size="0" />
-          <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
-              start="feature.start" end="feature.end"
-              ng-style="{fill: feature.color}"
-              class="marker {{feature.label}} {{feature.direction}}" >
-            <path primer-feature-shape="{{main.getShape(feature)}}" />
-            <g primer-label orient="bottom">
-              <text text-anchor="middle" alignment-baseline="middle">{{feature.label}}</text>
-            </g>
-          </g>
-        </g>
-        <g primer-scale orient="bottom" transform="translate(0,60)"></g>
-      </g>
-    </svg>
-    </div>
-  </script>
-</div>
-<div class="tab-pane" title="exampleB.css">
-<pre class="prettyprint linenums" ng-set-text="exampleB.css"></pre>
-<style type="text/css" id="exampleB.css">
-    table.form input {
-      width: 40px;
-    }
-
     svg .domain {
       fill: none;
       stroke: black;
@@ -157,44 +48,173 @@
       stroke-width: 1px;
     }
 
-  </style>
+    svg text {
+      alignment-baseline: middle,
+       text-anchor: middle
+    }
+
+     .marker {
+       fill:lightblue;
+       stroke:black;
+       stroke-width: 1px;
+     }
+
+     .marker.none {
+       fill:#fff !important;
+       stroke-width:1px;
+     }
+
+     .marker:hover {
+       stroke-width:2px;
+     }
+
+   </style>
+</div>
+</div><h4 id="example_demo">Demo</h4>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleA.html" ng-eval-javascript=""></div>
+<p> However, because this is an angular view built using svg elements you have can add any additional svg attributes and angular directives.  This example shows binding to angular data and styling using ng-style directive.</p>
+<p> <h4 id="example_source">Source</h4>
+<div source-edit="angularprimer-example" source-edit-deps="angular.js .js" source-edit-html="exampleB.html" source-edit-css="exampleB.css" source-edit-js=".js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleB.html">
+<pre class="prettyprint linenums" ng-set-text="exampleB.html"></pre>
+<script type="text/ng-template" id="exampleB.html">
+     <div ng-controller="MainController as main">
+     <table class="form" style="float: left;">
+       <tr>
+         <th>Feature</th>
+         <th>Strand</th>
+         <th>Display</th>
+       </tr>
+       <tr class="track feature-track" ng-repeat="feature in main.features">
+         <td>
+           <label>{{feature.label}}</label>
+         </td>
+         <td>
+           <input type="number"
+             ng-model="feature.start"
+             min="{{$first ? 0 : main.features[$index-1].end+1}}"
+             max="{{feature.end}}"/>
+           <input type="number"
+             ng-model="feature.end"
+             min="{{feature.start}}"
+             max="{{$last ? main.sequence.length : main.features[$index+1].start-1}}"/>
+           <select ng-model="feature.strand">
+             <option value="+">+</option>
+             <option value="-">-</option>
+           </select>
+         </td>
+         <td>
+           <select ng-model="feature.direction">
+             <option value="none">none</option>
+             <option value="forward">forward</option>
+             <option value="reverse">reverse</option>
+           </select>
+         </td>
+       </tr>
+     </table>
+
+     <svg width="800" height="200" shape-rendering="crispEdges">
+       <g primer-track transform="translate(0,30)" class="track"
+           sequence="{{main.sequence}}" width="500" height="10">
+         <g transform="translate(0,0)">
+           <g primer-label anchor="end">
+             <text text-anchor="start" alignment-baseline="middle">3'</text>
+           </g>
+           <g primer-label anchor="start">
+             <text text-anchor="end" alignment-baseline="middle">5'</text>
+           </g>
+           <g primer-scale ticks="0" outer-tick-size="0" />
+           <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
+               start="feature.start" end="feature.end"
+               ng-style="{fill: feature.color}"
+               class="marker {{feature.label}} {{feature.direction}}" >
+             <path primer-feature-shape="{{main.getShape(feature)}}" />
+             <g primer-label orient="top">
+               <text text-anchor="middle">{{feature.label}}</text>
+             </g>
+           </g>
+         </g>
+         <g transform="translate(0,20)">
+           <g primer-label anchor="end">
+             <text text-anchor="start" alignment-baseline="middle">5'</text>
+           </g>
+           <g primer-label anchor="start">
+             <text text-anchor="end" alignment-baseline="middle">3'</text>
+           </g>
+           <g primer-scale ticks="0" outer-tick-size="0" />
+           <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
+               start="feature.start" end="feature.end"
+               ng-style="{fill: feature.color}"
+               class="marker {{feature.label}} {{feature.direction}}" >
+             <path primer-feature-shape="{{main.getShape(feature)}}" />
+             <g primer-label orient="bottom">
+               <text text-anchor="middle" alignment-baseline="middle">{{feature.label}}</text>
+             </g>
+           </g>
+         </g>
+         <g primer-scale orient="bottom" transform="translate(0,60)"></g>
+       </g>
+     </svg>
+     </div>
+   </script>
+</div>
+<div class="tab-pane" title="exampleB.css">
+<pre class="prettyprint linenums" ng-set-text="exampleB.css"></pre>
+<style type="text/css" id="exampleB.css">
+     table.form input {
+       width: 40px;
+     }
+
+     svg .domain {
+       fill: none;
+       stroke: black;
+       stroke-width: 2px;
+     }
+
+     svg .tick line {
+       fill: none;
+       stroke: black;
+       stroke-width: 1px;
+     }
+
+   </style>
 </div>
 <div class="tab-pane" title=".js">
 <pre class="prettyprint linenums" ng-set-text=".js"></pre>
 <script type="text/ng-template" id=".js">
 
-    angular.module('angularprimer-example',['angularprimer'])
+     angular.module('angularprimer-example',['angularprimer'])
 
-    .controller('MainController', function MainController($scope) {
-      var main = this;
+     .controller('MainController', function MainController($scope) {
+       var main = this;
 
-      main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
-      main.sequence = new Array( 10 ).join( this.sequence );
+       main.sequence = 'CCCTGTGGAGCCACACCCTCACCCT';
+       main.sequence = new Array( 10 ).join( this.sequence );
 
-      main.features = [
-      { label: 'A', start: 25, end: 50, direction: 'forward', strand: '+', color: 'lightblue' },
-      { label: 'B', start: 55, end: 90, direction: 'forward', strand: '+', color: 'green' },
-      { label: 'C', start: 95, end: 120, direction: 'none', strand: '+', color: 'yellowgreen' },
-      { label: 'D', start: 125, end: 155, direction: 'forward', strand: '-', color: 'grey' },
-      { label: 'E', start: 160, end: 175, direction: 'forward', strand: '-', color: 'red' },
-      { label: 'F', start: 180, end: 200, direction: 'none', strand: '-', color: '#fc0' }
-      ];
+       main.features = [
+       { label: 'A', start: 25, end: 50, direction: 'forward', strand: '+', color: 'lightblue' },
+       { label: 'B', start: 55, end: 90, direction: 'forward', strand: '+', color: 'green' },
+       { label: 'C', start: 95, end: 120, direction: 'none', strand: '+', color: 'yellowgreen' },
+       { label: 'D', start: 125, end: 155, direction: 'forward', strand: '-', color: 'grey' },
+       { label: 'E', start: 160, end: 175, direction: 'forward', strand: '-', color: 'red' },
+       { label: 'F', start: 180, end: 200, direction: 'none', strand: '-', color: '#fc0' }
+       ];
 
-      main.getShape = function(feature) {
-        if (feature.direction === 'forward') {
-          return (feature.strand === '+') ? 'arrow-right' : 'arrow-left';
-        } else if (feature.direction === 'reverse') {
-          return (feature.strand === '-') ? 'arrow-right' : 'arrow-left';
-        } else {
-          return 'rect';
-        }
-      };
+       main.getShape = function(feature) {
+         if (feature.direction === 'forward') {
+           return (feature.strand === '+') ? 'arrow-right' : 'arrow-left';
+         } else if (feature.direction === 'reverse') {
+           return (feature.strand === '-') ? 'arrow-right' : 'arrow-left';
+         } else {
+           return 'rect';
+         }
+       };
 
-    });
+     });
 
-  }
+   }
 
-  </script>
+   </script>
 </div>
 </div><h4 id="example_demo">Demo</h4>
 <div class="well doc-example-live animate-container" ng-embed-app="angularprimer-example" ng-set-html="exampleB.html" ng-eval-javascript=".js"></div>
