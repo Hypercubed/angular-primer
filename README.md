@@ -37,7 +37,7 @@ This library currently depends on [d3](http://d3js.org/) and requires [angularjs
 </svg>
 ```
 
-![example](README-example.svg)
+![example](https://rawgithub.com/Hypercubed/angular-primer/master/README-example.svg)
 
 ## Usage
 
