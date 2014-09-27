@@ -47,5 +47,5 @@ See [angular-primer documentation](http://hypercubed.github.io/angular-primer/)
 This work was supported by a research grant from the Japanese Ministry of Education, Culture, Sports, Science and Technology (MEXT) to the RIKEN Center for Life Science Technologies.
 
 ## License
-Copyright (c) 2013 Jayson Harshbarger
+Copyright (c) 2014 Jayson Harshbarger
 MIT
