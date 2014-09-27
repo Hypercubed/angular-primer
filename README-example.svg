@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" shape-rendering="crispEdges" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs xmlns="http://www.w3.org/1999/xhtml"><style type="text/css"><![CDATA[
+svg .domain { fill: none; stroke: rgb(0, 0, 0); stroke-width: 2px; }
+svg .tick line { fill: none; stroke: rgb(0, 0, 0); stroke-width: 1px; }
+svg text { }
+.marker { fill: rgb(173, 216, 230); stroke: rgb(0, 0, 0); stroke-width: 1px; }
+.marker.none { stroke-width: 1px; fill: rgb(255, 255, 255) !important; }
+.marker:hover { stroke-width: 2px; }
+]]></style></defs>
+  <g ng-transclude="" primer-track="" transform="translate(0,30)" class="ng-isolate-scope">
+    <g primer-scale="" class="ng-scope ng-isolate-scope"><g ng-attr-transform="translate(0,{{yPosition()}})" ng-transclude="" transform="translate(0,5)"><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="11" x2="0"/><text y="14" x="0" dy=".71em" style="text-anchor: middle;">20bp</text></g><g class="tick" transform="translate(220,0)" style="opacity: 1;"><line y2="11" x2="0"/><text y="14" x="0" dy=".71em" style="text-anchor: middle;">40bp</text></g><g class="tick" transform="translate(320,0)" style="opacity: 1;"><line y2="11" x2="0"/><text y="14" x="0" dy=".71em" style="text-anchor: middle;">60bp</text></g><g class="tick" transform="translate(420,0)" style="opacity: 1;"><line y2="11" x2="0"/><text y="14" x="0" dy=".71em" style="text-anchor: middle;">80bp</text></g><g class="tick" transform="translate(520,0)" style="opacity: 1;"><line y2="11" x2="0"/><text y="14" x="0" dy=".71em" style="text-anchor: middle;">100bp</text></g><path class="domain" d="M25,0V0H525V0"/></g></g>
+    <g ng-attr-transform="translate({{translate()}})" ng-transclude="" primer-label="" anchor="start" class="ng-scope ng-isolate-scope" transform="translate(25,8)"><text text-anchor="end" class="ng-scope">3'</text></g>
+    <g ng-attr-transform="translate({{translate()}})" ng-transclude="" primer-label="" anchor="end" class="ng-scope ng-isolate-scope" transform="translate(525,8)"><text text-anchor="start" class="ng-scope">5'</text></g>
+    <g primer-feature="" start="10" end="25" class="ng-scope ng-isolate-scope"><g ng-attr-transform="translate({{translate()}})" transform="translate(70,5)"><title ng-bind="title()" class="ng-binding">10-25</title><g ng-transclude="">
+      <path primer-feature-shape="" class="marker ng-scope ng-isolate-scope" d="M0,-5 l80,0 l0,10 l-80,0 z"/>
+      <g ng-attr-transform="translate({{translate()}})" ng-transclude="" primer-label="" orient="top" class="ng-scope ng-isolate-scope" transform="translate(40,-11)"><text class="ng-scope">A</text></g>
+    </g></g><g/></g>
+    <g primer-feature="" start="30" end="55" class="ng-scope ng-isolate-scope"><g ng-attr-transform="translate({{translate()}})" transform="translate(170,5)"><title ng-bind="title()" class="ng-binding">30-55</title><g ng-transclude="">
+      <path primer-feature-shape="" class="marker ng-scope ng-isolate-scope" d="M0,-5 l130,0 l0,10 l-130,0 z"/>
+      <g ng-attr-transform="translate({{translate()}})" ng-transclude="" primer-label="" orient="top" class="ng-scope ng-isolate-scope" transform="translate(65,-11)"><text class="ng-scope">B</text></g>
+    </g></g><g/></g>
+    <g primer-feature="" start="60" end="95" class="ng-scope ng-isolate-scope"><g ng-attr-transform="translate({{translate()}})" transform="translate(320,5)"><title ng-bind="title()" class="ng-binding">60-95</title><g ng-transclude="">
+      <path primer-feature-shape="" class="marker ng-scope ng-isolate-scope" d="M0,-5 l180.00000000000006,0 l0,10 l-180.00000000000006,0 z"/>
+      <g ng-attr-transform="translate({{translate()}})" ng-transclude="" primer-label="" orient="top" class="ng-scope ng-isolate-scope" transform="translate(90.00000000000003,-11)"><text class="ng-scope">C</text></g>
+    </g></g><g/></g>
+  </g>
+</svg>

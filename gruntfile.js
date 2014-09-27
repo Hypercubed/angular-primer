@@ -73,7 +73,7 @@ module.exports = function(grunt){
     watch: {
       parser: {
         files: ['<%= pkg.name %>.js'],
-        tasks: ['build']
+        tasks: ['jshint','ngdocs']
       }
     },
 

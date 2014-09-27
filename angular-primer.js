@@ -16,29 +16,33 @@
      * @name index
      *
      * @description
-     * AngularJs module for creating an interactive SVG primer visualization. This library currently depends on [d3](http://d3js.org/) and requires [angularjs 1.3.0-rc](https://angularjs.org/) or higher.
-     *
-      * @example
+       AngularJs module for creating an interactive SVG primer visualization. This library currently depends on [d3](http://d3js.org/) and requires [angularjs 1.3.0-rc](https://angularjs.org/) or higher.
+      
+       ## Introduction
+       angular-primer is a set of angualrjs directives that can be easily added to existing angularjs applications to visualize genomic features.  While originally designed for the visualization of DNA/RNA primers, the angular-primer directives composable elements can be used together to create a simple, or complex, SVG visualizations of any strand based genomic features.  A visulaization consists of one or more {@link angularprimer.directive:primerTrack primer-track} elements.  Each {@link angularprimer.directive:primerTrack primer-track} element can contain any number of {@link angularprimer.directive:primerScale primer-scale}, {@link angularprimer.directive:primerLabel primer-label}, and {@link angularprimer.directive:primerFeature primer-feature} elements. A {@link angularprimer.directive:primerFeature primer-feature} in turn can contain any number of {@link angularprimer.directive:primerLabel primer-label} and {@link angularprimer.directive:primerFeatureShape primer-feature-shape} elements.  Since the view is built using SVG elements you have can add any additional SVG attributes, style with CSS, or extend behavior with other angularjs directives.  The first example below shows a very simple example of the composable angular-primer elements.  The second example example shows binding to angular data and styling using ng-style directive.
 
-        The following example creates a simple genomic feature view using composable angular-primer directives.
+     * @example
+
+       The following example creates a simple genomic feature view using composable angular-primer directives.
 
         <example module="angularprimer">
           <file name="exampleA.html">
-            <svg width="100%" shape-rendering="crispEdges">
-              <g primer-track transform="translate(0,30)" sequence-length="1e6">
-                <g primer-scale orient="top" />
-                <g transform="translate(0,30)">
-                  <g primer-label anchor="end"><text text-anchor="start">3'</text></g>
-                  <g primer-label anchor="start"><text text-anchor="end">5'</text></g>
+            <svg width="100%" shape-rendering="crispEdges" >
+              <g primer-track transform="translate(0,30)">
+                <g primer-scale/>
+                <g primer-label anchor="start"><text text-anchor="end">3'</text></g>
+                <g primer-label anchor="end"><text text-anchor="start">5'</text></g>
+                <g primer-feature start="10" end="25">
+                  <g primer-feature-shape class="marker"/>
+                  <g primer-label orient="top"><text>A</text></g>
                 </g>
-                <g primer-feature class="marker" transform="translate(0,15)"start="10e4" end="25e4">
-                  <g primer-feature-shape />
+                <g primer-feature start="30" end="55">
+                  <g primer-feature-shape class="marker" />
+                  <g primer-label orient="top"><text>B</text></g>
                 </g>
-                <g primer-feature class="marker" transform="translate(0,30)" start="20e4" end="55e4">
-                  <g primer-feature-shape />
-                </g>
-                <g primer-feature transform="translate(0,45)" start="50e4" end="95e4" class="marker" >
-                  <g primer-feature-shape />
+                <g primer-feature start="60" end="95">
+                  <g primer-feature-shape class="marker"/>
+                  <g primer-label orient="top"><text>C</text></g>
                 </g>
               </g>
             </svg>
@@ -56,9 +60,26 @@
              stroke-width: 1px;
            }
 
-           .marker:hover {
-             stroke-width:2px;
+           svg text {
+             alignment-baseline: middle,
+              text-anchor: middle
            }
+
+            .marker {
+              fill:lightblue;
+              stroke:black;
+              stroke-width: 1px;
+            }
+
+            .marker.none {
+              fill:#fff !important;
+              stroke-width:1px;
+            }
+
+            .marker:hover {
+              stroke-width:2px;
+            }
+
           </file>
         </example>
 
