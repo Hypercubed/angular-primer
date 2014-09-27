@@ -48,4 +48,4 @@ This work was supported by a research grant from the Japanese Ministry of Educat
 ## License
 Copyright (c) 2014 Jayson Harshbarger
 
-MIT
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
