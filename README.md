@@ -1,5 +1,4 @@
 # angular-primer
-AngularJS primer visualization.
 
 AngularJs module for creating an interactive SVG primer visualization.
 
@@ -48,4 +47,5 @@ This work was supported by a research grant from the Japanese Ministry of Educat
 
 ## License
 Copyright (c) 2014 Jayson Harshbarger
+
 MIT
