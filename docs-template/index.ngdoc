@@ -1,0 +1,330 @@
+@ngdoc overview
+@name examples
+@description
+
+# Additional Examples
+
+<example module="angularprimer">
+  <file name="exampleA.html">
+    <svg width="100%" height="90" shape-rendering="crispEdges" >
+      <g primer-track transform="translate(0,20)">
+
+        <g primer-feature start="1" end="49">
+          <g primer-feature-shape class="marker red" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">3'&nbsp;</text>
+          </g>
+        </g>
+
+        <g primer-feature start="50" end="55">
+          <g primer-feature-shape class="marker blue"/>
+          <g primer-label="RNA Primer" anchor="middle" orient="top" />
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;5'</text>
+          </g>
+        </g>
+
+        <g primer-feature start="70" end="75">
+          <g primer-feature-shape="arrow-left" class="marker blue"/>
+          <g primer-label="RNA primer" anchor="middle" orient="top" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">3'&nbsp;</text>
+          </g>
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;5'</text>
+          </g>
+        </g>
+
+        <g primer-feature start="1" end="100" transform="translate(0,20)">
+          <g primer-feature-shape class="marker green" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">5'&nbsp;</text>
+          </g>
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;3'</text>
+          </g>
+          <g primer-label="Strand Template" anchor="middle" orient="bottom" />
+        </g>
+
+        <g primer-scale orient="bottom" ticks="10"  transform="translate(0,35)" />
+
+      </g>
+    </g>
+    </svg>
+  </file>
+  <file name="exampleA.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 0;
+    }
+
+    .marker.red {
+      fill:red;
+      stroke:red;
+    }
+
+    .marker.blue {
+      fill:lightblue;
+      stroke:lightblue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+    .marker:hover {
+      stroke-width:2px;
+    }
+
+
+  </file>
+</example>
+
+<example module="angularprimer">
+  <file name="exampleB.html">
+    <svg width="100%" height="400" shape-rendering="crispEdges" >
+    <g transform="translate(0,150)">
+      <g primer-track width="200">
+        <g primer-label="Parental DNA Strand" anchor="middle" orient="top"/>
+        <g primer-label="5'" anchor="start"/>
+        <g primer-scale orient="middle" ticks="0" />
+      </g>
+      <g primer-track start="50" sequence-length="100" width="200" transform="translate(202,20) rotate(-45)">
+        <g primer-scale orient="middle" ticks="0" />
+        <g primer-label="3'" anchor="end"/>
+        <g primer-feature start="55" end="100">
+          <g primer-feature-shape="arrow-left" class="marker green" height="2" transform="translate(0,15)"/>
+        </g>
+      </g>
+      <g primer-track start="50" sequence-length="100" width="200" transform="translate(210,13) rotate(45)">
+        <g primer-scale orient="middle" />
+        <g primer-label="5'" anchor="end"/>
+        <g transform="translate(0,-15)">
+          <g primer-label="RNA Primers" anchor="middle" orient="top" transform="translate(0,-10)"/>
+          <g primer-feature start="60" end="90"><g primer-feature-shape="arrow-right" class="marker blue" height="2" /></g>
+          <g primer-feature start="60" end="65"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="70" end="75"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="80" end="85"><g primer-feature-shape class="marker" /></g>
+        </g>
+      </g>
+      <g primer-track width="200" transform="translate(0,30)">
+        <g primer-label="3'" anchor="start"/>
+        <g primer-scale orient="middle" ticks="0" />
+      </g>
+    </g>
+    </svg>
+  </file>
+  <file name="exampleB.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.blue {
+      fill:blue;
+      stroke:blue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+  </file>
+</example>
+
+<example module="angularprimer">
+  <file name="exampleC.html">
+    <svg width="100%" height="100" shape-rendering="crispEdges" >
+      <g primer-track transform="translate(0,20)">
+        <g primer-scale ticks="0" />
+        <g primer-feature start="26" end="75">
+          <g primer-feature-shape class="marker black" height="3" />
+        </g>
+        <g primer-feature start="26" end="35">
+          <g primer-feature-shape class="marker" />
+        </g>
+        <g primer-feature start="36" end="40">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="55" end="60">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="65" end="70">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="71" end="75">
+          <g primer-feature-shape class="marker" />
+        </g>
+        <g primer-feature start="15" end="25">
+          <g primer-label orient="bottom" anchor="middle">
+            <text text-anchor="middle" alignment-baseline="top">promoter</text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g primer-track width="125" transform="translate(0,80)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="5' flanking DNA" anchor="middle" />
+    </g>
+    <g primer-track width="125" transform="translate(375,80)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="3' flanking DNA" anchor="middle" />
+    </g>
+    <g primer-track width="50" transform="translate(125,50)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="5' untranslated" anchor="middle" />
+    </g>
+    <g primer-track width="25" transform="translate(350,50)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="3' untranslated" anchor="middle" />
+    </g>
+    </svg>
+  </file>
+  <file name="exampleC.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0;
+     font-size: 10px;
+   }
+
+    .marker {
+      fill:white;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.black {
+      fill:black;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.red {
+      fill:red;
+      stroke:red;
+    }
+
+    .marker.blue {
+      fill:lightblue;
+      stroke:lightblue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+    .marker:hover {
+      stroke-width:2px;
+    }
+
+
+  </file>
+</example>
+
+<example module="angularprimer">
+  <file name="exampleD.html">
+    <svg width="100%" height="50" shape-rendering="crispEdges" >
+      <g primer-track sequence-length="5" width="50" transform="translate(100,5)">
+        <g primer-scale ticks="6" orient="bottom" format="''" transform="translate(0,-4)" outer-tick-size="0" />
+        <g primer-feature start="1" end="6">
+          <g primer-feature-shape class="marker blue" />
+        </g>
+      </g>
+      <g primer-track sequence-length="50" transform="translate(0,15)">
+        <g primer-scale ticks="50" orient="top" format="''" transform="translate(0,25)"  outer-tick-size="0" />
+        <g primer-feature start="3" height="6">
+          <g primer-feature-shape="triangle-down" class="symbol" />
+        </g>
+        <g primer-feature start="5" height="6">
+          <g primer-feature-shape="triangle-down" class="symbol" />
+        </g>
+        <g primer-feature start="17" height="20" transform="translate(0,5)">
+          <g primer-feature-shape="circle" class="symbol" />
+        </g>
+      </g>
+    </svg>
+  </file>
+  <file name="exampleD.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0;
+     font-size: 10px;
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .symbol {
+      fill:yellow;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker:hover, .symbol:hover {
+      stroke-width:2px;
+    }
+
+  </file>
+</example>

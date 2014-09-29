@@ -52,9 +52,12 @@ module.exports = function(grunt){
           './<%= pkg.name %>.js',
           './docs-template/script.js'
         ]
-        //styles: ['./example/example.css']
       },
-      all: ['<%= pkg.name %>.js']
+      all: ['<%= pkg.name %>.js'],
+      examples: {
+        src: ['./docs-template/*.ngdoc'],
+        title: 'Examples'
+      }
     },
 
     clean: ['docs'],
@@ -72,7 +75,7 @@ module.exports = function(grunt){
 
     watch: {
       parser: {
-        files: ['<%= pkg.name %>.js'],
+        files: ['<%= pkg.name %>.js','./docs-template/*.ngdoc'],
         tasks: ['jshint','ngdocs']
       }
     },

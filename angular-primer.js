@@ -803,6 +803,7 @@
               if (scope.anchor === 'start') { return start; }
               var end = feature ? feature.width() : track.width()+30;
               if (scope.anchor === 'end') { return end; }
+              if (!feature) { end += 30 };
               return (end - start)/2;
             }
 
@@ -957,6 +958,8 @@
             function fmt(specifier) {
               if (typeof specifier === 'function') {
                 return specifier;
+              } else if (typeof specifier === 'string' && specifier === "") {
+                return function(d) { return ''; };
               } else {
                 specifier = specifier || 's|bp';
                 var split = specifier.split('|');
@@ -971,7 +974,7 @@
             }
 
             function draw() {
-
+              
               var orient = scope.orient || 'middle';
               var defaultSize = (orient === 'middle') ? [track.height()/2+6 || 6,0] : [6,6]; // [inner,outer]
 
