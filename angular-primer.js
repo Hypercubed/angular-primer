@@ -205,6 +205,10 @@
               stroke-width: 1px;
             }
 
+            .marker {
+
+            }
+
           </file>
         </example>
       *
@@ -819,6 +823,8 @@
               return ''+xPosition()+','+yPosition();
             };
 
+            var d3_elm = d3.select(element[0]);
+
             var draw = function() {
               var anchor = scope.anchor || 'middle';
               if (!feature && anchor === 'start') {
@@ -827,7 +833,9 @@
                 anchor = 'start';
               }
 
-              d3.select(element[0])  // Need to use d3, angular can't append text in svg namespace
+              d3_elm.selectAll('text').remove();
+
+              d3_elm  // Need to use d3, angular can't append text in svg namespace
                 .append('text')
                 .attr('text-anchor', anchor)
                 .attr('alignment-baseline', 'middle')
