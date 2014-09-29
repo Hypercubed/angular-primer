@@ -803,7 +803,7 @@
               if (scope.anchor === 'start') { return start; }
               var end = feature ? feature.width() : track.width()+30;
               if (scope.anchor === 'end') { return end; }
-              if (!feature) { end += 30 };
+              if (!feature) { end += 30; }
               return (end - start)/2;
             }
 
@@ -833,7 +833,7 @@
                 .attr('alignment-baseline', 'middle')
                 .text(scope.text);
 
-            }
+            };
 
             if (scope.text) {
               scope.$watchCollection('[anchor, text]', draw);
@@ -974,7 +974,7 @@
             }
 
             function draw() {
-              
+
               var orient = scope.orient || 'middle';
               var defaultSize = (orient === 'middle') ? [track.height()/2+6 || 6,0] : [6,6]; // [inner,outer]
 
