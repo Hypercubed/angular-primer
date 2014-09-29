@@ -1,9 +1,27 @@
 NG_DOCS={
   "sections": {
-    "api": "API Documentation",
-    "examples": "Examples"
+    "more": "Learn more",
+    "api": "API Documentation"
   },
   "pages": [
+    {
+      "section": "more",
+      "id": "examples",
+      "shortName": "Examples",
+      "type": "overview",
+      "moduleName": "Examples",
+      "shortDescription": "Additional Examples",
+      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom circle class crispedges css dna domain examplea exampleb examplec exampled examples fill flanking font-size format green height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers red rna rotate sequence-length shape-rendering start strand stroke stroke-width svg symbol template text text-anchor tick ticks top transform translate triangle-down untranslated width"
+    },
+    {
+      "section": "more",
+      "id": "faq",
+      "shortName": "FAQ",
+      "type": "overview",
+      "moduleName": "FAQ",
+      "shortDescription": "FAQ",
+      "keywords": "angular-primer angularjs based center complex composable create culture designed developed directives dna education elements faq features genomic grant harshbarger higher institute japanese jp js life ministry originally overview primers require riken science simple sports strand supported svg technologies technology visualization visualizations visualize work yokohama"
+    },
     {
       "section": "api",
       "id": "index",
@@ -66,20 +84,11 @@ NG_DOCS={
       "moduleName": "angularprimer",
       "shortDescription": "Creates a container used to group features, scales, and labels.",
       "keywords": "anchor angularprimer api black class container creates crispedges css directive domain ea features fff fill group height html labels length marker middle min module ng-init ng-model number orient pixels primer-feature primer-label primer-scale primer-track scale scales sequence sequence-length shape-rendering start starting stroke stroke-width svg tick track transform translate type width"
-    },
-    {
-      "section": "examples",
-      "id": "index",
-      "shortName": "examples",
-      "type": "overview",
-      "moduleName": "examples",
-      "shortDescription": "Additional Examples",
-      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom circle class crispedges css dna domain examplea exampleb examplec exampled examples fill flanking font-size format green height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers red rna rotate sequence-length shape-rendering start strand stroke stroke-width svg symbol template text text-anchor tick ticks top transform translate triangle-down untranslated width"
     }
   ],
   "apis": {
-    "api": true,
-    "examples": false
+    "more": false,
+    "api": true
   },
   "html5Mode": false,
   "editExample": true,
