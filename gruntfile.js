@@ -53,11 +53,11 @@ module.exports = function(grunt){
           './docs-template/script.js'
         ]
       },
-      all: ['<%= pkg.name %>.js'],
-      examples: {
+      more: {
         src: ['./docs-template/*.ngdoc'],
-        title: 'Examples'
-      }
+        title: 'Learn more'
+      },
+      all: ['<%= pkg.name %>.js'],
     },
 
     clean: ['docs'],

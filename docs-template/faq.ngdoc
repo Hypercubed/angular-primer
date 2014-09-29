@@ -1,0 +1,14 @@
+@ngdoc overview
+@name FAQ
+@description
+
+# FAQ
+
+## Why does angular-primer require angularjs 1.3 or higher?
+See [https://github.com/angular/angular.js/issues/7383](https://github.com/angular/angular.js/issues/7383)
+
+## Does angular-primer only visualize primers?
+No, while originally designed for the visualization of DNA/RNA primers, the angular-primer directives composable elements can be used together to create a simple, or complex, SVG visualizations of any strand based genomic features.
+
+## Who developed angular-primer?
+angular-primer was developed by [Jayson Harshbarger](https://github.com/Hypercubed) at [RIKEN Yokohama institute](http://www.yokohama.riken.jp/english/).  This work was supported by a research grant from the Japanese Ministry of Education, Culture, Sports, Science and Technology (MEXT) to the RIKEN Center for Life Science Technologies.
