@@ -17,7 +17,7 @@
      *
      * @description
        AngularJs module for creating an interactive SVG primer visualization. This library currently depends on [d3](http://d3js.org/) and requires [angularjs 1.3.0-rc](https://angularjs.org/) or higher.
-      
+
        ## Introduction
        angular-primer is a set of angualrjs directives that can be easily added to existing angularjs applications to visualize genomic features.  While originally designed for the visualization of DNA/RNA primers, the angular-primer directives composable elements can be used together to create a simple, or complex, SVG visualizations of any strand based genomic features.  A visulaization consists of one or more {@link angularprimer.directive:primerTrack primer-track} elements.  Each {@link angularprimer.directive:primerTrack primer-track} element can contain any number of {@link angularprimer.directive:primerScale primer-scale}, {@link angularprimer.directive:primerLabel primer-label}, and {@link angularprimer.directive:primerFeature primer-feature} elements. A {@link angularprimer.directive:primerFeature primer-feature} in turn can contain any number of {@link angularprimer.directive:primerLabel primer-label} and {@link angularprimer.directive:primerFeatureShape primer-feature-shape} elements.  Since the view is built using SVG elements you have can add any additional SVG attributes, style with CSS, or extend behavior with other angularjs directives.  The first example below shows a very simple example of the composable angular-primer elements.  The second example example shows binding to angular data and styling using ng-style directive.
 
@@ -30,19 +30,19 @@
             <svg width="100%" shape-rendering="crispEdges" >
               <g primer-track transform="translate(0,30)">
                 <g primer-scale/>
-                <g primer-label anchor="start"><text text-anchor="end">3'</text></g>
-                <g primer-label anchor="end"><text text-anchor="start">5'</text></g>
+                <g primer-label="3'" anchor="start" />
+                <g primer-label="5'" anchor="end" />
                 <g primer-feature start="10" end="25">
                   <g primer-feature-shape class="marker"/>
-                  <g primer-label orient="top"><text>A</text></g>
+                  <g primer-label="A" orient="top" />
                 </g>
                 <g primer-feature start="30" end="55">
                   <g primer-feature-shape class="marker" />
-                  <g primer-label orient="top"><text>B</text></g>
+                  <g primer-label="B" orient="top" />
                 </g>
                 <g primer-feature start="60" end="95">
                   <g primer-feature-shape class="marker"/>
-                  <g primer-label orient="top"><text>C</text></g>
+                  <g primer-label="C" orient="top" />
                 </g>
               </g>
             </svg>
@@ -61,19 +61,13 @@
            }
 
            svg text {
-             alignment-baseline: middle,
-              text-anchor: middle
+             stroke-width: 0
            }
 
             .marker {
               fill:lightblue;
               stroke:black;
               stroke-width: 1px;
-            }
-
-            .marker.none {
-              fill:#fff !important;
-              stroke-width:1px;
             }
 
             .marker:hover {
@@ -126,21 +120,15 @@
               <g primer-track transform="translate(0,30)" class="track"
                   sequence="{{main.sequence}}" width="500" height="10">
                 <g transform="translate(0,0)">
-                  <g primer-label anchor="end">
-                    <text text-anchor="start" alignment-baseline="middle">3'</text>
-                  </g>
-                  <g primer-label anchor="start">
-                    <text text-anchor="end" alignment-baseline="middle">5'</text>
-                  </g>
+                  <g primer-label="3'" anchor="end" />
+                  <g primer-label="5'" anchor="start" />
                   <g primer-scale ticks="0" outer-tick-size="0" />
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
-                      start="feature.start" end="feature.end"
+                      start="feature.start" end="feature.end">
+                    <path primer-feature-shape="{{main.getShape(feature)}}"
                       ng-style="{fill: feature.color}"
-                      class="marker {{feature.label}} {{feature.direction}}" >
-                    <path primer-feature-shape="{{main.getShape(feature)}}" />
-                    <g primer-label orient="top">
-                      <text text-anchor="middle">{{feature.label}}</text>
-                    </g>
+                      class="marker {{feature.label}} {{feature.direction}}" />
+                    <g primer-label="{{feature.label}}" orient="top" />
                   </g>
                 </g>
                 <g transform="translate(0,20)">
@@ -152,10 +140,10 @@
                   </g>
                   <g primer-scale ticks="0" outer-tick-size="0" />
                   <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
-                      start="feature.start" end="feature.end"
+                      start="feature.start" end="feature.end">
+                    <path primer-feature-shape="{{main.getShape(feature)}}"
                       ng-style="{fill: feature.color}"
-                      class="marker {{feature.label}} {{feature.direction}}" >
-                    <path primer-feature-shape="{{main.getShape(feature)}}" />
+                      class="marker {{feature.label}} {{feature.direction}}" />
                     <g primer-label orient="bottom">
                       <text text-anchor="middle" alignment-baseline="middle">{{feature.label}}</text>
                     </g>
@@ -275,12 +263,8 @@
             <g primer-track transform="translate(0,30)"
               sequence-length="length" height="height" width="width">
               <g primer-scale />
-              <g primer-label anchor="end" orient="middle">
-                <text text-anchor="start" alignment-baseline="middle">3'</text>
-              </g>
-              <g primer-label anchor="start" orient="middle">
-                <text text-anchor="end" alignment-baseline="middle">5'</text>
-              </g>
+              <g primer-label="3'" anchor="end" orient="middle" />
+              <g primer-label="5'" anchor="start" orient="middle" />
               <g primer-feature start="3" end="8" class="marker" >
                 <primer-feature-shape />
               </g>
@@ -423,20 +407,14 @@
           <g primer-track transform="translate(0,30)" class="track"
               sequence="{{main.sequence}}" start="10" width="500" height="10">
             <g primer-scale ticks="0" outer-tick-size="0">
-              <g primer-label anchor="end">
-                <text text-anchor="start" alignment-baseline="middle">3'</text>
-              </g>
-              <g primer-label anchor="start">
-                <text text-anchor="end" alignment-baseline="middle">5'</text>
-              </g>
+              <g primer-label="3'" anchor="end" />
+              <g primer-label="5'" anchor="start" />
             </g>
             <g primer-feature ng-repeat="feature in main.features"
                 start="feature.start" end="feature.end" height="feature.height"
                 class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
               <g primer-feature-shape />
-              <g primer-label orient="top">
-                <text text-anchor="middle">{{feature.label}}</text>
-              </g>
+              <g primer-label="{{feature.label}}" orient="top" />
             </g>
             <primer-scale orient="bottom" transform="translate(0,30)" />
           </g>
@@ -514,15 +492,9 @@
             var feature = scope.feature = ctrls[0];
             var track = scope.track = ctrls[1];
 
-            if (!attrs.height) {
-              feature.height = function() {
-                return track.height() || 10;
-              };
-            } else {
-              feature.height = function() {
-                return scope.height() || track.height() || 10;
-              };
-            }
+            feature.height = angular.isDefined(attrs.height) ?
+              function() { return scope.height() || track.height() || 10; } :
+              feature.height = function() { return track.height() || 10; };
 
             feature.width = function() {
               return track.xScale(feature.end()+1)-track.xScale(feature.start());
@@ -603,19 +575,13 @@
           <svg width="800" height="200" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" class="track"
                 sequence-length="250" start="10" width="500" height="10">
-              <g primer-label anchor="end">
-                <text text-anchor="start" alignment-baseline="middle">3'</text>
-              </g>
-              <g primer-label anchor="start">
-                <text text-anchor="end" alignment-baseline="middle">5'</text>
-              </g>
+              <g primer-label="3'" anchor="end" />
+              <g primer-label="5'" anchor="start" />
               <g primer-scale ticks="0" outer-tick-size="0" />
               <g primer-feature ng-repeat="feature in main.features"
                   start="feature.start" end="feature.end" class="marker {{feature.label}}" >
                 <g primer-feature-shape="{{feature.type}}" height="feature.height" />
-                <g primer-label orient="top">
-                  <text text-anchor="middle">{{feature.label}}</text>
-                </g>
+                <g primer-label="{{feature.label}}" orient="top" />
               </g>
               <g primer-scale orient="bottom" transform="translate(0,30)"></g>
             </g>
@@ -738,6 +704,7 @@
      * @description
      * Adds a label to a feature or a track.
      *
+     * @param {string=} primer-label The label text.
      * @param {string=} [orient='middle'] The label vertical orientation.  Can be `middle`, `top`, or `bottom`.
      * @param {string=} [anchor='middle'] The label hrizontal anchor.  Can be `middle`, `start`, `end`.
      *
@@ -762,18 +729,12 @@
            <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="100" height="15">
               <g primer-scale orient="top">
-                <g primer-label anchor="start">
-                  <text text-anchor="start" alignment-baseline="middle">3'</text>
-                </g>
-                <g primer-label anchor="end">
-                  <text text-anchor="end" alignment-baseline="middle">5'</text>
-                </g>
+                <g primer-label="3'" anchor="start" />
+                <g primer-label="5'" anchor="end" />
               </g>
               <g primer-feature start="10" end="50" class="marker" transform="translate(0,15)">
                 <path primer-feature-shape />
-                <g primer-label anchor="{{anchor}}" orient="{{orient}}">
-                  <text text-anchor="{{anchor}}" alignment-baseline="middle">{{text}}</text>
-                </g>
+                <g primer-label="{{text}}" anchor="{{anchor}}" orient="{{orient}}" />
               </g>
             </g>
            </svg>
@@ -822,6 +783,7 @@
           transclude: true,
           require: ['?^primerFeature','^primerTrack'],
           scope: {
+            text: '@primerLabel',
             orient: '@',
             anchor: '@'
           },
@@ -837,9 +799,9 @@
               function() { return track.height(); };
 
             function xPosition() {
-              var start = feature ? 0 : 25;
+              var start = feature ? 0 : 20;
               if (scope.anchor === 'start') { return start; }
-              var end = feature ? feature.width() : track.width()+25;
+              var end = feature ? feature.width() : track.width()+30;
               if (scope.anchor === 'end') { return end; }
               return (end - start)/2;
             }
@@ -855,6 +817,26 @@
             scope.translate = function() {
               return ''+xPosition()+','+yPosition();
             };
+
+            var draw = function() {
+              var anchor = scope.anchor || 'middle';
+              if (!feature && anchor === 'start') {
+                anchor = 'end';
+              } else if (!feature && anchor === 'end') {
+                anchor = 'start';
+              }
+
+              d3.select(element[0])  // Need to use d3, angular can't append text in svg namespace
+                .append('text')
+                .attr('text-anchor', anchor)
+                .attr('alignment-baseline', 'middle')
+                .text(scope.text);
+
+            }
+
+            if (scope.text) {
+              scope.$watchCollection('[anchor, text]', draw);
+            }
 
           }
       };
@@ -897,12 +879,8 @@
           </form>
           <svg width="100%" shape-rendering="crispEdges">
             <g primer-track transform="translate(0,30)" sequence-length="10e6">
-              <g primer-label anchor="end" orient="middle">
-                <text text-anchor="start" alignment-baseline="middle">3'</text>
-              </g>
-              <g primer-label anchor="start" orient="middle">
-                <text text-anchor="end" alignment-baseline="middle">5'</text>
-              </g>
+              <g primer-label="3'" anchor="end" orient="middle" />
+              <g primer-label="5'" anchor="start" orient="middle" />
               <g primer-scale orient="{{orient}}" format="format" />
               <g primer-feature start="10e5" end="25e5" class="marker">
                 <primer-feature-shape />

@@ -6,3 +6,5 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [ ] Label ticks
 - [ ] Responsive size
 - [ ] Scale in a feature?
+- [ ] Animation on changes
+- [ ] Rename primerScale -> primerAxis?
