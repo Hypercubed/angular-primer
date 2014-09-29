@@ -1,0 +1,359 @@
+<h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="examples-page"><h2 id="additional-examples">Additional Examples</h2>
+<h3 id="additional-examples_source">Source</h3>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleA.html" source-edit-css="exampleA.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleA.html">
+<pre class="prettyprint linenums" ng-set-text="exampleA.html"></pre>
+<script type="text/ng-template" id="exampleA.html">
+    <svg width="100%" height="90" shape-rendering="crispEdges" >
+      <g primer-track transform="translate(0,20)">
+
+        <g primer-feature start="1" end="49">
+          <g primer-feature-shape class="marker red" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">3'&nbsp;</text>
+          </g>
+        </g>
+
+        <g primer-feature start="50" end="55">
+          <g primer-feature-shape class="marker blue"/>
+          <g primer-label="RNA Primer" anchor="middle" orient="top" />
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;5'</text>
+          </g>
+        </g>
+
+        <g primer-feature start="70" end="75">
+          <g primer-feature-shape="arrow-left" class="marker blue"/>
+          <g primer-label="RNA primer" anchor="middle" orient="top" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">3'&nbsp;</text>
+          </g>
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;5'</text>
+          </g>
+        </g>
+
+        <g primer-feature start="1" end="100" transform="translate(0,20)">
+          <g primer-feature-shape class="marker green" />
+          <g primer-label anchor="start">
+            <text text-anchor="end" alignment-baseline="middle">5'&nbsp;</text>
+          </g>
+          <g primer-label anchor="end">
+            <text text-anchor="start" alignment-baseline="middle">&nbsp;3'</text>
+          </g>
+          <g primer-label="Strand Template" anchor="middle" orient="bottom" />
+        </g>
+
+        <g primer-scale orient="bottom" ticks="10"  transform="translate(0,35)" />
+
+      </g>
+    </g>
+    </svg>
+  </script>
+</div>
+<div class="tab-pane" title="exampleA.css">
+<pre class="prettyprint linenums" ng-set-text="exampleA.css"></pre>
+<style type="text/css" id="exampleA.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 0;
+    }
+
+    .marker.red {
+      fill:red;
+      stroke:red;
+    }
+
+    .marker.blue {
+      fill:lightblue;
+      stroke:lightblue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+    .marker:hover {
+      stroke-width:2px;
+    }
+
+
+  </style>
+</div>
+</div><h3 id="additional-examples_demo">Demo</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleA.html" ng-eval-javascript=""></div>
+<h3 id="additional-examples_source">Source</h3>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleB.html" source-edit-css="exampleB.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleB.html">
+<pre class="prettyprint linenums" ng-set-text="exampleB.html"></pre>
+<script type="text/ng-template" id="exampleB.html">
+    <svg width="100%" height="400" shape-rendering="crispEdges" >
+    <g transform="translate(0,150)">
+      <g primer-track width="200">
+        <g primer-label="Parental DNA Strand" anchor="middle" orient="top"/>
+        <g primer-label="5'" anchor="start"/>
+        <g primer-scale orient="middle" ticks="0" />
+      </g>
+      <g primer-track start="50" sequence-length="100" width="200" transform="translate(202,20) rotate(-45)">
+        <g primer-scale orient="middle" ticks="0" />
+        <g primer-label="3'" anchor="end"/>
+        <g primer-feature start="55" end="100">
+          <g primer-feature-shape="arrow-left" class="marker green" height="2" transform="translate(0,15)"/>
+        </g>
+      </g>
+      <g primer-track start="50" sequence-length="100" width="200" transform="translate(210,13) rotate(45)">
+        <g primer-scale orient="middle" />
+        <g primer-label="5'" anchor="end"/>
+        <g transform="translate(0,-15)">
+          <g primer-label="RNA Primers" anchor="middle" orient="top" transform="translate(0,-10)"/>
+          <g primer-feature start="60" end="90"><g primer-feature-shape="arrow-right" class="marker blue" height="2" /></g>
+          <g primer-feature start="60" end="65"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="70" end="75"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="80" end="85"><g primer-feature-shape class="marker" /></g>
+        </g>
+      </g>
+      <g primer-track width="200" transform="translate(0,30)">
+        <g primer-label="3'" anchor="start"/>
+        <g primer-scale orient="middle" ticks="0" />
+      </g>
+    </g>
+    </svg>
+  </script>
+</div>
+<div class="tab-pane" title="exampleB.css">
+<pre class="prettyprint linenums" ng-set-text="exampleB.css"></pre>
+<style type="text/css" id="exampleB.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.blue {
+      fill:blue;
+      stroke:blue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+  </style>
+</div>
+</div><h3 id="additional-examples_demo">Demo</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleB.html" ng-eval-javascript=""></div>
+<h3 id="additional-examples_source">Source</h3>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleC.html" source-edit-css="exampleC.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleC.html">
+<pre class="prettyprint linenums" ng-set-text="exampleC.html"></pre>
+<script type="text/ng-template" id="exampleC.html">
+    <svg width="100%" height="100" shape-rendering="crispEdges" >
+      <g primer-track transform="translate(0,20)">
+        <g primer-scale ticks="0" />
+        <g primer-feature start="26" end="75">
+          <g primer-feature-shape class="marker black" height="3" />
+        </g>
+        <g primer-feature start="26" end="35">
+          <g primer-feature-shape class="marker" />
+        </g>
+        <g primer-feature start="36" end="40">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="55" end="60">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="65" end="70">
+          <g primer-feature-shape class="marker black" />
+        </g>
+        <g primer-feature start="71" end="75">
+          <g primer-feature-shape class="marker" />
+        </g>
+        <g primer-feature start="15" end="25">
+          <g primer-label orient="bottom" anchor="middle">
+            <text text-anchor="middle" alignment-baseline="top">promoter</text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g primer-track width="125" transform="translate(0,80)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="5' flanking DNA" anchor="middle" />
+    </g>
+    <g primer-track width="125" transform="translate(375,80)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="3' flanking DNA" anchor="middle" />
+    </g>
+    <g primer-track width="50" transform="translate(125,50)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="5' untranslated" anchor="middle" />
+    </g>
+    <g primer-track width="25" transform="translate(350,50)">
+      <g primer-scale ticks="0" orient="top" />
+      <g primer-label="3' untranslated" anchor="middle" />
+    </g>
+    </svg>
+  </script>
+</div>
+<div class="tab-pane" title="exampleC.css">
+<pre class="prettyprint linenums" ng-set-text="exampleC.css"></pre>
+<style type="text/css" id="exampleC.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0;
+     font-size: 10px;
+   }
+
+    .marker {
+      fill:white;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.black {
+      fill:black;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.red {
+      fill:red;
+      stroke:red;
+    }
+
+    .marker.blue {
+      fill:lightblue;
+      stroke:lightblue;
+    }
+
+    .marker.green {
+      fill:green;
+      stroke:green;
+    }
+
+    .marker:hover {
+      stroke-width:2px;
+    }
+
+
+  </style>
+</div>
+</div><h3 id="additional-examples_demo">Demo</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleC.html" ng-eval-javascript=""></div>
+<h3 id="additional-examples_source">Source</h3>
+<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="exampleD.html" source-edit-css="exampleD.css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="exampleD.html">
+<pre class="prettyprint linenums" ng-set-text="exampleD.html"></pre>
+<script type="text/ng-template" id="exampleD.html">
+    <svg width="100%" height="50" shape-rendering="crispEdges" >
+      <g primer-track sequence-length="5" width="50" transform="translate(100,5)">
+        <g primer-scale ticks="6" orient="bottom" format="''" transform="translate(0,-4)" outer-tick-size="0" />
+        <g primer-feature start="1" end="6">
+          <g primer-feature-shape class="marker blue" />
+        </g>
+      </g>
+      <g primer-track sequence-length="50" transform="translate(0,15)">
+        <g primer-scale ticks="50" orient="top" format="''" transform="translate(0,25)"  outer-tick-size="0" />
+        <g primer-feature start="3" height="6">
+          <g primer-feature-shape="triangle-down" class="symbol" />
+        </g>
+        <g primer-feature start="5" height="6">
+          <g primer-feature-shape="triangle-down" class="symbol" />
+        </g>
+        <g primer-feature start="17" height="20" transform="translate(0,5)">
+          <g primer-feature-shape="circle" class="symbol" />
+        </g>
+      </g>
+    </svg>
+  </script>
+</div>
+<div class="tab-pane" title="exampleD.css">
+<pre class="prettyprint linenums" ng-set-text="exampleD.css"></pre>
+<style type="text/css" id="exampleD.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0;
+     font-size: 10px;
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .symbol {
+      fill:yellow;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker:hover, .symbol:hover {
+      stroke-width:2px;
+    }
+
+  </style>
+</div>
+</div><h3 id="additional-examples_demo">Demo</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="exampleD.html" ng-eval-javascript=""></div>
+</div></div>

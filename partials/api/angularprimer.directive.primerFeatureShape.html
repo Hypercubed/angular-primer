@@ -58,19 +58,13 @@ as attribute<pre class="prettyprint linenums">&lt;path primer-feature-shape="{st
     <svg width="800" height="200" shape-rendering="crispEdges">
       <g primer-track transform="translate(0,30)" class="track"
           sequence-length="250" start="10" width="500" height="10">
-        <g primer-label anchor="end">
-          <text text-anchor="start" alignment-baseline="middle">3'</text>
-        </g>
-        <g primer-label anchor="start">
-          <text text-anchor="end" alignment-baseline="middle">5'</text>
-        </g>
+        <g primer-label="3'" anchor="end" />
+        <g primer-label="5'" anchor="start" />
         <g primer-scale ticks="0" outer-tick-size="0" />
         <g primer-feature ng-repeat="feature in main.features"
             start="feature.start" end="feature.end" class="marker {{feature.label}}" >
           <g primer-feature-shape="{{feature.type}}" height="feature.height" />
-          <g primer-label orient="top">
-            <text text-anchor="middle">{{feature.label}}</text>
-          </g>
+          <g primer-label="{{feature.label}}" orient="top" />
         </g>
         <g primer-scale orient="bottom" transform="translate(0,30)"></g>
       </g>

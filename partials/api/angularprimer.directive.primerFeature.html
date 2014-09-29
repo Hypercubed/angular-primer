@@ -56,20 +56,14 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-feature
     <g primer-track transform="translate(0,30)" class="track"
         sequence="{{main.sequence}}" start="10" width="500" height="10">
       <g primer-scale ticks="0" outer-tick-size="0">
-        <g primer-label anchor="end">
-          <text text-anchor="start" alignment-baseline="middle">3'</text>
-        </g>
-        <g primer-label anchor="start">
-          <text text-anchor="end" alignment-baseline="middle">5'</text>
-        </g>
+        <g primer-label="3'" anchor="end" />
+        <g primer-label="5'" anchor="start" />
       </g>
       <g primer-feature ng-repeat="feature in main.features"
           start="feature.start" end="feature.end" height="feature.height"
           class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
         <g primer-feature-shape />
-        <g primer-label orient="top">
-          <text text-anchor="middle">{{feature.label}}</text>
-        </g>
+        <g primer-label="{{feature.label}}" orient="top" />
       </g>
       <primer-scale orient="bottom" transform="translate(0,30)" />
     </g>

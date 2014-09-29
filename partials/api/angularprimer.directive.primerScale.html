@@ -54,12 +54,8 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-scale
  </form>
  <svg width="100%" shape-rendering="crispEdges">
    <g primer-track transform="translate(0,30)" sequence-length="10e6">
-     <g primer-label anchor="end" orient="middle">
-       <text text-anchor="start" alignment-baseline="middle">3'</text>
-     </g>
-     <g primer-label anchor="start" orient="middle">
-       <text text-anchor="end" alignment-baseline="middle">5'</text>
-     </g>
+     <g primer-label="3'" anchor="end" orient="middle" />
+     <g primer-label="5'" anchor="start" orient="middle" />
      <g primer-scale orient="{{orient}}" format="format" />
      <g primer-feature start="10e5" end="25e5" class="marker">
        <primer-feature-shape />

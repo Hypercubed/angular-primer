@@ -15,19 +15,19 @@
      <svg width="100%" shape-rendering="crispEdges" >
        <g primer-track transform="translate(0,30)">
          <g primer-scale/>
-         <g primer-label anchor="start"><text text-anchor="end">3'</text></g>
-         <g primer-label anchor="end"><text text-anchor="start">5'</text></g>
+         <g primer-label="3'" anchor="start" />
+         <g primer-label="5'" anchor="end" />
          <g primer-feature start="10" end="25">
            <g primer-feature-shape class="marker"/>
-           <g primer-label orient="top"><text>A</text></g>
+           <g primer-label="A" orient="top" />
          </g>
          <g primer-feature start="30" end="55">
            <g primer-feature-shape class="marker" />
-           <g primer-label orient="top"><text>B</text></g>
+           <g primer-label="B" orient="top" />
          </g>
          <g primer-feature start="60" end="95">
            <g primer-feature-shape class="marker"/>
-           <g primer-label orient="top"><text>C</text></g>
+           <g primer-label="C" orient="top" />
          </g>
        </g>
      </svg>
@@ -49,19 +49,13 @@
     }
 
     svg text {
-      alignment-baseline: middle,
-       text-anchor: middle
+      stroke-width: 0
     }
 
      .marker {
        fill:lightblue;
        stroke:black;
        stroke-width: 1px;
-     }
-
-     .marker.none {
-       fill:#fff !important;
-       stroke-width:1px;
      }
 
      .marker:hover {
@@ -117,21 +111,15 @@
        <g primer-track transform="translate(0,30)" class="track"
            sequence="{{main.sequence}}" width="500" height="10">
          <g transform="translate(0,0)">
-           <g primer-label anchor="end">
-             <text text-anchor="start" alignment-baseline="middle">3'</text>
-           </g>
-           <g primer-label anchor="start">
-             <text text-anchor="end" alignment-baseline="middle">5'</text>
-           </g>
+           <g primer-label="3'" anchor="end" />
+           <g primer-label="5'" anchor="start" />
            <g primer-scale ticks="0" outer-tick-size="0" />
            <g primer-feature ng-repeat="feature in main.features | filter : { strand: '+' }"
-               start="feature.start" end="feature.end"
+               start="feature.start" end="feature.end">
+             <path primer-feature-shape="{{main.getShape(feature)}}"
                ng-style="{fill: feature.color}"
-               class="marker {{feature.label}} {{feature.direction}}" >
-             <path primer-feature-shape="{{main.getShape(feature)}}" />
-             <g primer-label orient="top">
-               <text text-anchor="middle">{{feature.label}}</text>
-             </g>
+               class="marker {{feature.label}} {{feature.direction}}" />
+             <g primer-label="{{feature.label}}" orient="top" />
            </g>
          </g>
          <g transform="translate(0,20)">
@@ -143,10 +131,10 @@
            </g>
            <g primer-scale ticks="0" outer-tick-size="0" />
            <g primer-feature ng-repeat="feature in main.features | filter : { strand: '-' }"
-               start="feature.start" end="feature.end"
+               start="feature.start" end="feature.end">
+             <path primer-feature-shape="{{main.getShape(feature)}}"
                ng-style="{fill: feature.color}"
-               class="marker {{feature.label}} {{feature.direction}}" >
-             <path primer-feature-shape="{{main.getShape(feature)}}" />
+               class="marker {{feature.label}} {{feature.direction}}" />
              <g primer-label orient="bottom">
                <text text-anchor="middle" alignment-baseline="middle">{{feature.label}}</text>
              </g>
