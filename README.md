@@ -36,7 +36,7 @@ angular-primer is a set of angualrjs directives that can be easily added to exis
 </svg>
 ```
 
-![example](https://rawgithub.com/Hypercubed/angular-primer/master/README-example.svg)
+![example](https://rawgithub.com/Hypercubed/angular-primer/master/README-example.png)
 
 ## Usage
 
