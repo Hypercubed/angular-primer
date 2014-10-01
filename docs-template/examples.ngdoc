@@ -328,3 +328,100 @@
 
   </file>
 </example>
+
+<example module="angularprimer">
+  <file name="exampleE.html">
+    <svg width="100%" height="100" shape-rendering="crispEdges" >
+      <g primer-track sequence-length="800" transform="translate(0,20)" height="20">
+        <g primer-scale ticks="0" orient="middle" />
+        <g primer-feature start="50" end="150">
+          <g primer-feature-shape class="marker grey"/>
+          <g primer-label="enhancer" orient="top"/>
+        </g>
+        <g primer-feature start="200" end="350">
+          <g primer-feature-shape class="marker grey"/>
+          <g primer-label="promoter" orient="top" />
+        </g>
+        <g primer-feature start="470" end="480">
+          <g primer-feature-shape class="marker blue"/>
+          <g primer-label="TATA box" orient="top" />
+        </g>
+        <g primer-feature start="500" end="529">
+          <g primer-feature-shape class="marker grey"/>
+        </g>
+        <g primer-feature start="530" end="559">
+          <g primer-feature-shape class="marker white"/>
+        </g>
+        <g primer-feature start="560" end="589">
+          <g primer-feature-shape class="marker grey"/>
+        </g>
+        <g primer-feature start="590" end="619">
+          <g primer-feature-shape class="marker white"/>
+        </g>
+        <g primer-feature start="700" end="780">
+          <g primer-feature-shape class="marker grey"/>
+          <g primer-label="enhancer" orient="top"/>
+        </g>
+      </g>
+      <g primer-track sequence-length="30" width="17" transform="translate(295,20)" height="20">
+        <g primer-scale ticks="0" orient="bottom" />
+        <g primer-label="~30bp" orient="bottom" transform="translate(0,7)"/>
+      </g>
+      <g primer-track sequence-length="300" width="188" transform="translate(125,40)" height="20">
+        <g primer-scale ticks="3" orient="bottom" format="''"/>
+        <g primer-label="~300bp" orient="bottom" transform="translate(0,7)"/>
+      </g>
+    </svg>
+  </file>
+  <file name="exampleE.css">
+   svg .domain {
+     fill: none;
+     stroke: black;
+     stroke-width: 2px;
+   }
+
+   svg .tick line {
+     fill: none;
+     stroke: black;
+     stroke-width: 1px;
+   }
+
+   svg text {
+     stroke-width: 0;
+     font-size: 10px;
+   }
+
+    .marker {
+      fill:lightblue;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker.blue {
+       fill:lightblue;
+       stroke:lightblue;
+     }
+
+    .marker.grey {
+       fill:grey;
+       stroke:black;
+     }
+
+    .marker.white {
+       fill:white;
+       stroke:black;
+     }
+
+
+    .symbol {
+      fill:yellow;
+      stroke:black;
+      stroke-width: 1px;
+    }
+
+    .marker:hover, .symbol:hover {
+      stroke-width:2px;
+    }
+
+  </file>
+</example>
