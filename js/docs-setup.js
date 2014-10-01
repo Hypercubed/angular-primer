@@ -11,7 +11,7 @@ NG_DOCS={
       "type": "overview",
       "moduleName": "Examples",
       "shortDescription": "Additional Examples",
-      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom circle class crispedges css dna domain examplea exampleb examplec exampled examples fill flanking font-size format green height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers red rna rotate sequence-length shape-rendering start strand stroke stroke-width svg symbol template text text-anchor tick ticks top transform translate triangle-down untranslated width"
+      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom box circle class crispedges css dna domain enhancer examplea exampleb examplec exampled examplee examples fill flanking font-size format green grey height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers promoter red rna rotate sequence-length shape-rendering start strand stroke stroke-width svg symbol tata template text text-anchor tick ticks top transform translate triangle-down untranslated white width"
     },
     {
       "section": "more",
