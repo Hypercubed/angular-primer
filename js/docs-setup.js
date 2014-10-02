@@ -56,7 +56,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "angularprimer",
       "shortDescription": "Creates a shape in a feature",
-      "keywords": "anchor angular angularprimer angularprimer-example api arrow-left arrow-right black bottom circle class controller creates crispedges cross css defaults diamond direction directive domain ea feature feature-track features fill float form function height hieght html input js label left main maincontroller marker min module ng-controller ng-model ng-repeat null number option orient outer-tick-size path primer-feature primer-feature-shape primer-label primer-scale primer-track rect sequence-length shape shape-rendering square start stroke stroke-width style svg table tick ticks top track transform translate triangle-down triangle-up type var width"
+      "keywords": "anchor angular angularprimer angularprimer-example api arrow-left arrow-right black bottom class controller creates crispedges css defaults direction directive domain ea feature feature-track features fill float form function height hieght html input js label left main maincontroller marker min module ng-controller ng-model ng-repeat null number orient outer-tick-size path primer-feature primer-feature-shape primer-label primer-scale primer-track rect sequence-length shape shape-rendering start stroke stroke-width style svg table tick ticks top track transform translate type var width"
     },
     {
       "section": "api",

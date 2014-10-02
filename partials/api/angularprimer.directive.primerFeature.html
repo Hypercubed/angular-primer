@@ -61,8 +61,8 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-feature
       </g>
       <g primer-feature ng-repeat="feature in main.features"
           start="feature.start" end="feature.end" height="feature.height"
-          class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
-        <g primer-feature-shape />
+          class="marker {{feature.label}} {{feature.direction}}">
+        <g primer-feature-shape  ng-style="{fill: feature.color}" />
         <g primer-label="{{feature.label}}" orient="top" />
       </g>
       <primer-scale orient="bottom" transform="translate(0,30)" />

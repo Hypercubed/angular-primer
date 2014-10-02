@@ -165,12 +165,12 @@
               main.sequence = new Array( 10 ).join( this.sequence );
 
               main.features = [
-              { label: 'A', start: 25, end: 50, direction: 'forward', strand: '+', color: 'lightblue' },
-              { label: 'B', start: 55, end: 90, direction: 'forward', strand: '+', color: 'green' },
-              { label: 'C', start: 95, end: 120, direction: 'none', strand: '+', color: 'yellowgreen' },
-              { label: 'D', start: 125, end: 155, direction: 'forward', strand: '-', color: 'grey' },
-              { label: 'E', start: 160, end: 175, direction: 'forward', strand: '-', color: 'red' },
-              { label: 'F', start: 180, end: 200, direction: 'none', strand: '-', color: '#fc0' }
+                { label: 'A', start: 25, end: 50, direction: 'forward', strand: '+', color: 'lightblue' },
+                { label: 'B', start: 55, end: 90, direction: 'forward', strand: '+', color: 'green' },
+                { label: 'C', start: 95, end: 120, direction: 'none', strand: '+', color: 'yellowgreen' },
+                { label: 'D', start: 125, end: 155, direction: 'forward', strand: '-', color: 'grey' },
+                { label: 'E', start: 160, end: 175, direction: 'forward', strand: '-', color: 'red' },
+                { label: 'F', start: 180, end: 200, direction: 'none', strand: '-', color: '#fc0' }
               ];
 
               main.getShape = function(feature) {
@@ -329,6 +329,7 @@
           controller: function($scope, $attrs) {
             var track = $scope.track = this;
 
+
             track.sequence = function() {
               return $scope.sequence;
             };
@@ -350,12 +351,13 @@
 
           },
           link: function link(scope, element, attrs, track) {
+            var margin = 25;
 
             function setScale() {
 
               track.xScale
                 .domain([track.start()-1 || 1, track.sequenceLength()+1])
-                .range([25, track.width()+25]);
+                .range([margin, track.width()+margin]);
 
             }
 
@@ -416,8 +418,8 @@
             </g>
             <g primer-feature ng-repeat="feature in main.features"
                 start="feature.start" end="feature.end" height="feature.height"
-                class="marker {{feature.label}} {{feature.direction}}" ng-style="{fill: feature.color}">
-              <g primer-feature-shape />
+                class="marker {{feature.label}} {{feature.direction}}">
+              <g primer-feature-shape  ng-style="{fill: feature.color}" />
               <g primer-label="{{feature.label}}" orient="top" />
             </g>
             <primer-scale orient="bottom" transform="translate(0,30)" />
@@ -565,12 +567,6 @@
                   <option value="">rect</option>
                   <option value="arrow-right">arrow-right</option>
                   <option value="arrow-left">arrow-left</option>
-                  <!-- option value="circle">circle</option>
-                  <option value="cross">cross</option>
-                  <option value="diamond">diamond</option>
-                  <option value="square">square</option>
-                  <option value="triangle-down">triangle-down</option>
-                  <option value="triangle-up">triangle-up</option -->
                 </select>
               </td>
             </tr>
@@ -600,12 +596,12 @@
             var main = this;
 
             main.features = [
-              { label: 'A', start: 60, end: 90, direction: 'right', height: null, type: null },
-              { label: 'B', start: 125, end: 150, direction: 'right', height: null, type: null },
-              { label: 'C', start: 180, end: 210, direction: 'none', height: null, type: null },
-              { label: 'D', start: 95, end: 120, direction: 'left', height: null, type: null },
+              { label: 'A', start: 25, end: 50, direction: 'none', height: null, type: null },
+              { label: 'B', start: 60, end: 90, direction: 'right', height: null, type: null },
+              { label: 'C', start: 95, end: 120, direction: 'left', height: null, type: null },
+              { label: 'D', start: 180, end: 210, direction: 'none', height: null, type: null },
               { label: 'E', start: 160, end: 175, direction: 'left', height: null, type: null },
-              { label: 'F', start: 25, end: 50, direction: 'none', height: null, type: null }
+              { label: 'F', start: 125, end: 150, direction: 'right', height: null, type: null }
             ];
           });
 
@@ -797,23 +793,20 @@
           link: function link(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
             var track = ctrls[1];
+            var parent = feature || track;
 
-            var height = (feature) ?
-              function() { return feature.height(); } :
-              function() { return track.height(); };
+            var margin = (feature) ? 0 : 25;
 
             function xPosition() {
-              var start = feature ? 0 : 20;
-              if (scope.anchor === 'start') { return start; }
-              var end = feature ? feature.width() : track.width()+30;
-              if (scope.anchor === 'end') { return end; }
-              if (!feature) { end += 30; }
-              return (end - start)/2;
+              var width = parent.width();
+              if (scope.anchor === 'start') { return margin; }
+              if (scope.anchor === 'end') { return margin+width; }
+              return margin+width/2;
             }
 
             function yPosition() {
-              var h = height();
-              var y = (feature) ? 0 : height()/2;
+              var h = parent.height();
+              var y = (feature) ? 0 : h/2;
               if (scope.orient === 'top') { return y-h/2-6; }
               if (scope.orient === 'bottom') { return y+h/2+9; }
               return y+3;
@@ -827,10 +820,8 @@
 
             var draw = function() {
               var anchor = scope.anchor || 'middle';
-              if (!feature && anchor === 'start') {
-                anchor = 'end';
-              } else if (!feature && anchor === 'end') {
-                anchor = 'start';
+              if (!feature) {
+                anchor = (anchor === 'start') ? 'end' : 'start';
               }
 
               d3_elm.selectAll('text').remove();
@@ -942,7 +933,7 @@
                     '</g>',
           replace : true,
           transclude: true,
-          require: '^primerTrack',
+          require: ['?^primerFeature','^primerTrack'],
           scope: {
             orient: '@',
             ticks: '&',
@@ -951,16 +942,19 @@
             tickPadding: '&',
             format: '=?'
           },
-          link: function link(scope, element, attrs, track) {
-            scope.track = track;
+          link: function link(scope, element, attrs, ctrls) {
+            var feature = ctrls[0];
+            var track = scope.track = ctrls[1];
+            var parent = scope.parent = feature || track;
 
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
 
             scope.yPosition = function() {
+              var h = parent.height();
               if (scope.orient === 'top') { return -5; }
-              if (scope.orient === 'bottom') { return track.height()+5; }
-              return track.height()/2;
+              if (scope.orient === 'bottom') { return h+5; }
+              return h/2;
             };
 
             function fmt(specifier) {
@@ -983,10 +977,16 @@
 
             function draw() {
 
-              var orient = scope.orient || 'middle';
-              var defaultSize = (orient === 'middle') ? [track.height()/2+6 || 6,0] : [6,6]; // [inner,outer]
+              var scale = track.xScale;
 
-              xAxis.scale(track.xScale)
+              if (feature && feature.width) {
+                scale = d3.scale.linear().domain([feature.start(),feature.end()]).range([0,parent.width()]);
+              }
+
+              var orient = scope.orient || 'middle';
+              var defaultSize = (orient === 'middle') ? [parent.height()/2+6 || 6,0] : [6,6]; // [inner,outer]
+
+              xAxis.scale(scale)
                 .ticks(scope.ticks() !== undefined ? scope.ticks() : 5)
                 .tickPadding(scope.tickPadding() !== undefined ? scope.tickPadding() : 3)
                 .innerTickSize(scope.innerTickSize() !== undefined ? scope.innerTickSize() : defaultSize[0])
@@ -1001,7 +1001,7 @@
 
             draw();
 
-            scope.$watchCollection('[track.sequenceLength(),track.width(),track.height(),orient,format,ticks,outerTickSize]', draw);
+            scope.$watchCollection('[track.sequenceLength(),parent.width(),parent.height(),orient,format,ticks,outerTickSize]', draw);
 
           }
 
