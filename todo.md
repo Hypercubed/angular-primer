@@ -6,8 +6,10 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [ ] Tick markers, with labels
 - [ ] Responsive size (scale to clientWidth).
 - [ ] Non-linear scales?
-- [ ] Scale in a feature.
+- [x] Scale in a feature.
 - [ ] Animation on changes?
-- [ ] Rename primerScale -> primerAxis?
+- [ ] Rename directives (primerScale -> primerAxis, primerFeature -> primerRegion, etc)
 - [ ] Bug: Properly handle start position on a track.
 - [ ] Append feature-shape to feature if no feature-shape added to template.
+- [ ] Feature and tracks have margin and padding.
+- [ ] Use margin and padding for labels.
