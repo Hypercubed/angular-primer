@@ -568,6 +568,8 @@
                   <option value="">rect</option>
                   <option value="arrow-right">arrow-right</option>
                   <option value="arrow-left">arrow-left</option>
+                  <option value="chevron-up">chevron-up</option>
+                  <option value="chevron-down">chevron-down</option>
                 </select>
               </td>
             </tr>
@@ -658,6 +660,12 @@
             var w = L-al;
 
             return 'M0,-'+h/2+' l'+w+',0 l0,-5 l'+al+','+(h/2+5)+' l-'+al+','+(h/2+5)+' l0,-5 l-'+w+',0 z';
+          },
+          'chevron-up': function(L,h) {
+            return 'M0,0 l'+L/2+',-'+h/2+' l'+L/2+','+h/2+' z';
+          },
+          'chevron-down': function(L,h) {
+            return 'M0,0 l'+L/2+','+h/2+' l'+L/2+',-'+h/2+' z';
           }
         };
 
@@ -825,7 +833,7 @@
                 if (anchor === 'start') {
                   anchor = 'end';
                 } else if (anchor === 'end') {
-                  anchor = 'end';
+                  anchor = 'start';
                 }
               }
 
