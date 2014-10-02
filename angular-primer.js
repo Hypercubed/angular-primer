@@ -493,6 +493,11 @@
             feature.start = function() { return $scope.start || 0; };
             feature.end = function() { return $scope.end || $scope.start; };
 
+            feature.width = function() {
+              if (!$scope.track) { return 100; }
+              return $scope.track.xScale(feature.end()+1)-$scope.track.xScale(feature.start());
+            };
+
           },
           link: function postLink(scope, element, attrs, ctrls) {
             var feature = scope.feature = ctrls[0];
@@ -501,10 +506,6 @@
             feature.height = angular.isDefined(attrs.height) ?
               function() { return scope.height() || track.height() || 10; } :
               feature.height = function() { return track.height() || 10; };
-
-            feature.width = function() {
-              return track.xScale(feature.end()+1)-track.xScale(feature.start());
-            };
 
             function yPosition() {
               return (track.height())/2;
@@ -778,7 +779,7 @@
       return {
           restrict: 'EA',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{translate()}})" ng-transclude />',
+          template: '<g><g ng-attr-transform="translate({{translate()}})" ng-transclude /></g>',
           replace : true,
           transclude: true,
           require: ['?^primerFeature','^primerTrack'],
@@ -816,12 +817,16 @@
               return ''+xPosition()+','+yPosition();
             };
 
-            var d3_elm = d3.select(element[0]);
+            var d3_elm = d3.select(element[0]).select('g');
 
             var draw = function() {
               var anchor = scope.anchor || 'middle';
               if (!feature) {
-                anchor = (anchor === 'start') ? 'end' : 'start';
+                if (anchor === 'start') {
+                  anchor = 'end';
+                } else if (anchor === 'end') {
+                  anchor = 'end';
+                }
               }
 
               d3_elm.selectAll('text').remove();
