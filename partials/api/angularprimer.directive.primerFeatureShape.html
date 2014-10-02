@@ -42,14 +42,24 @@ as attribute<pre class="prettyprint linenums">&lt;path primer-feature-shape="{st
         <td>
           <select ng-model="feature.type">
             <option value="">rect</option>
+            <option value="diamond">diamond</option>
+            <option value="ellipse">ellipse</option>
+            <option value="triangle-up">triangle-up</option>
+            <option value="triangle-down">triangle-down</option>
             <option value="arrow-right">arrow-right</option>
             <option value="arrow-left">arrow-left</option>
+            <option value="box-right">box-right</option>
+            <option value="box-left">box-left</option>
+            <option value="arc-up">arc-up</option>
+            <option value="arc-down">arc-down</option>
+            <option value="chevron-up">chevron-up</option>
+            <option value="chevron-down">chevron-down</option>
           </select>
         </td>
       </tr>
     </table>
 
-    <svg width="800" height="200" shape-rendering="crispEdges">
+    <svg width="800" height="200" shape-rendering="geometricPrecision">
       <g primer-track transform="translate(0,30)" class="track"
           sequence-length="250" start="10" width="500" height="10">
         <g primer-label="3'" anchor="end" />

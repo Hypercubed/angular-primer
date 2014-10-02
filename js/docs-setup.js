@@ -11,7 +11,7 @@ NG_DOCS={
       "type": "overview",
       "moduleName": "Examples",
       "shortDescription": "Additional Examples",
-      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom box circle class crispedges css dna domain enhancer examplea exampleb examplec exampled examplee examples fill flanking font-size format green grey height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers promoter red rna rotate sequence-length shape-rendering start strand stroke stroke-width svg symbol tata template text text-anchor tick ticks top transform translate triangle-down untranslated white width"
+      "keywords": "additional alignment-baseline anchor angularprimer arrow-left arrow-right black blue bottom box chevron-up circle class css dna domain enhancer examplea exampleb examplec exampled examplee examples fill flanking font-size format green grey height html marker middle module orient outer-tick-size overview parental primer primer-feature primer-feature-shape primer-label primer-scale primer-track primers promoter red rna rotate sequence-length start strand stroke stroke-width svg symbol tata template text text-anchor tick ticks top transform translate triangle-down untranslated white width"
     },
     {
       "section": "more",
@@ -56,7 +56,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "angularprimer",
       "shortDescription": "Creates a shape in a feature",
-      "keywords": "anchor angular angularprimer angularprimer-example api arrow-left arrow-right black bottom class controller creates crispedges css defaults direction directive domain ea feature feature-track features fill float form function height hieght html input js label left main maincontroller marker min module ng-controller ng-model ng-repeat null number orient outer-tick-size path primer-feature primer-feature-shape primer-label primer-scale primer-track rect sequence-length shape shape-rendering start stroke stroke-width style svg table tick ticks top track transform translate type var width"
+      "keywords": "anchor angular angularprimer angularprimer-example api arc-down arc-up arrow-left arrow-right black bottom box-left box-right chevron-down chevron-up class controller creates css defaults diamond direction directive domain ea ellipse feature feature-track features fill float form function geometricprecision height hieght html input js label left main maincontroller marker min module ng-controller ng-model ng-repeat null number orient outer-tick-size path primer-feature primer-feature-shape primer-label primer-scale primer-track rect sequence-length shape shape-rendering start stroke stroke-width style svg table tick ticks top track transform translate triangle-down triangle-up type var width"
     },
     {
       "section": "api",

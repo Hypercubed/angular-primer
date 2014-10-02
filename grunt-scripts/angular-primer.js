@@ -493,6 +493,11 @@
             feature.start = function() { return $scope.start || 0; };
             feature.end = function() { return $scope.end || $scope.start; };
 
+            feature.width = function() {
+              if (!$scope.track) { return 100; }
+              return $scope.track.xScale(feature.end()+1)-$scope.track.xScale(feature.start());
+            };
+
           },
           link: function postLink(scope, element, attrs, ctrls) {
             var feature = scope.feature = ctrls[0];
@@ -501,10 +506,6 @@
             feature.height = angular.isDefined(attrs.height) ?
               function() { return scope.height() || track.height() || 10; } :
               feature.height = function() { return track.height() || 10; };
-
-            feature.width = function() {
-              return track.xScale(feature.end()+1)-track.xScale(feature.start());
-            };
 
             function yPosition() {
               return (track.height())/2;
@@ -565,14 +566,24 @@
               <td>
                 <select ng-model="feature.type">
                   <option value="">rect</option>
+                  <option value="diamond">diamond</option>
+                  <option value="ellipse">ellipse</option>
+                  <option value="triangle-up">triangle-up</option>
+                  <option value="triangle-down">triangle-down</option>
                   <option value="arrow-right">arrow-right</option>
                   <option value="arrow-left">arrow-left</option>
+                  <option value="box-right">box-right</option>
+                  <option value="box-left">box-left</option>
+                  <option value="arc-up">arc-up</option>
+                  <option value="arc-down">arc-down</option>
+                  <option value="chevron-up">chevron-up</option>
+                  <option value="chevron-down">chevron-down</option>
                 </select>
               </td>
             </tr>
           </table>
 
-          <svg width="800" height="200" shape-rendering="crispEdges">
+          <svg width="800" height="200" shape-rendering="geometricPrecision">
             <g primer-track transform="translate(0,30)" class="track"
                 sequence-length="250" start="10" width="500" height="10">
               <g primer-label="3'" anchor="end" />
@@ -637,7 +648,7 @@
       */
       .directive("primerFeatureShape", function () {
 
-        var arrow_height = 10;
+        var arrow_height = 5;
         var arrow_length = 10;
 
         var svg_shapes = {  // TODO: move
@@ -645,18 +656,56 @@
             return 'M0,-'+h/2+' l'+L+',0 l0,'+h+' l-'+L+',0 z';
           },
           'arrow-left': function svg_arrow_left(L,h) {
-            var al = L < arrow_length ? L : arrow_length;
             var ah = arrow_height;
+            var al = Math.min(L,ah);
             var w = L-al;
 
-            return 'M0,0 l'+al+','+(h/2+5)+' l0,-5 l'+w+',0 l0,-'+h+' l-'+w+',0 l0,-5 z';
+            return 'M0,0 l'+al+','+(h/2+ah)+' l0,-'+ah+' l'+w+',0 l0,-'+h+' l-'+w+',0 l0,-'+ah+' z';
           },
           'arrow-right': function svg_arrow_right(L,h) {
-            var al = L < arrow_length ? L : arrow_length;
             var ah = arrow_height;
+            var al = Math.min(L,ah);
             var w = L-al;
 
-            return 'M0,-'+h/2+' l'+w+',0 l0,-5 l'+al+','+(h/2+5)+' l-'+al+','+(h/2+5)+' l0,-5 l-'+w+',0 z';
+            return 'M0,-'+h/2+' l'+w+',0 l0,-'+ah+' l'+al+','+(h/2+ah)+' l-'+al+','+(h/2+ah)+' l0,-'+ah+' l-'+w+',0 z';
+          },
+          'box-left': function(L,h) {
+            var ah = 0;
+            var al = 10;
+            var w = L-al;
+
+            return 'M0,0 l'+al+','+(h/2+ah)+' l0,-'+ah+' l'+w+',0 l0,-'+h+' l-'+w+',0 l0,-'+ah+' z';
+          },
+          'box-right': function(L,h) {
+            var ah = 0;
+            var al = 10;
+            var w = L-al;
+
+            return 'M0,-'+h/2+' l'+w+',0 l0,-'+ah+' l'+al+','+(h/2+ah)+' l-'+al+','+(h/2+ah)+' l0,-'+ah+' l-'+w+',0 z';
+          },
+          'chevron-up': function(L,h) {
+            return 'M0,0 l'+L/2+',-'+h/2+' l'+L/2+','+h/2;
+          },
+          'chevron-down': function(L,h) {
+            return 'M0,0 l'+L/2+','+h/2+' l'+L/2+',-'+h/2;
+          },
+          'triangle-up': function(L,h) {
+            return 'M0,'+h/2+' l'+L/2+',-'+h+' l'+L/2+','+h+' z';
+          },
+          'triangle-down': function(L,h) {
+            return 'M0,-'+h/2+' l'+L/2+','+h+' l'+L/2+',-'+h+' z';
+          },
+          'diamond': function(L,h) {
+            return 'M0,0 l'+L/2+',-'+h/2+' l'+L/2+','+h/2+' l-'+L/2+','+h/2+' z';
+          },
+          'arc-up': function(L,h) {
+            return 'M0,0 a '+L/2+' '+h/2+' 0 0 1 '+L+' 0';
+          },
+          'arc-down': function(L,h) {
+            return 'M0,0 a '+L/2+' -'+h/2+' 0 0 0 '+L+' 0';
+          },
+          'ellipse': function(L,h) {
+            return 'M0,0 a '+L/2+' '+h/2+' 0 0 1 '+L+' 0 M0,0 a '+L/2+' -'+h/2+' 0 0 0 '+L+' 0';
           }
         };
 
@@ -778,7 +827,7 @@
       return {
           restrict: 'EA',
           templateNamespace: 'svg',
-          template: '<g ng-attr-transform="translate({{translate()}})" ng-transclude />',
+          template: '<g><g ng-attr-transform="translate({{translate()}})" ng-transclude /></g>',
           replace : true,
           transclude: true,
           require: ['?^primerFeature','^primerTrack'],
@@ -816,12 +865,16 @@
               return ''+xPosition()+','+yPosition();
             };
 
-            var d3_elm = d3.select(element[0]);
+            var d3_elm = d3.select(element[0]).select('g');
 
             var draw = function() {
               var anchor = scope.anchor || 'middle';
               if (!feature) {
-                anchor = (anchor === 'start') ? 'end' : 'start';
+                if (anchor === 'start') {
+                  anchor = 'end';
+                } else if (anchor === 'end') {
+                  anchor = 'start';
+                }
               }
 
               d3_elm.selectAll('text').remove();
