@@ -22,15 +22,15 @@ angular-primer is a set of angualrjs directives that can be easily added to exis
     <g primer-label anchor="end"><text text-anchor="start">5'</text></g>
     <g primer-feature start="10" end="25">
       <g primer-feature-shape class="marker"/>
-      <g primer-label orient="top"><text>A</text></g>
+      <g primer-label="A" orient="top" />
     </g>
     <g primer-feature start="30" end="55">
       <g primer-feature-shape class="marker" />
-      <g primer-label orient="top"><text>B</text></g>
+      <g primer-label="B" orient="top" />
     </g>
     <g primer-feature start="60" end="95">
       <g primer-feature-shape class="marker"/>
-      <g primer-label orient="top"><text>C</text></g>
+      <g primer-label="C" orient="top" />
     </g>
   </g>
 </svg>

@@ -45,6 +45,10 @@ module.exports = function(grunt){
           url: 'http://hypercubed.github.io/<%= pkg.name %>/#',
           dev: false
         },
+        analytics: {
+          account: 'UA-102465-14',
+          domainName: 'hypercubed.github.io'
+        },
         scripts: [
           './bower_components/d3/d3.js',
           './bower_components/angular/angular.js',
