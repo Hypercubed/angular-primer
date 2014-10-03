@@ -51,10 +51,15 @@ module.exports = function(grunt){
         },
         scripts: [
           './bower_components/d3/d3.js',
+          './bower_components/jquery/dist/jquery.js',
           './bower_components/angular/angular.js',
           './bower_components/angular-animate/angular-animate.js',
+          './bower_components/angular-rangeslider/angular.rangeSlider.js',
           './<%= pkg.name %>.js',
           './docs-template/script.js'
+        ],
+        styles: [
+          './bower_components/angular-rangeslider/angular.rangeSlider.css'
         ]
       },
       more: {

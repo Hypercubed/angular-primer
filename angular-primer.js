@@ -85,7 +85,7 @@
             <table class="form" style="float: left;">
               <tr>
                 <th>Feature</th>
-                <th>Strand</th>
+                <th>Position</th>
                 <th>Display</th>
               </tr>
               <tr class="track feature-track" ng-repeat="feature in main.features">
@@ -918,7 +918,7 @@
           <div ng-controller="MainController as main">
             <div ng-include="'form.html'" />
             <svg width="100%" shape-rendering="crispEdges">
-              <g primer-track transform="translate(0,30)">
+              <g primer-track sequence-length="10e5" transform="translate(0,30)">
                 <g primer-label="3'" anchor="end" orient="middle" />
                 <g primer-label="5'" anchor="start" orient="middle" />
                 <g primer-scale ticks="main.trackScale.ticks" orient="{{main.trackScale.orient}}" format="main.trackScale.format" />
@@ -985,26 +985,17 @@
                    <input type="number" ng-model="main.featureScale.ticks" />
                  </td>
                </tr>
+               <tr>
+                 <th>Feature<br />position</th>
+                 <td colspan="2">
+                   <div range-slider class="" min="1e4" max="100e4" model-min="main.feature.start" model-max="main.feature.end" step="1e4"></div>
+                 </td>
+               </tr>
              </table>
-
-             <table class="form">
-                <tr>
-                  <th></th>
-                  <th>Position</th>
-                </tr>
-                <tr class="track feature-track">
-                  <th>Feature</th>
-                  <td>
-                    <input type="number" ng-model="main.feature.start" min="0" max="{{main.feature.end}}"/>
-                    <input type="number" ng-model="main.feature.end" min="{{main.feature.start}}" max="100"/>
-                  </td>
-                </tr>
-              </table>
-
            </form>
          </file>
          <file name=".js">
-            angular.module('myApp', ['angularprimer'])
+            angular.module('myApp', ['angularprimer','ui-rangeSlider'])
             .controller('MainController', function() {
               var main = this;
 
@@ -1016,13 +1007,13 @@
 
               main.trackScale = {
                 orient: 'top',
-                ticks: 10,
+                ticks: 6,
                 format: 's|bp'
               }
 
               main.feature = {
-                start: 25,
-                end: 75
+                start: 25e4,
+                end: 75e4
               };
 
             });
@@ -1092,11 +1083,13 @@
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
 
+            var margin = 5;
+
             scope.yPosition = function() {
               var h = parent.height();
-              if (scope.orient === 'top') { return -5; }
-              if (scope.orient === 'bottom') { return h+5; }
-              return h/2;
+              if (scope.orient === 'top') { return (feature) ? -h/2-margin : -margin; }
+              if (scope.orient === 'bottom') { return (feature) ? +h/2+margin : h+margin; }
+              return (feature) ? 0 : h/2;
             };
 
             function fmt(specifier) {
