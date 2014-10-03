@@ -343,7 +343,7 @@
           <g primer-feature-shape class="marker grey"/>
           <g primer-label="promoter" orient="top" />
         </g>
-        <g primer-feature start="200" end="500" transform="translate(0,15)">
+        <g primer-feature start="200" end="500" transform="translate(0,25)">
           <g primer-scale ticks="3" orient="bottom" format="''"/>
           <g primer-label="~300bp" orient="bottom" transform="translate(0,18)"/>
         </g>
@@ -351,9 +351,9 @@
           <g primer-feature-shape class="marker blue"/>
           <g primer-label="TATA box" orient="top" />
         </g>
-        <g primer-feature start="470" end="499" transform="translate(0,-5)">
+        <g primer-feature start="470" end="499">
           <g primer-scale ticks="0" orient="bottom" />
-          <g primer-label="~30bp" orient="bottom" transform="translate(0,13)"/>
+          <g primer-label="~30bp" orient="bottom" transform="translate(0,8)"/>
         </g>
         <g primer-feature start="500" end="529">
           <g primer-feature-shape class="marker grey"/>
