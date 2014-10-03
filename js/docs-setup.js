@@ -73,8 +73,8 @@ NG_DOCS={
       "shortName": "primerScale",
       "type": "directive",
       "moduleName": "angularprimer",
-      "shortDescription": "Adds a axis to a track.",
-      "keywords": "adds anchor angularprimer api approximate axis black bottom class crispedges css directive display domain ea fff fill format html inner labels marker markers middle module ng-init ng-model nuber orient orientation outer padding pixels primer-feature primer-label primer-scale primer-track scale sequence-length shape-rendering size start stroke stroke-width svg tick top track transform translate width"
+      "shortDescription": "Adds a axis to a track or a feature.",
+      "keywords": "adds anchor angular angularprimer api approximate axis black bottom class colspan controller crispedges css directive display domain ea feature featurescale fff fill form format function html inner input js labels main maincontroller marker markers max middle min model-max model-min module myapp ng-controller ng-include ng-model nuber number orient orientation outer padding pixels primer-feature primer-feature-shape primer-label primer-scale primer-track range-slider sequence-length shape-rendering size start step stroke stroke-width svg table text tick ticks top track trackscale transform translate type ui-rangeslider var width"
     },
     {
       "section": "api",
@@ -100,8 +100,10 @@ NG_DOCS={
   },
   "scripts": [
     "d3.js",
+    "jquery.js",
     "angular.js",
     "angular-animate.js",
+    "angular.rangeSlider.js",
     "angular-primer.js",
     "script.js"
   ]

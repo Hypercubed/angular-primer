@@ -85,7 +85,7 @@
             <table class="form" style="float: left;">
               <tr>
                 <th>Feature</th>
-                <th>Strand</th>
+                <th>Position</th>
                 <th>Display</th>
               </tr>
               <tr class="track feature-track" ng-repeat="feature in main.features">
@@ -903,7 +903,7 @@
      * @element g
      *
      * @description
-     * Adds a axis to a track.
+     * Adds a axis to a track or a feature.
      *
      * @param {string=} [orient='top'] The axis orientation.  Can be `top`, or `bottom`.
      * @param {number=} [ticks=5] Approximate nuber of tick markers to display along axis.
@@ -913,41 +913,116 @@
      * @param {expression} format Axis labels format.
      *
      * @example
-       <example module="angularprimer">
+       <example module="myApp">
          <file name="index.html">
-          <form>
-            Scale axis orientation:
-            <select ng-model="orient" ng-init="orient = 'top'">
-              <option value="top">top</option>
-              <option value="bottom">bottom</option>
-              <option value="middle">middle</option>
-            </select><br />
-            Scale tick format:
-            <select ng-model="format" ng-init="format = 's|bp'">
-              <option value="s|bp">default ("s|bp")</option>
-              <option value="s">SI-prefix ("s")</option>
-              <option value="e">exponent ("e")</option>
-              <option value="d">integer ("d")</option>
-            </select>
-          </form>
-          <svg width="100%" shape-rendering="crispEdges">
-            <g primer-track transform="translate(0,30)" sequence-length="10e6">
-              <g primer-label="3'" anchor="end" orient="middle" />
-              <g primer-label="5'" anchor="start" orient="middle" />
-              <g primer-scale orient="{{orient}}" format="format" />
-              <g primer-feature start="10e5" end="25e5" class="marker">
-                <primer-feature-shape />
+          <div ng-controller="MainController as main">
+            <div ng-include="'form.html'" />
+            <svg width="100%" shape-rendering="crispEdges">
+              <g primer-track sequence-length="10e5" transform="translate(0,30)">
+                <g primer-label="3'" anchor="end" orient="middle" />
+                <g primer-label="5'" anchor="start" orient="middle" />
+                <g primer-scale ticks="main.trackScale.ticks" orient="{{main.trackScale.orient}}" format="main.trackScale.format" />
+                <g primer-feature start="main.feature.start" end="main.feature.end" class="marker">
+                    <g primer-feature-shape />
+                    <g primer-scale ticks="main.featureScale.ticks" orient="{{main.featureScale.orient}}" format="main.featureScale.format" />
+                </g>
               </g>
-              <g primer-feature start="28e5" end="55e5" class="marker">
-                  <primer-feature-shape />
-              </g>
-              <g primer-feature start="59e5" end="95e5"class="marker">
-                <primer-feature-shape />
-              </g>
-            </g>
-          </svg>
+            </svg>
+          </div>
+         </file>
+         <file name="form.html">
+           <form>
+             <table>
+               <tr>
+                 <th></th>
+                 <th>Track</th>
+                 <th>Feature</th>
+               </tr>
+               <tr>
+                 <th>orient</th>
+                 <td>
+                   <select ng-model="main.trackScale.orient">
+                     <option value="top">top</option>
+                     <option value="bottom">bottom</option>
+                     <option value="middle">middle</option>
+                   </select>
+                 </td>
+                 <td>
+                   <select ng-model="main.featureScale.orient">
+                     <option value="top">top</option>
+                     <option value="bottom">bottom</option>
+                     <option value="middle">middle</option>
+                   </select>
+                 </td>
+               </tr>
+               <tr>
+                 <th>format</th>
+                 <td>
+                   <select ng-model="main.trackScale.format">
+                     <option value="s|bp">default ("s|bp")</option>
+                     <option value="">none ("")</option>
+                     <option value="s">SI-prefix ("s")</option>
+                     <option value="e">exponent ("e")</option>
+                     <option value="d">integer ("d")</option>
+                   </select>
+                 </td>
+                 <td>
+                   <select ng-model="main.featureScale.format">
+                     <option value="s|bp">default ("s|bp")</option>
+                     <option value="">none ("")</option>
+                     <option value="s">SI-prefix ("s")</option>
+                     <option value="e">exponent ("e")</option>
+                     <option value="d">integer ("d")</option>
+                   </select>
+                 </td>
+               </tr>
+               <tr>
+                 <th>ticks</th>
+                 <td>
+                   <input type="number" ng-model="main.trackScale.ticks" />
+                 </td>
+                 <td>
+                   <input type="number" ng-model="main.featureScale.ticks" />
+                 </td>
+               </tr>
+               <tr>
+                 <th>Feature<br />position</th>
+                 <td colspan="2">
+                   <div range-slider class="" min="1e4" max="100e4" model-min="main.feature.start" model-max="main.feature.end" step="1e4"></div>
+                 </td>
+               </tr>
+             </table>
+           </form>
+         </file>
+         <file name=".js">
+            angular.module('myApp', ['angularprimer','ui-rangeSlider'])
+            .controller('MainController', function() {
+              var main = this;
+
+              main.featureScale = {
+                orient: 'bottom',
+                ticks: 3,
+                format: 's|bp'
+              }
+
+              main.trackScale = {
+                orient: 'top',
+                ticks: 6,
+                format: 's|bp'
+              }
+
+              main.feature = {
+                start: 25e4,
+                end: 75e4
+              };
+
+            });
          </file>
          <file name=".css">
+          table.form input {
+            width: 40px;
+          }
+
           svg .domain {
             fill: none;
             stroke: black;
@@ -973,6 +1048,11 @@
 
           .marker:hover {
             stroke-width:2px;
+          }
+
+          svg text {
+            fill: black;
+            stroke-width: 0;
           }
          </file>
        </example>
@@ -1003,11 +1083,13 @@
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
 
+            var margin = 5;
+
             scope.yPosition = function() {
               var h = parent.height();
-              if (scope.orient === 'top') { return -5; }
-              if (scope.orient === 'bottom') { return h+5; }
-              return h/2;
+              if (scope.orient === 'top') { return (feature) ? -h/2-margin : -margin; }
+              if (scope.orient === 'bottom') { return (feature) ? +h/2+margin : h+margin; }
+              return (feature) ? 0 : h/2;
             };
 
             function fmt(specifier) {
@@ -1054,7 +1136,7 @@
 
             draw();
 
-            scope.$watchCollection('[track.sequenceLength(),parent.width(),parent.height(),orient,format,ticks,outerTickSize]', draw);
+            scope.$watchCollection('[track.sequenceLength(),parent.width(),parent.height(),orient,format,ticks(),outerTickSize()]', draw);
 
           }
 

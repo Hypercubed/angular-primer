@@ -4,7 +4,7 @@
 </div>
 </h1>
 <div><h2 id="description">Description</h2>
-<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>Adds a axis to a track.</p>
+<div class="description"><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><p>Adds a axis to a track or a feature.</p>
 </div></div>
 <h2 id="usage">Usage</h2>
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;primer-scale
@@ -33,46 +33,100 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-scale
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="angularprimer-directive-page angularprimer-directive-primerscale-page"><h4 id="example_source">Source</h4>
-<div source-edit="angularprimer" source-edit-deps="angular.js" source-edit-html="index.html-0" source-edit-css=".css" source-edit-js="" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div source-edit="myApp" source-edit-deps="angular.js .js" source-edit-html="index.html-0 form.html" source-edit-css=".css" source-edit-js=".js" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
 <div class="tabbable"><div class="tab-pane" title="index.html">
-<pre class="prettyprint linenums" ng-set-text="index.html-0" ng-html-wrap-loaded="angularprimer angular.js"></pre>
+<pre class="prettyprint linenums" ng-set-text="index.html-0" ng-html-wrap-loaded="myApp angular.js .js"></pre>
 <script type="text/ng-template" id="index.html-0">
- <form>
-   Scale axis orientation:
-   <select ng-model="orient" ng-init="orient = 'top'">
-     <option value="top">top</option>
-     <option value="bottom">bottom</option>
-     <option value="middle">middle</option>
-   </select><br />
-   Scale tick format:
-   <select ng-model="format" ng-init="format = 's|bp'">
-     <option value="s|bp">default ("s|bp")</option>
-     <option value="s">SI-prefix ("s")</option>
-     <option value="e">exponent ("e")</option>
-     <option value="d">integer ("d")</option>
-   </select>
- </form>
- <svg width="100%" shape-rendering="crispEdges">
-   <g primer-track transform="translate(0,30)" sequence-length="10e6">
-     <g primer-label="3'" anchor="end" orient="middle" />
-     <g primer-label="5'" anchor="start" orient="middle" />
-     <g primer-scale orient="{{orient}}" format="format" />
-     <g primer-feature start="10e5" end="25e5" class="marker">
-       <primer-feature-shape />
+ <div ng-controller="MainController as main">
+   <div ng-include="'form.html'" />
+   <svg width="100%" shape-rendering="crispEdges">
+     <g primer-track sequence-length="10e5" transform="translate(0,30)">
+       <g primer-label="3'" anchor="end" orient="middle" />
+       <g primer-label="5'" anchor="start" orient="middle" />
+       <g primer-scale ticks="main.trackScale.ticks" orient="{{main.trackScale.orient}}" format="main.trackScale.format" />
+       <g primer-feature start="main.feature.start" end="main.feature.end" class="marker">
+           <g primer-feature-shape />
+           <g primer-scale ticks="main.featureScale.ticks" orient="{{main.featureScale.orient}}" format="main.featureScale.format" />
+       </g>
      </g>
-     <g primer-feature start="28e5" end="55e5" class="marker">
-         <primer-feature-shape />
-     </g>
-     <g primer-feature start="59e5" end="95e5"class="marker">
-       <primer-feature-shape />
-     </g>
-   </g>
- </svg>
+   </svg>
+ </div>
+</script>
+</div>
+<div class="tab-pane" title="form.html">
+<pre class="prettyprint linenums" ng-set-text="form.html"></pre>
+<script type="text/ng-template" id="form.html">
+  <form>
+    <table>
+      <tr>
+        <th></th>
+        <th>Track</th>
+        <th>Feature</th>
+      </tr>
+      <tr>
+        <th>orient</th>
+        <td>
+          <select ng-model="main.trackScale.orient">
+            <option value="top">top</option>
+            <option value="bottom">bottom</option>
+            <option value="middle">middle</option>
+          </select>
+        </td>
+        <td>
+          <select ng-model="main.featureScale.orient">
+            <option value="top">top</option>
+            <option value="bottom">bottom</option>
+            <option value="middle">middle</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>format</th>
+        <td>
+          <select ng-model="main.trackScale.format">
+            <option value="s|bp">default ("s|bp")</option>
+            <option value="">none ("")</option>
+            <option value="s">SI-prefix ("s")</option>
+            <option value="e">exponent ("e")</option>
+            <option value="d">integer ("d")</option>
+          </select>
+        </td>
+        <td>
+          <select ng-model="main.featureScale.format">
+            <option value="s|bp">default ("s|bp")</option>
+            <option value="">none ("")</option>
+            <option value="s">SI-prefix ("s")</option>
+            <option value="e">exponent ("e")</option>
+            <option value="d">integer ("d")</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>ticks</th>
+        <td>
+          <input type="number" ng-model="main.trackScale.ticks" />
+        </td>
+        <td>
+          <input type="number" ng-model="main.featureScale.ticks" />
+        </td>
+      </tr>
+      <tr>
+        <th>Feature<br />position</th>
+        <td colspan="2">
+          <div range-slider class="" min="1e4" max="100e4" model-min="main.feature.start" model-max="main.feature.end" step="1e4"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
 </script>
 </div>
 <div class="tab-pane" title=".css">
 <pre class="prettyprint linenums" ng-set-text=".css"></pre>
 <style type="text/css" id=".css">
+ table.form input {
+   width: 40px;
+ }
+
  svg .domain {
    fill: none;
    stroke: black;
@@ -99,9 +153,41 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-scale
  .marker:hover {
    stroke-width:2px;
  }
+
+ svg text {
+   fill: black;
+   stroke-width: 0;
+ }
 </style>
 </div>
+<div class="tab-pane" title=".js">
+<pre class="prettyprint linenums" ng-set-text=".js"></pre>
+<script type="text/ng-template" id=".js">
+   angular.module('myApp', ['angularprimer','ui-rangeSlider'])
+   .controller('MainController', function() {
+     var main = this;
+
+     main.featureScale = {
+       orient: 'bottom',
+       ticks: 3,
+       format: 's|bp'
+     }
+
+     main.trackScale = {
+       orient: 'top',
+       ticks: 6,
+       format: 's|bp'
+     }
+
+     main.feature = {
+       start: 25e4,
+       end: 75e4
+     };
+
+   });
+</script>
+</div>
 </div><h4 id="example_demo">Demo</h4>
-<div class="well doc-example-live animate-container" ng-embed-app="angularprimer" ng-set-html="index.html-0" ng-eval-javascript=""></div>
+<div class="well doc-example-live animate-container" ng-embed-app="myApp" ng-set-html="index.html-0" ng-eval-javascript=".js"></div>
 </div></div>
 </div>
