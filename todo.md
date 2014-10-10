@@ -9,8 +9,9 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [x] Scale in a feature.
 - [ ] Animation on changes?
 - [ ] Rename directives (primerScale -> primerAxis, primerFeature -> primerRegion, etc)
-- [ ] Bug: Properly handle start position on a track.
+- [x] Bug: Properly handle start position on a track.
 - [ ] Append feature-shape to feature if no feature-shape added to template.
 - [ ] Feature and tracks have margin and padding.
 - [ ] Feature and tracks should have consistent properties
 - [ ] Use margin and padding for labels.
+- [ ] Default 50 zero-based start position?

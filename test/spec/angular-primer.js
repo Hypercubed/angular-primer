@@ -28,15 +28,15 @@ describe('Directive: marked,', function () {
       expect(track.sequence()).toBeUndefined();
       expect(track.sequenceLength()).toEqual(100);
       expect(track.height()).toEqual(10);
-      expect(track.start()).toEqual(1);
+      expect(track.start()).toEqual(0);
       expect(track.width()).toEqual(500);
       expect(typeof scale).toEqual('function');
 
-      expect(scale.domain()).toEqual([1,101]);  // 1-based
+      expect(scale.domain()).toEqual([0,100]);  // 0-based, default
       expect(scale.range()).toEqual([25,525]);  // margin
 
-      expect(scale(1)).toEqual(25);
-      expect(scale(50)).toEqual(270);
+      expect(scale(0)).toEqual(25);
+      expect(scale(50)).toEqual(275);
 
     });
 
@@ -105,8 +105,8 @@ describe('Directive: marked,', function () {
       var scope = element.find('g').isolateScope();
       var feature = scope.feature;
 
-      expect(feature.start()).toEqual(1);
-      expect(feature.end()).toEqual(2);
+      expect(feature.start()).toEqual(0);
+      expect(feature.end()).toEqual(1);
 
       expect(feature.width()).toEqual(5);
       expect(feature.height()).toEqual(10);
@@ -115,7 +115,7 @@ describe('Directive: marked,', function () {
       expect(feature.sequenceLength()).toEqual(1);
 
       element = element.find('title');
-      expect(element.text()).toEqual('1-2');
+      expect(element.text()).toEqual('0-1');
 
       element = element.parent();
       expect(element.attr('transform')).toEqual('translate(25,5)');  // margin, track.height/2
