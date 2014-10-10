@@ -343,8 +343,8 @@
               return $scope.height() || 10;
             };
 
-            track.start = ($attrs.start) ? $scope.start : function() { return 1; };
-            track.width = ($attrs.width) ? $scope.width : function() { return 500; };
+            track.start = angular.isDefined($attrs.start) ? $scope.start : function() { return 0; };
+            track.width = angular.isDefined($attrs.width) ? $scope.width : function() { return 500; };
 
             track.xScale = d3.scale.linear();
 
@@ -355,7 +355,7 @@
             function setScale() {
 
               track.xScale
-                .domain([track.start() || 1, +track.start() + track.sequenceLength()])
+                .domain([track.start(), track.start() + track.sequenceLength()])
                 .range([margin, track.width()+margin]);
 
             }
@@ -489,8 +489,15 @@
           controller: function($scope, $attrs) {
             var feature = this;
 
-            feature.start = function() { return parseInt($scope.start) || $scope.track.start() || 1; };
-            feature.end = function() { return parseInt($scope.end) || feature.start()+1; };
+            feature.start = function() {
+              if (angular.isDefined($scope.start)) { return parseInt($scope.start); }
+              //if (angular.isDefined($scope.start)) { return $scope.track.start(); }
+              return $scope.track.start();
+            };
+
+            feature.end = function() {
+              return angular.isDefined($scope.end) ? parseInt($scope.end) : feature.start()+1;
+            };
 
             feature.width = function() {
               if (!$scope.track) { return 100; }
