@@ -351,23 +351,23 @@
           <g primer-feature-shape class="marker blue"/>
           <g primer-label="TATA box" orient="top" />
         </g>
-        <g primer-feature start="470" end="499">
+        <g primer-feature start="470" end="500">
           <g primer-scale ticks="0" orient="bottom" />
           <g primer-label="~30bp" orient="bottom" transform="translate(0,8)"/>
         </g>
-        <g primer-feature start="500" end="529">
+        <g primer-feature start="500" end="530">
           <g primer-feature-shape class="marker grey"/>
         </g>
-        <g primer-feature start="530" end="559" height="10">
+        <g primer-feature start="530" end="560" height="10">
           <g primer-feature-shape="chevron-up" class="marker white"/>
         </g>
-        <g primer-feature start="560" end="589">
+        <g primer-feature start="560" end="590">
           <g primer-feature-shape class="marker grey"/>
         </g>
-        <g primer-feature start="590" end="619" height="10">
+        <g primer-feature start="590" end="620" height="10">
           <g primer-feature-shape="chevron-up" class="marker white"/>
         </g>
-        <g primer-feature start="620" end="649">
+        <g primer-feature start="620" end="650">
           <g primer-feature-shape class="marker grey"/>
         </g>
         <g primer-feature start="700" end="780">
