@@ -9,7 +9,7 @@
     <svg width="100%" height="90" >
       <g primer-track transform="translate(0,20)">
 
-        <g primer-feature start="1" end="49">
+        <g primer-feature start="1" end="50">
           <g primer-feature-shape class="marker red" />
           <g primer-label anchor="start">
             <text text-anchor="end" alignment-baseline="middle">3'&nbsp;</text>
@@ -110,7 +110,7 @@
       <g primer-track start="50" sequence-length="100" width="200" transform="translate(202,20) rotate(-45)">
         <g primer-scale orient="middle" ticks="0" />
         <g primer-label="3'" anchor="end"/>
-        <g primer-feature start="55" end="100">
+        <g primer-feature start="55" end="145">
           <g primer-feature-shape="arrow-left" class="marker green" height="2" transform="translate(0,15)"/>
         </g>
       </g>
@@ -118,13 +118,13 @@
         <g primer-scale orient="middle" />
         <g primer-label="5'" anchor="end"/>
         <g transform="translate(0,-15)">
-          <g primer-feature start="60" end="90">
+          <g primer-feature start="60" end="140">
             <g primer-feature-shape="arrow-right" class="marker blue" height="2" />
             <g primer-label="RNA Primers" anchor="middle" orient="top" transform="translate(0,-10)"/>
           </g>
-          <g primer-feature start="60" end="65"><g primer-feature-shape class="marker" /></g>
-          <g primer-feature start="70" end="75"><g primer-feature-shape class="marker" /></g>
-          <g primer-feature start="80" end="85"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="70" end="85"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="90" end="105"><g primer-feature-shape class="marker" /></g>
+          <g primer-feature start="110" end="125"><g primer-feature-shape class="marker" /></g>
         </g>
       </g>
       <g primer-track width="200" transform="translate(0,30)">
@@ -179,17 +179,17 @@
           <g primer-scale ticks="0" orient="top"/>
           <g primer-label="5' flanking DNA" anchor="middle"/>
         </g>
-        <g primer-feature start="26" end="75">
+        <g primer-feature start="25" end="75">
           <g primer-feature-shape class="marker black" height="3" />
         </g>
-        <g primer-feature start="26" end="35">
+        <g primer-feature start="25" end="35">
           <g primer-feature-shape class="marker" />
           <g transform="translate(0,25)">
             <g primer-scale ticks="0" orient="top"/>
             <g primer-label="5' untranslated" anchor="middle"/>
           </g>
         </g>
-        <g primer-feature start="36" end="40">
+        <g primer-feature start="35" end="40">
           <g primer-feature-shape class="marker black" />
         </g>
         <g primer-feature start="55" end="60">
@@ -198,7 +198,7 @@
         <g primer-feature start="65" end="70">
           <g primer-feature-shape class="marker black" />
         </g>
-        <g primer-feature start="71" end="75">
+        <g primer-feature start="70" end="75">
           <g primer-feature-shape class="marker" />
           <g transform="translate(0,25)">
             <g primer-scale ticks="0" orient="top"/>
@@ -282,13 +282,13 @@
       </g>
       <g primer-track sequence-length="50" transform="translate(0,15)">
         <g primer-scale ticks="50" orient="top" format="''" transform="translate(0,25)"  outer-tick-size="0" />
-        <g primer-feature start="3" height="6">
+        <g primer-feature start="3" end="4" height="6">
           <g primer-feature-shape="triangle-down" class="symbol" />
         </g>
-        <g primer-feature start="5" height="6">
+        <g primer-feature start="5" end="6" height="6">
           <g primer-feature-shape="triangle-down" class="symbol" />
         </g>
-        <g primer-feature start="17" height="20" transform="translate(0,5)">
+        <g primer-feature start="17" end="18" height="20" transform="translate(0,5)">
           <g primer-feature-shape="circle" class="symbol" />
         </g>
       </g>

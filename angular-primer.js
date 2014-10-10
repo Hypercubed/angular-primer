@@ -329,14 +329,13 @@
           controller: function($scope, $attrs) {
             var track = $scope.track = this;
 
-
             track.sequence = function() {
               return $scope.sequence;
             };
 
             track.sequenceLength = function() {
-              if ($scope.sequenceLength() !== undefined) { return $scope.sequenceLength(); }
-              if ($scope.sequence !== undefined) { return $scope.sequence.length; }
+              if ($scope.sequenceLength() !== undefined) { return +$scope.sequenceLength(); }
+              if ($scope.sequence !== undefined) { return +$scope.sequence.length; }
               return 100;
             };
 
@@ -356,7 +355,7 @@
             function setScale() {
 
               track.xScale
-                .domain([track.start()-1 || 1, track.sequenceLength()+1])
+                .domain([track.start()-1 || 1, +track.start() + track.sequenceLength()])
                 .range([margin, track.width()+margin]);
 
             }
@@ -490,12 +489,12 @@
           controller: function($scope, $attrs) {
             var feature = this;
 
-            feature.start = function() { return $scope.start || 0; };
-            feature.end = function() { return $scope.end || $scope.start; };
+            feature.start = function() { return parseInt($scope.start) || 0; };
+            feature.end = function() { return parseInt($scope.end || $scope.start); };
 
             feature.width = function() {
               if (!$scope.track) { return 100; }
-              return $scope.track.xScale(feature.end()+1)-$scope.track.xScale(feature.start());
+              return $scope.track.xScale(feature.end())-$scope.track.xScale(feature.start());
             };
 
           },
@@ -652,7 +651,7 @@
         var arrow_length = 10;
 
         var svg_shapes = {  // TODO: move
-          'rect': function svg_rect(L,h) {
+          'box': function svg_rect(L,h) {
             return 'M0,-'+h/2+' l'+L+',0 l0,'+h+' l-'+L+',0 z';
           },
           'arrow-left': function svg_arrow_left(L,h) {
@@ -671,14 +670,14 @@
           },
           'box-left': function(L,h) {
             var ah = 0;
-            var al = 10;
+            var al = Math.min(L,10);
             var w = L-al;
 
             return 'M0,0 l'+al+','+(h/2+ah)+' l0,-'+ah+' l'+w+',0 l0,-'+h+' l-'+w+',0 l0,-'+ah+' z';
           },
           'box-right': function(L,h) {
             var ah = 0;
-            var al = 10;
+            var al = Math.min(L,10);
             var w = L-al;
 
             return 'M0,-'+h/2+' l'+w+',0 l0,-'+ah+' l'+al+','+(h/2+ah)+' l-'+al+','+(h/2+ah)+' l0,-'+ah+' l-'+w+',0 z';
@@ -728,7 +727,7 @@
                 var L = feature.width() || 1;
                 var h = scope.height() || feature.height() || 10;
                 var dir = scope.direction || 'none';
-                var type = scope.type || 'rect';
+                var type = (scope.type === undefined || scope.type.length === 0 || scope.type === 'rect') ? 'box' : scope.type;
 
                 if (L < 0) {  L = 1; }
 
