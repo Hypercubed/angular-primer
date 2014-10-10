@@ -1,6 +1,6 @@
 {
   "name": "angular-primer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "AngularJS primer visualization.",
   "main": "angular-primer.js",
   "dependencies": {
