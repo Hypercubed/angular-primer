@@ -355,7 +355,7 @@
             function setScale() {
 
               track.xScale
-                .domain([track.start()-1 || 1, +track.start() + track.sequenceLength()])
+                .domain([track.start() || 1, +track.start() + track.sequenceLength()])
                 .range([margin, track.width()+margin]);
 
             }
@@ -399,8 +399,8 @@
               <label>{{feature.label}}</label>
             </td>
             <td>
-              <input type="number" ng-model="feature.start" min="0" max="{{feature.end}}"/>
-              <input type="number" ng-model="feature.end" min="{{feature.start}}" max="{{main.sequence.length}}"/>
+              <input type="number" ng-model="feature.start"/>
+              <input type="number" ng-model="feature.end"/>
             </td>
             <td>
               <input type="number" ng-model="feature.height" min="0"/>
@@ -474,7 +474,7 @@
           template: '<g>'+
                       '<g ng-attr-transform="translate({{translate()}})">'+
                         '<title ng-bind="title()" />'+
-                        '<g ng-transclude />'+
+                        '<g ng-transclude></g>'+
                       '</g>'+
                     '<g>',
           replace : true,
@@ -489,12 +489,16 @@
           controller: function($scope, $attrs) {
             var feature = this;
 
-            feature.start = function() { return parseInt($scope.start) || 0; };
-            feature.end = function() { return parseInt($scope.end || $scope.start); };
+            feature.start = function() { return parseInt($scope.start) || $scope.track.start() || 1; };
+            feature.end = function() { return parseInt($scope.end) || feature.start()+1; };
 
             feature.width = function() {
               if (!$scope.track) { return 100; }
               return $scope.track.xScale(feature.end())-$scope.track.xScale(feature.start());
+            };
+
+            feature.sequenceLength = function() {
+              return feature.end() - feature.start();
             };
 
           },
@@ -518,10 +522,24 @@
               return ''+xPosition()+','+yPosition();
             };
 
+            feature.sequence = function() {
+              var seq = track.sequence();
+              if (seq) {
+                var s = feature.start()-track.start();
+                var e = feature.end()-track.start();
+                return seq.substring(s, e);
+              } else {
+                return undefined;
+              }
+            };
+
             scope.title = function() {
               var txt = ''+feature.start()+'-'+feature.end();
+
               if (track.sequence()) {
-                txt += ' '+track.sequence().substring(feature.start()-1, feature.end());
+                var s = feature.start()-track.start();
+                var e = feature.end()-track.start();
+                txt += ' '+track.sequence().substring(s, e);
               }
               return txt;
             };

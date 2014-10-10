@@ -12,4 +12,5 @@ _\( managed using [todo-md](https://github.com/Hypercubed/todo-md) \)_
 - [ ] Bug: Properly handle start position on a track.
 - [ ] Append feature-shape to feature if no feature-shape added to template.
 - [ ] Feature and tracks have margin and padding.
+- [ ] Feature and tracks should have consistent properties
 - [ ] Use margin and padding for labels.

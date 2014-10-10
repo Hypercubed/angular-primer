@@ -83,9 +83,13 @@ module.exports = function(grunt){
     },
 
     watch: {
-      parser: {
+      serve: {
         files: ['<%= pkg.name %>.js','./docs-template/*.ngdoc'],
-        tasks: ['jshint','ngdocs']
+        tasks: ['ngdocs']
+      },
+      tests: {
+        files: ['<%= pkg.name %>.js','./test/spec/*.js'],
+        tasks: ['jshint','test']
       }
     },
 
@@ -94,17 +98,35 @@ module.exports = function(grunt){
         base: 'docs'
       },
       src: ['**']
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      },
+      once: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS']
+      },
+      server: {
+        configFile: 'karma.conf.js',
+        singleRun: false,
+        autoWatch: true,
+        browsers: ['PhantomJS']
+      }
     }
 
   });
 
   require('load-grunt-tasks')(grunt);
-  require('time-grunt')(grunt);
+  //require('time-grunt')(grunt);
 
   grunt.registerTask('serve', ['build','connect','watch']);
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean', 'jshint', 'uglify','ngdocs']);
+  grunt.registerTask('build', ['clean','jshint','test','uglify','ngdocs']);
+  grunt.registerTask('test', ['karma:once']);
   grunt.registerTask('publish', ['bump-only','build','bump-commit','gh-pages']);
 
 };
