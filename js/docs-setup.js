@@ -47,7 +47,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "angularprimer",
       "shortDescription": "Creates a feature on a track",
-      "keywords": "anchor angular angularprimer angularprimer-example api array black bottom ccctgtggagccacaccctcaccct class color cols controller creates crispedges css direction directive domain ea exampleb fc0 feature feature-track features fill float form function green grey height html input join js label left length lightblue main maincontroller marker max min module ng-controller ng-model ng-repeat ng-style null number orient outer-tick-size position primer-feature primer-feature-shape primer-label primer-scale primer-track red rows sequence shape-rendering start starting stroke stroke-width style svg table tick ticks top track transform translate type var width yellowgreen"
+      "keywords": "anchor angular angularprimer angularprimer-example api array black bottom ccctgtggagccacaccctcaccct class color cols controller creates crispedges css direction directive domain ea exampleb fc0 feature feature-track features fill float form function green grey height html input join js label left lightblue main maincontroller marker min module ng-controller ng-model ng-repeat ng-style null number orient outer-tick-size position primer-feature primer-feature-shape primer-label primer-scale primer-track red rows sequence shape-rendering start starting stroke stroke-width style svg table tick ticks top track transform translate type var width yellowgreen"
     },
     {
       "section": "api",

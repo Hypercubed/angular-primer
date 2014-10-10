@@ -43,8 +43,8 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-feature
         <label>{{feature.label}}</label>
       </td>
       <td>
-        <input type="number" ng-model="feature.start" min="0" max="{{feature.end}}"/>
-        <input type="number" ng-model="feature.end" min="{{feature.start}}" max="{{main.sequence.length}}"/>
+        <input type="number" ng-model="feature.start"/>
+        <input type="number" ng-model="feature.end"/>
       </td>
       <td>
         <input type="number" ng-model="feature.height" min="0"/>

@@ -40,7 +40,7 @@ as attribute<pre class="prettyprint linenums">&lt;g primer-scale
  <div ng-controller="MainController as main">
    <div ng-include="'form.html'" />
    <svg width="100%" shape-rendering="crispEdges">
-     <g primer-track sequence-length="10e5" transform="translate(0,30)">
+     <g primer-track start="1e4" sequence-length="100e4" transform="translate(0,30)">
        <g primer-label="3'" anchor="end" orient="middle" />
        <g primer-label="5'" anchor="start" orient="middle" />
        <g primer-scale ticks="main.trackScale.ticks" orient="{{main.trackScale.orient}}" format="main.trackScale.format" />
