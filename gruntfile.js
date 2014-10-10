@@ -87,9 +87,9 @@ module.exports = function(grunt){
         files: ['<%= pkg.name %>.js','./docs-template/*.ngdoc'],
         tasks: ['ngdocs']
       },
-      tests: {
+      test: {
         files: ['<%= pkg.name %>.js','./test/spec/*.js'],
-        tasks: ['jshint','test']
+        tasks: ['test']
       }
     },
 
@@ -125,8 +125,8 @@ module.exports = function(grunt){
   grunt.registerTask('serve', ['build','connect','watch']);
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean','jshint','test','uglify','ngdocs']);
-  grunt.registerTask('test', ['karma:once']);
+  grunt.registerTask('build', ['clean','test','uglify','ngdocs']);
+  grunt.registerTask('test', ['jshint', 'karma:once']);
   grunt.registerTask('publish', ['bump-only','build','bump-commit','gh-pages']);
 
 };
