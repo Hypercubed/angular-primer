@@ -536,10 +536,8 @@
             scope.title = function() {
               var txt = ''+feature.start()+'-'+feature.end();
 
-              if (track.sequence()) {
-                var s = feature.start()-track.start();
-                var e = feature.end()-track.start();
-                txt += ' '+track.sequence().substring(s, e);
+              if (feature.sequence()) {
+                txt += ' '+feature.sequence();
               }
               return txt;
             };
@@ -935,7 +933,7 @@
           <div ng-controller="MainController as main">
             <div ng-include="'form.html'" />
             <svg width="100%" shape-rendering="crispEdges">
-              <g primer-track sequence-length="10e5" transform="translate(0,30)">
+              <g primer-track start="1e4" sequence-length="100e4" transform="translate(0,30)">
                 <g primer-label="3'" anchor="end" orient="middle" />
                 <g primer-label="5'" anchor="start" orient="middle" />
                 <g primer-scale ticks="main.trackScale.ticks" orient="{{main.trackScale.orient}}" format="main.trackScale.format" />

@@ -114,6 +114,12 @@ describe('Directive: marked,', function () {
       expect(feature.sequence()).toBeUndefined();
       expect(feature.sequenceLength()).toEqual(1);
 
+      element = element.find('title');
+      expect(element.text()).toEqual('1-2');
+
+      element = element.parent();
+      expect(element.attr('transform')).toEqual('translate(25,5)');  // margin, track.height/2
+
     });
 
     it('should set default values from track, sequence-length', function () {
@@ -136,10 +142,16 @@ describe('Directive: marked,', function () {
       expect(feature.sequence()).toBeUndefined();
       expect(feature.sequenceLength()).toEqual(1);
 
+      element = element.find('title');
+      expect(element.text()).toEqual('100-101');
+
+      element = element.parent();
+      expect(element.attr('transform')).toEqual('translate(25,15)');  // margin, track.height/2
+
     });
 
     it('should set default values from track, sequence', function () {
-      var html = '<g primer-track sequence="ATCG" start="100" width="900" height="30">'+
+      var html = '<g primer-track sequence="ATCG" start="100" width="900" height="60">'+
                    '<primer-feature />'+
                  '</g>';
 
@@ -153,10 +165,16 @@ describe('Directive: marked,', function () {
       expect(feature.end()).toEqual(101);
 
       expect(feature.width()).toBeCloseTo(1/4*900,0);
-      expect(feature.height()).toEqual(30);
+      expect(feature.height()).toEqual(60);
 
       expect(feature.sequence()).toEqual('A');
       expect(feature.sequenceLength()).toEqual(1);
+
+      element = element.find('title');
+      expect(element.text()).toEqual('100-101 A');
+
+      element = element.parent();
+      expect(element.attr('transform')).toEqual('translate(25,30)');  // margin, track.height/2
 
     });
 
@@ -168,8 +186,7 @@ describe('Directive: marked,', function () {
       var element = $compile(html)($scope);
       $scope.$digest();
 
-      element = element.find('g');
-      var scope = element.isolateScope();
+      var scope = element.find('g').isolateScope();
       var feature = scope.feature;
 
       expect(feature.start()).toEqual(150);
@@ -181,7 +198,11 @@ describe('Directive: marked,', function () {
       expect(feature.sequence()).toBeUndefined();
       expect(feature.sequenceLength()).toEqual(50);
 
-      expect(element.find('g').attr('transform')).toMatch(/translate\(175\.0[^\,]*\,15\)/);  // TODO: check
+      element = element.find('title');
+      expect(element.text()).toEqual('150-200');
+
+      element = element.parent();
+      expect(element.attr('transform')).toMatch(/translate\(175\.0[^\,]*\,15\)/);  // margin+pos, track.height/2
 
     });
 
@@ -204,6 +225,13 @@ describe('Directive: marked,', function () {
 
       expect(feature.sequence()).toEqual('TC');
       expect(feature.sequenceLength()).toEqual(2);
+
+      element = element.find('title');
+      expect(element.text()).toEqual('101-103 TC');
+
+      element = element.parent();
+      expect(element.attr('transform')).toEqual('translate(125,15)');  // margin, track.height/2
+
 
     });
 
@@ -360,7 +388,7 @@ describe('Directive: marked,', function () {
       expect(element.text()).toEqual('123');
 
       element = element.parent();
-      expect(element.attr('transform')).toEqual('translate(5,14)');
+      expect(element.attr('transform')).toEqual('translate(5,14)');  // todo: check
 
     });
 
