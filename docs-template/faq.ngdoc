@@ -23,4 +23,4 @@ Yes, however, the goal of angular-primer is to create a reusable *interactive* v
 If you want to download any SVG you see on a website you can try [SVG Crowbar](http://nytimes.github.io/svg-crowbar/).  If you are an angularjs app developer try using [angular-downloadsvg-directive](https://github.com/Hypercubed/angular-downloadsvg-directive).
 
 ## Something is wrong!!
-Please submit a [create an issue](https://github.com/Hypercubed/angular-primer/issues/new).  [Pull requests](https://github.com/Hypercubed/angular-primer/compare/) will also be appreciated.
+Please [create an issue](https://github.com/Hypercubed/angular-primer/issues/new).  [Pull requests](https://github.com/Hypercubed/angular-primer/compare/) will also be appreciated.
