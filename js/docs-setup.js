@@ -20,7 +20,7 @@ NG_DOCS={
       "type": "overview",
       "moduleName": "FAQ",
       "shortDescription": "FAQ",
-      "keywords": "angular-primer angularjs app applications appreciated based center complex component composable create crowbar culture d3 dependency designed developed developer developing directives dna download drawing education elements eliminated faq features future genomic github goal grant harshbarger higher institute integrates io issue japanese jp js larger life lose ministry offloaded originally overview primers requests require reusable riken save science simple sports strand submit supported svg technologies technology visualization visualizations visualize web website work wrong yokohama"
+      "keywords": "angular-primer angularjs app applications appreciated based center complex component composable create crowbar culture d3 dependency designed developed developer developing directives dna download drawing education elements eliminated faq features future genomic github goal grant harshbarger higher institute integrates io issue japanese jp js larger life lose ministry offloaded originally overview primers requests require reusable riken save science simple sports strand supported svg technologies technology visualization visualizations visualize web website work wrong yokohama"
     },
     {
       "section": "api",

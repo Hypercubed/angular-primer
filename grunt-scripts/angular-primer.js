@@ -503,6 +503,7 @@
               if (angular.isDefined($attrs.height)) {
                 return parseInt($scope.height()) || $scope.track.height() || 10;
               }
+              if (!$scope.track) { return 10; }
               return $scope.track.height() || 10;
             };
 
