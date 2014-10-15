@@ -499,6 +499,13 @@
               return angular.isDefined($scope.end) ? parseInt($scope.end) : feature.start()+1;
             };
 
+            feature.height = function() {
+              if (angular.isDefined($attrs.height)) {
+                return parseInt($scope.height()) || $scope.track.height() || 10;
+              }
+              return $scope.track.height() || 10;
+            };
+
             feature.width = function() {
               if (!$scope.track) { return 100; }
               return $scope.track.xScale(feature.end())-$scope.track.xScale(feature.start());
@@ -513,9 +520,9 @@
             var feature = scope.feature = ctrls[0];
             var track = scope.track = ctrls[1];
 
-            feature.height = angular.isDefined(attrs.height) ?
-              function() { return scope.height() || track.height() || 10; } :
-              feature.height = function() { return track.height() || 10; };
+            //feature.height = angular.isDefined(attrs.height) ?
+            //  function() { return scope.height() || track.height() || 10; } :
+            //  feature.height = function() { return track.height() || 10; };
 
             function yPosition() {
               return (track.height())/2;

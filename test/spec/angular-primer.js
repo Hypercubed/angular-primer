@@ -1,4 +1,4 @@
-describe('Directive: marked,', function () {
+describe('angularprimer,', function () {
   'use strict';
 
   // load the directive's module
