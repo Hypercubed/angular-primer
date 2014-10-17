@@ -72,7 +72,7 @@
     .marker {
       fill:lightblue;
       stroke:black;
-      stroke-width: 0;
+      stroke-width: 2px;
     }
 
     .marker.red {
@@ -154,7 +154,7 @@
     .marker {
       fill:lightblue;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .marker.blue {
@@ -239,13 +239,13 @@
     .marker {
       fill:white;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .marker.black {
       fill:black;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .marker.red {
@@ -315,7 +315,7 @@
     .marker {
       fill:lightblue;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .symbol {
@@ -398,7 +398,7 @@
     .marker {
       fill:lightblue;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .marker.blue {
@@ -420,7 +420,7 @@
     .symbol {
       fill:yellow;
       stroke:black;
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
 
     .marker:hover, .symbol:hover {
