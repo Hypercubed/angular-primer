@@ -320,49 +320,47 @@
           transclude: true,
           require: 'primerTrack',
           scope: {
-            sequence: '@',
+            //sequence: '@',
             sequenceLength: '&',
             start: '&',
             width: '&',
             height: '&'
           },
+          controllerAs: 'track',
+          bindToController: true,
+          compile: function(element, attrs){
+            if (!attrs.sequence && !attrs.sequenceLength) { attrs.sequenceLength = '100'; }
+            //if (!attrs.sequence) { attrs.sequence = ''; }
+            if (!attrs.height) { attrs.height = '10'; }
+            if (!attrs.start) { attrs.start = '0'; }
+            if (!attrs.width) { attrs.width = '500'; }
+            return this.link;
+          },
           controller: function($scope, $attrs) {
-            var track = $scope.track = this;
+            var track = this;
 
-            track.sequence = function() {
-              return $scope.sequence;
-            };
+            track.sequence = function() { return $attrs.sequence; };
 
-            track.sequenceLength = function() {
-              if ($scope.sequenceLength() !== undefined) { return +$scope.sequenceLength(); }
-              if ($scope.sequence !== undefined) { return +$scope.sequence.length; }
-              return 100;
-            };
-
-            track.height = function() {
-              return $scope.height() || 10;
-            };
-
-            track.start = angular.isDefined($attrs.start) ? $scope.start : function() { return 0; };
-            track.width = angular.isDefined($attrs.width) ? $scope.width : function() { return 500; };
+            if (!angular.isDefined($attrs.sequenceLength)) {  // here if (attrs.sequence && !attrs.sequenceLength)
+              track.sequenceLength = function() { return $attrs.sequence.length; };
+            }
 
             track.xScale = d3.scale.linear();
-
           },
-          link: function link(scope, element, attrs, track) {
+          link: function(scope, element, attrs, track) {
             var margin = 25;
 
             function setScale() {
 
               track.xScale
-                .domain([track.start(), track.start() + track.sequenceLength()])
-                .range([margin, track.width()+margin]);
+                .domain([+track.start(), +track.start() + track.sequenceLength()])
+                .range([margin, +track.width() + margin]);
 
             }
 
-            scope.$watchCollection('[track.sequenceLength(),track.width(),track.start()]', setScale);
-          },
+            scope.$watchGroup(['track.sequenceLength()','track.width()','track.start()'], setScale);
 
+          }
 
       };
     })
@@ -481,71 +479,70 @@
           transclude: true,
           require: ['primerFeature','^primerTrack'],
           scope: {
-            start: '=',
-            end: '=',
+            start: '&',
+            end: '&',
             height: '&',
             direction: '@'
+          },
+          controllerAs: 'feature',
+          bindToController: true,
+          compile: function(element, attrs){
+            return this.link;
           },
           controller: function($scope, $attrs) {
             var feature = this;
 
-            feature.start = function() {
-              if (angular.isDefined($scope.start)) { return parseInt($scope.start); }
-              //if (angular.isDefined($scope.start)) { return $scope.track.start(); }
-              return $scope.track.start();
-            };
+            if (!angular.isDefined($attrs.start)) {
+              feature.start = function() { return feature.track.start(); };
+            }
 
-            feature.end = function() {
-              return angular.isDefined($scope.end) ? parseInt($scope.end) : feature.start()+1;
-            };
+            if (!angular.isDefined($attrs.height)) {
+              feature.height = function() {
+                return (feature.track) ? feature.track.height() : 10;
+              };
+            }
 
-            feature.height = function() {
-              if (angular.isDefined($attrs.height)) {
-                return parseInt($scope.height()) || $scope.track.height() || 10;
-              }
-              if (!$scope.track) { return 10; }
-              return $scope.track.height() || 10;
-            };
+            if (!angular.isDefined($attrs.end)) {
+              feature.end = function() { return feature.start()+1; };
+            }
 
             feature.width = function() {
-              if (!$scope.track) { return 100; }
-              return $scope.track.xScale(feature.end())-$scope.track.xScale(feature.start());
+              if (!feature.track) { return 100; }
+              return feature.track.xScale(feature.end())-feature.track.xScale(feature.start());
             };
 
             feature.sequenceLength = function() {
               return feature.end() - feature.start();
             };
 
-          },
-          link: function postLink(scope, element, attrs, ctrls) {
-            var feature = scope.feature = ctrls[0];
-            var track = scope.track = ctrls[1];
-
-            //feature.height = angular.isDefined(attrs.height) ?
-            //  function() { return scope.height() || track.height() || 10; } :
-            //  feature.height = function() { return track.height() || 10; };
-
-            function yPosition() {
-              return (track.height())/2;
-            }
-
-            function xPosition() {
-              return track.xScale(feature.start());
-            }
-
-            scope.translate = function() {
-              return ''+xPosition()+','+yPosition();
-            };
-
             feature.sequence = function() {
-              var seq = track.sequence();
+              var seq = feature.track.sequence();
               if (seq) {
-                var s = feature.start()-track.start();
-                var e = feature.end()-track.start();
+                var s = feature.start()-feature.track.start();
+                var e = feature.end()-feature.track.start();
                 return seq.substring(s, e);
               } else {
                 return undefined;
               }
+            };
+
+            feature.xScale = d3.scale.linear();
+
+          },
+          link: function(scope, element, attrs, ctrls) {
+            var feature = ctrls[0];
+            var track = feature.track = ctrls[1];
+
+            function setScale() {
+              feature.xScale.domain([0,feature.sequenceLength()]).range([0,feature.width()]);
+            }
+
+            scope.$watchGroup(['feature.start()','feature.end()','feature.width()'], setScale);
+
+            scope.translate = function() {
+              var x = track.xScale(feature.start());
+              var y = (track.height())/2;
+              return ''+x+','+y;
             };
 
             scope.title = function() {
@@ -676,7 +673,7 @@
         </file>
       </example>
       */
-      .directive("primerFeatureShape", function () {
+      .directive('primerFeatureShape', function () {
 
         var arrow_height = 5;
         var arrow_length = 10;
@@ -748,16 +745,17 @@
             require: ['^primerFeature'],
             scope: {
               type: '@primerFeatureShape',
-              height: '&'
+              height: '&',
+              width: '&'
             },
-            link: function link(scope, element, attrs, ctrls) {
+            link: function(scope, element, attrs, ctrls) {
               var feature = scope.feature = ctrls[0];
 
               function draw() {
 
-                var L = feature.width() || 1;
+                var L = scope.width() || feature.width() || 1;
                 var h = scope.height() || feature.height() || 10;
-                var dir = scope.direction || 'none';
+
                 var type = (scope.type === undefined || scope.type.length === 0 || scope.type === 'rect') ? 'box' : scope.type;
 
                 if (L < 0) {  L = 1; }
@@ -767,7 +765,8 @@
 
               }
 
-              scope.$watchCollection('[feature.width(),feature.height(),height(),direction,type]', draw);
+              scope.$watchGroup(['feature.width()','feature.height()','height()','width()'],draw);
+              attrs.$observe('primerFeatureShape', draw);
 
             }
         };
@@ -866,10 +865,7 @@
             orient: '@',
             anchor: '@'
           },
-          controller: function($scope) {
-
-          },
-          link: function link(scope, element, attrs, ctrls) {
+          link: function(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
             var track = ctrls[1];
             var parent = feature || track;
@@ -884,7 +880,7 @@
             }
 
             function yPosition() {
-              var h = parent.height();
+              var h = parent.height() || track.height();
               var y = (feature) ? 0 : h/2;
               if (scope.orient === 'top') { return y-h/2-6; }
               if (scope.orient === 'bottom') { return y+h/2+9; }
@@ -897,7 +893,7 @@
 
             var d3_elm = d3.select(element[0]).select('g');
 
-            var draw = function() {
+            function draw() {
               var anchor = scope.anchor || 'middle';
               if (!feature) {
                 if (anchor === 'start') {
@@ -915,10 +911,11 @@
                 .attr('alignment-baseline', 'middle')
                 .text(scope.text);
 
-            };
+            }
 
-            if (scope.text) {
-              scope.$watchCollection('[anchor, text]', draw);
+            if (attrs.primerLabel) {
+              attrs.$observe('primerLabel', draw);
+              attrs.$observe('anchor', draw);
             }
 
           }
@@ -1107,7 +1104,7 @@
           },
           link: function link(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
-            var track = scope.track = ctrls[1];
+            var track = ctrls[1];
             var parent = scope.parent = feature || track;
 
             var g = d3.select(element.find("g")[0]);
@@ -1142,11 +1139,13 @@
 
             function draw() {
 
-              var scale = track.xScale;
+              var scale = parent.xScale;
 
-              if (feature && feature.width) {
-                scale = d3.scale.linear().domain([feature.start(),feature.end()]).range([0,parent.width()]);
-              }
+              //console.log(scale);
+
+              //if (feature && feature.width) {
+              //  scale = d3.scale.linear().domain([feature.start(),feature.end()]).range([0,parent.width()]);
+              //}
 
               var orient = scope.orient || 'middle';
               var defaultSize = (orient === 'middle') ? [parent.height()/2+6 || 6,0] : [6,6]; // [inner,outer]
@@ -1166,7 +1165,8 @@
 
             draw();
 
-            scope.$watchCollection('[track.sequenceLength(),parent.width(),parent.height(),orient,format,ticks(),outerTickSize()]', draw);
+            scope.$watchGroup(['parent.xScale.domain()','parent.xScale.range()'], draw);
+            scope.$watchGroup(['orient','format','ticks()','outerTickSize()'], draw);
 
           }
 
