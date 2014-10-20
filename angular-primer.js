@@ -358,8 +358,8 @@
 
             }
 
-            scope.$watchGroup([track.sequenceLength,track.width,track.start], setScale);
-            //scope.$watchCollection('[track.sequenceLength(),track.width(),track.start()]', setScale);
+            scope.$watchGroup(['track.sequenceLength()','track.width()','track.start()'], setScale);
+
           }
 
       };
@@ -498,7 +498,7 @@
 
             if (!angular.isDefined($attrs.height)) {
               feature.height = function() {
-                return feature.track.height() || 10;
+                return (feature.track) ? feature.track.height() : 10;
               };
             }
 
@@ -531,13 +531,13 @@
           },
           link: function(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
-            var track = scope.feature.track = ctrls[1];
+            var track = feature.track = ctrls[1];
 
             function setScale() {
               feature.xScale.domain([0,feature.sequenceLength()]).range([0,feature.width()]);
             }
 
-            scope.$watchGroup([feature.start,feature.end,feature.width], setScale);
+            scope.$watchGroup(['feature.start()','feature.end()','feature.width()'], setScale);
 
             scope.translate = function() {
               var x = track.xScale(feature.start());
@@ -749,7 +749,7 @@
               width: '&'
             },
             link: function(scope, element, attrs, ctrls) {
-              var feature = ctrls[0];
+              var feature = scope.feature = ctrls[0];
 
               function draw() {
 
@@ -765,7 +765,8 @@
 
               }
 
-              scope.$watchGroup([feature.width,feature.height,'height()','type'],draw);
+              scope.$watchGroup(['feature.width()','feature.height()','height()','width()'],draw);
+              attrs.$observe('primerFeatureShape', draw);
 
             }
         };
@@ -1104,7 +1105,7 @@
           link: function link(scope, element, attrs, ctrls) {
             var feature = ctrls[0];
             var track = ctrls[1];
-            var parent = feature || track;
+            var parent = scope.parent = feature || track;
 
             var g = d3.select(element.find("g")[0]);
             var xAxis= d3.svg.axis();
@@ -1164,8 +1165,8 @@
 
             draw();
 
-            scope.$watchGroup([track.sequenceLength,parent.width,parent.height], draw);
-            scope.$watchCollection('[orient,format,ticks(),outerTickSize()]', draw);
+            scope.$watchGroup(['parent.xScale.domain()','parent.xScale.range()'], draw);
+            scope.$watchGroup(['orient','format','ticks()','outerTickSize()'], draw);
 
           }
 

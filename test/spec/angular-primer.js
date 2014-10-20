@@ -41,6 +41,7 @@ describe('angularprimer,', function () {
     });
 
     it('should take attributes', function () {
+
       var html = '<primer-track sequence-length="300" start="100" width="900" height="30" />';
       var element = $compile(html)($scope);
       $scope.$digest();
@@ -64,6 +65,51 @@ describe('angularprimer,', function () {
 
       expect(scale(100)).toBeCloseTo(25, 0); // check
       expect(scale(250)).toBeCloseTo(475, 0); // check
+
+    });
+
+    it('should watch attributes', function () {
+      $scope.vm = {
+        length: 300,
+        start: 100,
+        width: 900,
+        height: 30
+      }
+
+      var html = '<primer-track sequence-length="vm.length" start="vm.start" width="vm.width" height="vm.height" />';
+      var element = $compile(html)($scope);
+      $scope.$digest();
+
+      var scope = element.isolateScope();
+      var track = scope.track;
+      var scale = track.xScale;
+
+      expect(track.start()).toEqual(100);
+
+      expect(track.sequence()).toBeUndefined();
+      expect(track.sequenceLength()).toEqual(300);
+
+      expect(track.height()).toEqual(30);
+      expect(track.width()).toEqual(900);
+
+      expect(typeof scale).toEqual('function');
+
+      expect(scale.domain()).toEqual([100,400]);  //TODO: check this!!!
+      expect(scale.range()).toEqual([25,925]);
+
+      expect(scale(100)).toBeCloseTo(25, 0); // check
+      expect(scale(250)).toBeCloseTo(475, 0); // check
+
+      $scope.vm = {
+        length: 100,
+        start: 50,
+        width: 500,
+        height: 10
+      }
+      $scope.$apply();
+
+      expect(scale.domain()).toEqual([50,150]);
+      expect(scale.range()).toEqual([25,525]);
 
     });
 
